@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    android:id="@+id/scrollViewId"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+       >
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="24dp"
+            android:text="Shop name:*"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/EditTextShopName"
+            android:layout_width="186dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:clickable="true"
+            android:ems="10"
+            android:focusableInTouchMode="true"
+            android:imeOptions="actionDone"
+            android:inputType="textPersonName"
+            app:layout_constraintStart_toEndOf="@+id/text"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/EditTxtAddress"
+            android:layout_width="212dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="40dp"
+            android:ems="10"
+            android:gravity="start|top"
+            android:inputType="textMultiLine"
+            app:layout_constraintStart_toEndOf="@+id/txtViewAddress"
+            app:layout_constraintTop_toBottomOf="@+id/EditTextShopName" />
+
+        <TextView
+            android:id="@+id/shopAddressNote"
+            android:layout_width="178dp"
+            android:layout_height="37dp"
+            android:layout_marginStart="108dp"
+            android:layout_marginTop="12dp"
+            android:text="ie. no.11,Tmn Bukit,71300,Kuching.Sarawak"
+            android:textColor="@android:color/holo_red_light"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/EditTxtAddress" />
+
+        <TextView
+            android:id="@+id/txtViewAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="64dp"
+            android:text="Address:*"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text" />
+
+        <Button
+            android:id="@+id/btnConfirm"
+            android:layout_width="241dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="88dp"
+            android:layout_marginTop="60dp"
+            android:text="Add"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnPicBrowse" />
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="234dp"
+            android:layout_height="52dp"
+            android:layout_marginStart="92dp"
+            android:layout_marginTop="52dp"
+            android:text="Cancel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnConfirm" />
+
+        <TextView
+            android:id="@+id/txtViewServices"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="128dp"
+            android:text="Services:*"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtViewAddress" />
+
+        <CheckBox
+            android:id="@+id/checkBoxWashFold"
+            android:layout_width="118dp"
+            android:layout_height="52dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="88dp"
+            android:onClick="onCheckboxClicked"
+            android:tag="checkBoxDryCleaning"
+            android:text="@string/strWashFold"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@+id/txtViewServices"
+            app:layout_constraintTop_toBottomOf="@+id/EditTxtAddress" />
+
+        <CheckBox
+            android:id="@+id/checkBoxWashIron"
+            android:layout_width="130dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="36dp"
+            android:onClick="onCheckboxClicked"
+            android:tag="checkBoxWashFold"
+            android:text="@string/strWashIron"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@+id/checkBoxWashFold"
+            app:layout_constraintTop_toBottomOf="@+id/shopAddressNote" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="139dp"
+            android:layout_height="152dp"
+
+            android:layout_marginTop="84dp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.178"
+            app:layout_constraintStart_toEndOf="@+id/textView11"
+            app:layout_constraintTop_toBottomOf="@+id/editTextTelNo"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="136dp"
+            android:text="Shop image:*"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+        <Button
+            android:id="@+id/btnPicBrowse"
+            android:layout_width="99dp"
+            android:layout_height="41dp"
+            android:layout_marginStart="164dp"
+            android:layout_marginTop="24dp"
+            android:text="Browse"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+        <TextView
+            android:id="@+id/shopNameNote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="112dp"
+            android:layout_marginTop="8dp"
+            android:text="ie. Kat Dobi"
+            android:textColor="@android:color/holo_red_light"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/EditTextShopName" />
+
+        <EditText
+            android:id="@+id/editTextTelNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="48dp"
+            android:ems="10"
+            android:inputType="number"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@+id/txtView60"
+            app:layout_constraintTop_toBottomOf="@+id/editTextContactPerson" />
+
+        <TextView
+            android:id="@+id/txtView60"
+            android:layout_width="29dp"
+            android:layout_height="19dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="12dp"
+            android:text="+60"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@+id/textView14"
+            app:layout_constraintTop_toTopOf="@+id/textView14" />
+
+        <CheckBox
+            android:id="@+id/checkBoxIroning"
+            android:layout_width="121dp"
+            android:layout_height="42dp"
+            android:layout_marginStart="108dp"
+            android:layout_marginTop="20dp"
+            android:onClick="onCheckboxClicked"
+            android:tag="checkBoxSpotTreatment"
+            android:text="@string/strIroning"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/checkBoxWashIron" />
+
+        <TextView
+            android:id="@+id/textViewContactPerson1"
+            android:layout_width="53dp"
+            android:layout_height="46dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="20dp"
+            android:text="ContactPerson:*"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/checkBoxIroning" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="66dp"
+            android:layout_height="43dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="44dp"
+            android:text="Telephone No.*"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewContactPerson1" />
+
+        <EditText
+            android:id="@+id/editTextContactPerson"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            app:layout_constraintStart_toEndOf="@+id/textViewContactPerson1"
+            app:layout_constraintTop_toBottomOf="@+id/checkBoxIroning" />
+
+        <TextView
+            android:id="@+id/txtViewImageNote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="44dp"
+            android:text="Please insert an image"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/textView11"
+            app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

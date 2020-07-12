@@ -1,0 +1,90 @@
+<resources>
+    <string name="app_name">LaundryServiceApps</string>
+
+    <string name="hint_1">Enter the first name ...</string>
+    <string name="hint_2">Enter the last name ...</string>
+    <string name="hint_3"> (Email eg. xxxx@gmail.com) ...</string>
+    <string name="hint_4"> (Phone eg. 0112345172) ...</string>
+    <string name="hint_5">Enter the new password ...</string>
+    <string name="hint_6">Enter the confirm password ...</string>
+
+    <string name="login_hint_1"> (Email eg. xxxx@gmail.com)...</string>
+    <string name="login_hint_2">Enter the password ...</string>
+
+    <string name="hint_field1">Enter the address ...</string>
+    <string name="hint_field2"> (City eg. Shah Alam etc.)...</string>
+    <string name="hint_field3"> (Poscode eg. 56000) ...</string>
+    <string name="hint_field4"> (State eg. Selangor etc.) ...</string>
+
+    <string name="hint_update_field"> Please enter the order no (eg. 1, 2, 3 etc) ...</string>
+
+
+    <string-array name="user_mode_list">
+        <item>-- Select the type of user --</item>
+        <item>Normal</item>
+        <item>Premium</item>
+    </string-array>
+
+    <string name="order_success"> Thank you for your order!
+        \nYour order has been successfully placed.</string>
+
+    <string name="title"><u>Weight Selection</u></string>
+    <string name="title_1"><u>Pickup Address</u></string>
+    <string name="title_2"><u>Delivery Address</u></string>
+
+    <string name="payment"><b>Payment Amount: </b> RM 0.0</string>
+
+    <string name="note"><b><u>*Note:</u></b>\n=> If you placed order for pickup and delivery at the same time, we need 4 or 5 hours to complete\n=> If you placed order for pickup and delivery at different date, we need a day to complete</string>
+
+    <string-array name="schedule_pickup_time_slot">
+        <item>-- Select the pickup time slot --</item>
+        <item> 12:00PM  - 2:00PM </item>
+        <item> 2:00PM - 4:00PM </item>
+        <item> 4:00PM - 6:00PM </item>
+        <item> 6:00PM - 8:00PM </item>
+        <item> 8:00PM - 10:00PM </item>
+        <item> 10:00PM - 12:00AM </item>
+        <item> 12:00AM  - 2:00AM </item>
+        <item> 2:00AM - 4:00AM </item>
+        <item> 4:00AM - 6:00AM </item>
+        <item> 6:00AM - 8:00AM </item>
+        <item> 8:00AM - 10:00AM </item>
+        <item> 10:00AM - 12:00PM </item>
+    </string-array>
+
+    <string-array name="schedule_delivery_time_slot">
+        <item>-- Select the delivery time slot --</item>
+        <item> 12:00PM  - 2:00PM </item>
+        <item> 2:00PM - 4:00PM </item>
+        <item> 4:00PM - 6:00PM </item>
+        <item> 6:00PM - 8:00PM </item>
+        <item> 8:00PM - 10:00PM </item>
+        <item> 10:00PM - 12:00AM </item>
+        <item> 12:00AM  - 2:00AM </item>
+        <item> 2:00AM - 4:00AM </item>
+        <item> 4:00AM - 6:00AM </item>
+        <item> 6:00AM - 8:00AM </item>
+        <item> 8:00AM - 10:00AM </item>
+        <item> 10:00AM - 12:00PM </item>
+    </string-array>
+
+    <string-array name="select_type_of_laundry_service">
+        <item>-- Select type of laundry service --</item>
+        <item> Wash and Fold </item>
+        <item> Wash and Iron </item>
+        <item> Ironing </item>
+    </string-array>
+
+    <string-array name="select_order_status">
+        <item>-- Select the order status --</item>
+        <item> Pending </item>
+        <item> Completed </item>
+
+    </string-array>
+    <string name="strTxtViewTime"><u>Time:</u></string>
+    <string name="strTxtViewAddLaundryShop"><u>Add Laundry Shop</u></string>
+    <string name="strWashFold">Wash&#38;fold</string>
+    <string name="strFeedback_comment" >Thank you!!!\nPlease comment or rate our service!!</string>
+    <string name="strWashIron" >Wash&#38;Ironing</string>
+    <string name="strIroning">Ironing</string>
+</resources>

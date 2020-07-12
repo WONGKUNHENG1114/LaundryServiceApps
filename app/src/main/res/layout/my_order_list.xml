@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/relative"
+        android:layout_width="match_parent"
+        android:layout_height="176dp"
+        android:layout_margin="8dp"
+        android:background="#E1E9EC"
+        android:focusableInTouchMode="false"
+        android:foreground="?selectableItemBackground">
+
+
+        <TextView
+            android:id="@+id/textView45"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Order No: "
+            android:textColor="@android:color/black"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView46"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView45"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="13dp"
+            android:text="Order Status: "
+            android:textColor="@android:color/black"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView47"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView46"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="13dp"
+            android:text="Order Date: "
+            android:textColor="@android:color/black"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView49"
+            android:layout_width="93dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView47"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:text="Payment Amount (RM): "
+            android:textColor="@android:color/black"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/lblorder_no"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="53dp"
+            android:layout_marginTop="16dp"
+            android:layout_toEndOf="@+id/textView45"
+            android:text="TextView"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/lblorder_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lblorder_no"
+            android:layout_marginStart="29dp"
+            android:layout_marginTop="13dp"
+            android:layout_toEndOf="@+id/textView46"
+            android:text="TextView"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/lblorder_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lblorder_status"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="13dp"
+            android:layout_toEndOf="@+id/textView47"
+            android:text="TextView"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/lblgrand_payment_amt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lblorder_date"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="13dp"
+            android:layout_toEndOf="@+id/textView49"
+            android:text="TextView"
+            android:textColor="@android:color/black" />
+
+    </RelativeLayout>
+</LinearLayout>
