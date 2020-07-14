@@ -12,6 +12,7 @@ import android.graphics.drawable.BitmapDrawable
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.CheckBox
@@ -28,7 +29,7 @@ import java.io.File
 import java.util.regex.Pattern
 
 
-class product_addShop : AppCompatActivity() {
+class product_retailRegistration : AppCompatActivity() {
     val KEY_User_Document1 = "doc1"
     private var Document_img1: String = ""
     val arrayList = ArrayList<String>()
@@ -70,10 +71,7 @@ class product_addShop : AppCompatActivity() {
             }
 
         }
-//
-//
-//
-//        }
+
     }
 
     private fun hideSoftKeyboard(view: View) {
@@ -95,6 +93,11 @@ class product_addShop : AppCompatActivity() {
         } else {
             this.strShopName = ""
             EditTextShopName.error = "The shop name must start with letter"
+            Toast.makeText(
+                this@product_retailRegistration,
+                "Deselect service: hello",
+                Toast.LENGTH_SHORT
+            ).show()
             false
         }
     }
@@ -133,7 +136,7 @@ class product_addShop : AppCompatActivity() {
                     if (checked) {
                         this.arrayList.add(view.id.toString())
                         Toast.makeText(
-                            this@product_addShop,
+                            this@product_retailRegistration,
                             "Select service: " + view.text,
                             Toast.LENGTH_SHORT
                         ).show()
@@ -141,7 +144,7 @@ class product_addShop : AppCompatActivity() {
                     } else {
                         this.arrayList.remove(view.id.toString())
                         Toast.makeText(
-                            this@product_addShop,
+                            this@product_retailRegistration,
                             "Deselect service: " + view.text,
                             Toast.LENGTH_SHORT
                         ).show()
@@ -152,14 +155,14 @@ class product_addShop : AppCompatActivity() {
                     if (checked) {
                         this.arrayList.add(view.id.toString())
                         Toast.makeText(
-                            this@product_addShop,
+                            this@product_retailRegistration,
                             "Select service: " + view.text,
                             Toast.LENGTH_SHORT
                         ).show()
                     } else {
                         this.arrayList.remove(view.id.toString())
                         Toast.makeText(
-                            this@product_addShop,
+                            this@product_retailRegistration,
                             "Deselect service: " + view.text,
                             Toast.LENGTH_SHORT
                         ).show()
@@ -169,7 +172,7 @@ class product_addShop : AppCompatActivity() {
                     if (checked) {
                         this.arrayList.add(view.id.toString())
                         Toast.makeText(
-                            this@product_addShop,
+                            this@product_retailRegistration,
                             "Select service: " + view.text,
                             Toast.LENGTH_SHORT
                         )
@@ -177,7 +180,7 @@ class product_addShop : AppCompatActivity() {
                     } else {
                         this.arrayList.remove(view.id.toString())
                         Toast.makeText(
-                            this@product_addShop,
+                            this@product_retailRegistration,
                             "Deselect service: " + view.text,
                             Toast.LENGTH_SHORT
                         ).show()
@@ -194,7 +197,7 @@ class product_addShop : AppCompatActivity() {
     private fun selectImage() {
         val options =
             arrayOf<CharSequence>("Choose from Gallery", "Cancel")
-        val alertDialog1 = AlertDialog.Builder(this@product_addShop)
+        val alertDialog1 = AlertDialog.Builder(this@product_retailRegistration)
         with(alertDialog1)
         {
             setTitle("AddPhoto")
@@ -296,12 +299,19 @@ class product_addShop : AppCompatActivity() {
 
 
     private fun fieldValidation(): Boolean {
+        val nameValid= shopNameFieldValidation()
+        val addressValid= shopAddressFieldValidation()
+        val contactTelNoValid=contactTelNoValidation()
+        val checkValid= checkboxServiceFieldValidation()
+        val personValid= contactPersonValidation()
+        val imageValid=imageViewFieldValidation()
 
-        return if (!shopNameFieldValidation() && !shopAddressFieldValidation() && !checkboxServiceFieldValidation() && !contactTelNoValidation() && !contactPersonValidation() && !imageViewFieldValidation()) {
+        return if (!nameValid || !addressValid || !contactTelNoValid ||
+            !checkValid || !personValid || !imageValid) {
             Toast.makeText(
-                this@product_addShop,
+                this@product_retailRegistration,
                 "Please complete compulsory field above",
-                Toast.LENGTH_SHORT
+                Toast.LENGTH_LONG
             ).show()
             false
         } else
@@ -314,7 +324,7 @@ class product_addShop : AppCompatActivity() {
         with(builder)
         {
             setTitle("Add Profile Confirmation")
-
+            setMessage("Confirm to add new product profile?")
             setPositiveButton("Confirm") { dialog, which ->
                 //insert into database
                 insertData()
@@ -340,18 +350,38 @@ class product_addShop : AppCompatActivity() {
             null, this.strShopName, null, this.strShopAddress, this.byteArrayImage,
             null, this.strContactPerson, this.strShopTelNo
         )
-        val db = product_databaseHandler(this)
-//        db.onCreate()
-        val stmt = db.addLaundryShop(lShopList)
-        if (stmt == null) {
-            Toast.makeText(
-                this@product_addShop,
-                "The shopName is duplicate",
-                Toast.LENGTH_SHORT
-            ).show()
+        try
+        {
+
+            val dBHelper = product_databaseHandler(this)
+            dBHelper.onCreateLaundryShop()
+
+            val stmt = dBHelper.addLaundryShop(lShopList)
+            if (stmt == null) {
+                Toast.makeText(
+                    this@product_retailRegistration,
+                    "The shopName is duplicate",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+            }
+            else
+            {
+                Toast.makeText(
+                    this@product_retailRegistration,
+                    "Laundry shop added",
+                    Toast.LENGTH_SHORT
+                ).show()
+                txtViewImageNote.visibility=View.VISIBLE
+                txtViewImageNote.setTextColor(Color.GRAY)
+                imageView.visibility=View.INVISIBLE
+                clearData()
+            }
+
+        }catch(e:Exception)
+        {
+            Log.i("error",e.toString())
         }
-        else
-            clearData()
     }
 
     private fun clearDataConfirmation() {

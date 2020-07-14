@@ -17,6 +17,7 @@ import kotlin.collections.ArrayList
 
 class product_databaseHandler(context:Context):SQLiteOpenHelper(context,DATABASE_NAME,null,DATABASE_VERSION) {
     companion object {
+
         private const val DATABASE_VERSION = 1
         private const val DATABASE_NAME = "LaundryServiceDB.db"
         private const val TABLE_CONTACTS = "LaundryShop"
@@ -29,7 +30,7 @@ class product_databaseHandler(context:Context):SQLiteOpenHelper(context,DATABASE
         private const val CONTACT_PERSON = "ContactPerson"
         private const val PHONE_NUMBER = "PhoneNumber"
     }
-//*****SQLITE******
+    //*****SQLITE******
     //LaundryShop
 //    ShopID INTEGER
 //    ShopName TEXT
@@ -38,7 +39,25 @@ class product_databaseHandler(context:Context):SQLiteOpenHelper(context,DATABASE
 //    ContactPerson TEXT
 //    PhoneNumber  TEXT
     override fun onCreate(db: SQLiteDatabase?) {
-        val CREATE_CONTACTS_TABLE = ("CREATE TABLE IF NOT EXISTS" + TABLE_CONTACTS + "("
+
+        val CREATE_CONTACTS_TABLE = ("CREATE TABLE IF NOT EXISTS  " + TABLE_CONTACTS + "("
+                + SHOP_ID + " INTEGER PRIMARY KEY,"
+                + SHOP_NAME + " TEXT,"
+                + SHOP_ESTABLISH_DATE + " TEXT DEFAULT CURRENT_TIMESTAMP NOT NULL,"
+                + SHOP_ADDRESS+" TEXT,"
+                + SHOP_IMAGE+" BLOB,"
+                + SHOP_STATUS +" TEXT DEFAULT 'Active',"
+                + CONTACT_PERSON +" TEXT,"
+                + PHONE_NUMBER +" TEXT)")
+
+        db?.execSQL(CREATE_CONTACTS_TABLE)
+    }
+
+    fun onCreateLaundryShop()
+    {
+        val db=this.writableDatabase
+        Log.i("databaseOnCreate","it is created")
+        val CREATE_CONTACTS_TABLE = ("CREATE TABLE IF NOT EXISTS  " + TABLE_CONTACTS + "("
                 + SHOP_ID + " INTEGER PRIMARY KEY,"
                 + SHOP_NAME + " TEXT,"
                 + SHOP_ESTABLISH_DATE + " TEXT DEFAULT CURRENT_TIMESTAMP NOT NULL,"
@@ -52,6 +71,7 @@ class product_databaseHandler(context:Context):SQLiteOpenHelper(context,DATABASE
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
+        Log.i("databaseOnUpgrade","it is upgrade")
         db!!.execSQL("DROP TABLE IF EXISTS $TABLE_CONTACTS")
         onCreate(db)
     }
@@ -61,7 +81,9 @@ class product_databaseHandler(context:Context):SQLiteOpenHelper(context,DATABASE
 
         val db = this.writableDatabase
         val contentValues = ContentValues()
-        if(!duplicateLaundryName(lShop.shopName)) {
+        val damn= duplicateLaundryNameFound(lShop.shopName)
+        Log.i("damn",damn.toString())
+        if(!damn) {
             contentValues.put(SHOP_NAME, lShop.shopName)//LaundryShopModel shopName
             // contentValues.put(SHOP_ESTABLISH_DATE, lShop.getEstablishDateTime()) //LaundryShopModel EstablishedDate
             contentValues.put(SHOP_ADDRESS, lShop.shopAddress) //LaundryShopModel shopAddress
@@ -76,7 +98,7 @@ class product_databaseHandler(context:Context):SQLiteOpenHelper(context,DATABASE
             return success
         }
         else
-            Log.i("logDuplicateData","Hi,duplicate data here")
+
             return null
     }
 
@@ -136,20 +158,27 @@ class product_databaseHandler(context:Context):SQLiteOpenHelper(context,DATABASE
         return laundryShopList
     }
 
-    fun duplicateLaundryName(lShop: String?):Boolean
+    fun duplicateLaundryNameFound(lShop: String?):Boolean
     {
 
         val selectQuery = "SELECT  * FROM $TABLE_CONTACTS  WHERE ShopName ='$lShop' LIMIT 1"
         val db = this.readableDatabase
         var cursor: Cursor?=null
-        try{
-            cursor = db.rawQuery(selectQuery, null)
+        cursor = db.rawQuery(selectQuery, null)
+        return try{
+            if(cursor.count<1) {
+                Log.i("cursorState",cursor.count.toString())
+                false
+            } else {
+
+                true
+            }
         }catch (e: SQLiteException) {
             Log.i("hello",e.toString())
-//            db.execSQL(selectQuery)
-            return false
+            db.execSQL(selectQuery)
+            false
         }
-        return cursor != null
+
     }
 
     //method to update data

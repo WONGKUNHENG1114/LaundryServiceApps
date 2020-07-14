@@ -51,7 +51,7 @@
         </activity>
 
         <activity
-            android:name=".product_addShop"
+            android:name=".product_retailRegistration"
             android:label="Add Laundry Shop">
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
