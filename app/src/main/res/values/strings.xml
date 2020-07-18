@@ -18,6 +18,7 @@
 
     <string name="hint_update_field"> Please enter the order no (eg. 1, 2, 3 etc) ...</string>
 
+<string name="notes_for_laundry_shop_selection">Please select a laundry shop you prefer by tapping</string>
 
     <string-array name="user_mode_list">
         <item>-- Select the type of user --</item>

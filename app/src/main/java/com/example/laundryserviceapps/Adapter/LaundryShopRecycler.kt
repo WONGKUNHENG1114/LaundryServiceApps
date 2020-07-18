@@ -5,6 +5,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.laundryserviceapps.ClassModel.Laundry_Shop
 import com.example.laundryserviceapps.R
@@ -40,10 +41,14 @@ class LaundryShopRecycler(val lstLaundryshop:ArrayList<Laundry_Shop>, val contex
             var g_shop : String = LS.laundry_shop_name
             var g_address : String = LS.laundry_shop_Address
 
-            val intent = Intent(context, Test::class.java)
-            intent.putExtra("Shop",g_shop)
-            intent.putExtra("Address",g_address)
-            context.startActivity(intent)
+            if(LS.shop_status != "Active"){
+                Toast.makeText(context,"This laundry shop status is not active.", Toast.LENGTH_LONG).show()
+            }else{
+                val intent = Intent(context, Test::class.java)
+                intent.putExtra("Shop",g_shop)
+                intent.putExtra("Address",g_address)
+                context.startActivity(intent)
+            }
         }
     }
 

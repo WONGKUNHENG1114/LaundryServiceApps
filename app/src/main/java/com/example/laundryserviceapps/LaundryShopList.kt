@@ -36,6 +36,7 @@ class LaundryShopList : AppCompatActivity() {
         arrayList.add(Laundry_Shop(0,"Clean Dobi","No 12, Taman Jala, 56231, Kuching, Sarawak","","Active"))
         arrayList.add(Laundry_Shop(0,"Everday Dobi","No 11, Taman Sri Muda, 40400, Shah Alam, Selangor","","Active"))
         arrayList.add(Laundry_Shop(0,"24Hours Dobi","No 12, Jln Midah 8A, 56000, Cheras, Kuala Lumpur","","Active"))
+        arrayList.add(Laundry_Shop(0,"CLS Dobi","No 15, Jalan Bukit Kemuning, 40400, Shah Alam, Selangor","","Inactive"))
         displayList.addAll(arrayList)
 
         val adapter = LaundryShopRecycler(displayList,this)
