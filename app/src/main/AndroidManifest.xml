@@ -23,28 +23,30 @@
         <activity android:name=".ReviewOrder" />
         <activity android:name=".Registration" />
         <activity android:name=".LoginPage">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".ForgotPassword" />
         <activity android:name=".PickupAddress" />
         <activity android:name=".DeliveryAddress" />
         <activity android:name=".MainActivity">
-
         </activity>
         <activity
             android:name=".product_laundryMainMenu"
             android:label="ProductManage" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
             android:value=".MainActivity" />
+
         </activity>
         <activity
-            android:name=".product_viewShop"
+            android:name=".product_viewShopItem"
             android:label="View Laundry Shop">
+
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
             android:value=".product_laundryMainMenu" />
@@ -52,12 +54,20 @@
 
         <activity
             android:name=".product_retailRegistration"
-            android:label="Add Laundry Shop">
+            android:label="Laundry retail registration">
+
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
             android:value=".product_laundryMainMenu" />
-        </activity>
 
+        </activity>
+        <activity
+            android:name=".product_LaundryEditShopItem"
+            android:label="Edit laundry shop">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".product_viewShopItem" />
+        </activity>
     </application>
 
 </manifest>

@@ -18,17 +18,17 @@ import kotlin.collections.ArrayList
 class product_databaseHandler(context:Context):SQLiteOpenHelper(context,DATABASE_NAME,null,DATABASE_VERSION) {
     companion object {
 
-        private const val DATABASE_VERSION = 1
-        private const val DATABASE_NAME = "LaundryServiceDB.db"
-        private const val TABLE_CONTACTS = "LaundryShop"
-        private const val SHOP_ID = "ShopID"
-        private const val SHOP_NAME = "ShopName"
-        private const val SHOP_ESTABLISH_DATE = "EstablishDate"
-        private const val SHOP_ADDRESS = "ShopAddress"
-        private const val SHOP_IMAGE="ShopImage"
-        private const val SHOP_STATUS="Status"
-        private const val CONTACT_PERSON = "ContactPerson"
-        private const val PHONE_NUMBER = "PhoneNumber"
+         const val DATABASE_VERSION = 1
+         const val DATABASE_NAME = "LaundryServiceDB.db"
+         const val TABLE_CONTACTS = "LaundryShop"
+         const val SHOP_ID = "ShopID"
+         const val SHOP_NAME = "ShopName"
+         const val SHOP_ESTABLISH_DATE = "EstablishDate"
+         const val SHOP_ADDRESS = "ShopAddress"
+         const val SHOP_IMAGE="ShopImage"
+         const val SHOP_STATUS="Status"
+         const val CONTACT_PERSON = "ContactPerson"
+         const val PHONE_NUMBER = "PhoneNumber"
     }
     //*****SQLITE******
     //LaundryShop
@@ -103,12 +103,14 @@ class product_databaseHandler(context:Context):SQLiteOpenHelper(context,DATABASE
     }
 
     //method to read data
+
     @RequiresApi(Build.VERSION_CODES.O)
     fun viewShopLaundry():List<product_LaundryShopModelClass>{
         val laundryShopList:ArrayList<product_LaundryShopModelClass> = ArrayList()
         val selectQuery = "SELECT  * FROM $TABLE_CONTACTS"
         val db = this.readableDatabase
         var cursor: Cursor
+
         try{
             cursor = db.rawQuery(selectQuery, null)
         }catch (e: SQLiteException) {
@@ -157,6 +159,8 @@ class product_databaseHandler(context:Context):SQLiteOpenHelper(context,DATABASE
 
         return laundryShopList
     }
+
+
 
     fun duplicateLaundryNameFound(lShop: String?):Boolean
     {

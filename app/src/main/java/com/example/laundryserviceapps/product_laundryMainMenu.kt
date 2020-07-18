@@ -18,7 +18,7 @@ class product_laundryMainMenu : AppCompatActivity() {
 
         btnViewShop.setOnClickListener()
         {
-            val i= Intent(this@product_laundryMainMenu,product_viewShop::class.java)
+            val i= Intent(this@product_laundryMainMenu,product_viewShopItem::class.java)
             startActivity(i)
         }
 

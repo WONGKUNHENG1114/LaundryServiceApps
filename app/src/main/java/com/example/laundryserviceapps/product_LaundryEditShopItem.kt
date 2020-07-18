@@ -1,12 +1,15 @@
 package com.example.laundryserviceapps
 
+
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.ContentValues
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.database.Cursor
+import android.database.sqlite.SQLiteException
 import android.graphics.Bitmap
-import android.graphics.Bitmap.CompressFormat
 import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.os.Build
@@ -18,41 +21,44 @@ import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
-import android.widget.CheckBox
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.product_retailer_registration_page.*
-import kotlinx.android.synthetic.main.product_retailer_registration_page.EditTxtAddress
-import kotlinx.android.synthetic.main.product_retailer_registration_page.btnUpdate
-import kotlinx.android.synthetic.main.product_retailer_registration_page.imageView
+import kotlinx.android.synthetic.main.product_laundry_editshop_item.*
+import kotlinx.android.synthetic.main.product_laundry_editshop_item.btnCancel
+import kotlinx.android.synthetic.main.product_laundry_editshop_item.btnPicBrowse
+import kotlinx.android.synthetic.main.product_laundry_editshop_item.btnUpdate
+import kotlinx.android.synthetic.main.product_laundry_editshop_item.editTextContactPerson
+import kotlinx.android.synthetic.main.product_laundry_editshop_item.editTextPoscode
+import kotlinx.android.synthetic.main.product_laundry_editshop_item.editTextTelNo
+import kotlinx.android.synthetic.main.product_laundry_editshop_item.imageView
+import kotlinx.android.synthetic.main.product_laundry_editshop_item.scrollViewId
+import kotlinx.android.synthetic.main.product_laundry_editshop_item.spinnerState
+
 import java.io.ByteArrayOutputStream
 import java.io.File
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.*
 import java.util.regex.Pattern
 
 
-class product_retailRegistration : AppCompatActivity() {
-
-    val arrayList = ArrayList<String>()
+class product_LaundryEditShopItem : AppCompatActivity() {
 
     private var strShopName: String? = null
     private var strShopStreet: String? = null
-    private var arrayListServices: ArrayList<String>? = null
     private var strContactPerson: String? = null
     private var strShopTelNo: String? = null
     private var filePath: File? = null
     private var byteArrayImage: ByteArray? = null
     private var poscode: String? = null
     private var stateSelected: String? = null
-
-    private var nameValid: Boolean = false
-
+    private var adapter:ArrayAdapter<CharSequence>?=null
     private var contactPersonValid: Boolean = false
 
     companion object {
         private val PICK_IMAGE = 1000
-
 
     }
 
@@ -60,36 +66,26 @@ class product_retailRegistration : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.product_retailer_registration_page)
-        val view = this.currentFocus
+        setContentView(R.layout.product_laundry_editshop_item)
 
+        val intent = intent
+
+        Toast.makeText(this, "come to edit shop page", Toast.LENGTH_SHORT).show()
+        strShopName = intent.getStringExtra("shopName")
+        editTextShopName.setText(strShopName)
+        val lShopList=retrieveData()
 
         scrollViewId.setOnTouchListener { v, _ ->
             hideSoftKeyboard(v)
             false
         }
+//disableShopName
+        editTextShopName.isEnabled = false
 
-        EditTextShopName.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-//                Toast.makeText(getApplicationContext(),"after text change",Toast.LENGTH_LONG).show();
-                return
-
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                return
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                nameValid = shopNameFieldValidation()
-            }
-
-        })
-
+//trace contact person exception
         editTextContactPerson.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-//                Toast.makeText(getApplicationContext(),"after text change",Toast.LENGTH_LONG).show();
-               return
+                return
 
             }
 
@@ -118,41 +114,51 @@ class product_retailRegistration : AppCompatActivity() {
         btnCancel.setOnClickListener {
 
             val intent =
-                Intent(this@product_retailRegistration, product_laundryMainMenu::class.java)
+                Intent(this@product_LaundryEditShopItem, product_laundryMainMenu::class.java)
 
             startActivity(intent)
         }
 
         val list = resources.getStringArray(R.array.state_array)
         list.sort()
-        ArrayAdapter.createFromResource(
+        adapter= ArrayAdapter.createFromResource(
             this,
             R.array.state_array,
             android.R.layout.simple_spinner_item
         ).also { arrayAdapter ->
             arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinnerState.adapter = arrayAdapter
-//          spinnerState.onItemSelectedListener=object:
 
-//          AdapterView.OnItemSelectedListener{
-//              override fun onNothingSelected(parent: AdapterView<*>?) {
-//                  TODO("Not yet implemented")
-//              }
-//
-//              override fun onItemSelected(
-//                  parent: AdapterView<*>?,
-//                  view: View?,
-//                  position: Int,
-//                  id: Long
-//              ) {
-//
-//
-//
-//              }
-//          }
         }
+        LaundryShopsetText(lShopList)
+    }
+
+    private fun LaundryShopsetText(lShopList:product_LaundryShopModelClass?)
+    {
+        val arrAddresss=lShopList?.shopAddress?.split(",@@")
+        val contactPerson=lShopList?.contactPerson
+        val phoneNo=lShopList?.phoneNo?.substring(2)
+        val list = resources.getStringArray(R.array.state_array)
+        val street=arrAddresss?.get(0)
+        val poscode=arrAddresss?.get(1)
+        val state=arrAddresss?.get(2)
 
 
+        var position=0
+        list.sort()
+        for (i in list.indices) {
+            if(list[i].equals(state))
+            {
+                position=i+1
+                break
+            }
+        }
+        editTextStreet.setText(street)
+        editTextPoscode.setText(poscode)
+        spinnerState.setSelection(position)
+        editTextContactPerson.setText(contactPerson)
+        editTextTelNo.setText(phoneNo)
+        imageView.setImageBitmap(lShopList?.getImage())
     }
 
     private fun hideSoftKeyboard(view: View) {
@@ -162,42 +168,20 @@ class product_retailRegistration : AppCompatActivity() {
 
     }
 
-    private fun shopNameFieldValidation(): Boolean {
-        val strShopName = EditTextShopName.text.toString()
-        val sPattern =
-            Pattern.compile("^[a-zA-Z][a-zA-Z0-9\\s_]*")//match the pattern insert in the shop name
-        val match = sPattern.matcher(strShopName)
-        if (strShopName.isNotEmpty() && match.find()) {
-            this.strShopName = strShopName
-            EditTextShopName.error = null
-            return true
-        } else if (strShopName.isEmpty()) {
-            this.strShopName = ""
-
-            return false
-        } else {
-            this.strShopName = ""
-            EditTextShopName.error =
-                "The shop name must start with letter and no special character consist"
-            return false
-        }
-
-
-    }
 
     private fun shopStreetFieldValidation(): Boolean {
-        val street = EditTxtAddress.text.toString()
+        val street = editTextStreet.text.toString()
 
 
         return when {
             street.isNotEmpty() -> {
                 this.strShopStreet = street
-                EditTxtAddress.error = null
+                editTextStreet.error = null
                 true
             }
             else -> {
                 this.strShopStreet = ""
-                EditTxtAddress.error = "The address field cannot be empty"
+                editTextStreet.error = "The address field cannot be empty"
                 false
             }
         }
@@ -217,13 +201,13 @@ class product_retailRegistration : AppCompatActivity() {
 
     private fun shopPoscodeFieldValidation(): Boolean {
         poscode = editTextPoscode.text.toString()
-        val poscodeLength=poscode?.length
+        val poscodeLength = poscode?.length
         if (poscodeLength != null) {
             if (poscodeLength >= 5) {
                 return true
             } else {
                 editTextPoscode.error = "please fill in the poscode value"
-                return  false
+                return false
             }
 
         }
@@ -231,12 +215,10 @@ class product_retailRegistration : AppCompatActivity() {
         return false
     }
 
-
-
     private fun selectImage() {
         val options =
             arrayOf<CharSequence>("Choose from Gallery", "Cancel")
-        val alertDialog1 = AlertDialog.Builder(this@product_retailRegistration)
+        val alertDialog1 = AlertDialog.Builder(this@product_LaundryEditShopItem)
         with(alertDialog1)
         {
             setTitle("AddPhoto")
@@ -262,15 +244,12 @@ class product_retailRegistration : AppCompatActivity() {
 
     private fun imageViewFieldValidation(): Boolean {
         if (imageView.drawable != null) {
-            txtViewImageNote.visibility = View.INVISIBLE
             imageView.visibility = View.VISIBLE
             val bitmap = (imageView.drawable as BitmapDrawable).bitmap
             this.byteArrayImage = getBitmapAsByteArray(bitmap)
             return true
         } else {
-            txtViewImageNote.setTextColor(Color.RED)
-            txtViewImageNote.visibility = View.VISIBLE
-            imageView.visibility = View.INVISIBLE
+
             return false
         }
     }
@@ -322,7 +301,6 @@ class product_retailRegistration : AppCompatActivity() {
                 imageView.setImageURI(data?.data)
                 val imageUri = data?.data
                 this.filePath = File(imageUri?.path)
-                txtViewImageNote.visibility = View.INVISIBLE
                 imageView.visibility = View.VISIBLE
             }
 
@@ -332,22 +310,22 @@ class product_retailRegistration : AppCompatActivity() {
 
     private fun getBitmapAsByteArray(bitmap: Bitmap): ByteArray {
         val outputStream = ByteArrayOutputStream()
-        bitmap.compress(CompressFormat.PNG, 100, outputStream)
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
         return outputStream.toByteArray()
     }
 
 
     private fun fieldValidation(): Boolean {
         val contactTelNoValid = contactTelNoValidation()
-        val imageValid=imageViewFieldValidation()
-        val stateValidation=shopStateFieldValidation()
-        val poscodeValidation= shopPoscodeFieldValidation()
-        val addressValid = shopStreetFieldValidation()
-        return if (!this.nameValid || !addressValid || !contactTelNoValid
-            || !this.contactPersonValid || !imageValid || !stateValidation ||!poscodeValidation
+        val imageValid = imageViewFieldValidation()
+        val stateValidation = shopStateFieldValidation()
+        val poscodeValidation = shopPoscodeFieldValidation()
+        val streetValid = shopStreetFieldValidation()
+        return if ( !streetValid || !contactTelNoValid
+            || !this.contactPersonValid || !imageValid || !stateValidation || !poscodeValidation
         ) {
             Toast.makeText(
-                this@product_retailRegistration,
+                this@product_LaundryEditShopItem,
                 "Please complete compulsory field above",
                 Toast.LENGTH_LONG
             ).show()
@@ -358,97 +336,110 @@ class product_retailRegistration : AppCompatActivity() {
     }
 
     private fun dialogBuilder() {
+        var check=0
         val builder = AlertDialog.Builder(this)
         with(builder)
         {
-            setTitle("Add Profile Confirmation")
-            setMessage("Confirm to add new product profile?")
+            setTitle("Update Profile Confirmation")
+            setMessage("Confirm to update product profile?")
             setPositiveButton("Confirm") { dialog, which ->
                 //insert into database
-                insertData()
+                check =  updateData()
+                val i=Intent(this@product_LaundryEditShopItem,product_viewShopItem::class.java)
+                startActivity(i)
             }
 
-            setNegativeButton("Discard") { dialog, which ->
-                //clear all data
-                clearDataConfirmation()
-            }
             setNeutralButton("Cancel") { dialog, which ->
                 //do nothing
                 dialog.dismiss()
             }
             show()
         }
-
+            Log.i("checkMe",check.toString())
 
     }
 
-    private fun insertData() {
-        val state=spinnerState.selectedItem.toString()
-        val poscode=editTextPoscode.text.toString()
-        val shopAddress= "${this.strShopStreet},@@$poscode,@@$state"
-        val lShopList = product_LaundryShopModelClass(
-            null, this.strShopName, null, shopAddress, this.byteArrayImage,
-            null, this.strContactPerson, this.strShopTelNo
-        )
-        try {
 
-            val dBHelper = product_databaseHandler(this)
-            dBHelper.onCreateLaundryShop()
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun retrieveData():product_LaundryShopModelClass?{
 
-            val stmt = dBHelper.addLaundryShop(lShopList)
-            if (stmt == null) {
-                Toast.makeText(
-                    this@product_retailRegistration,
-                    "The shopName is duplicate",
-                    Toast.LENGTH_SHORT
-                ).show()
+        val db = product_databaseHandler(this)
+        val dbSqliteDb = db.readableDatabase
 
-            } else {
-                Toast.makeText(
-                    this@product_retailRegistration,
-                    "Laundry shop added",
-                    Toast.LENGTH_SHORT
-                ).show()
-                txtViewImageNote.visibility = View.VISIBLE
-                txtViewImageNote.setTextColor(Color.GRAY)
-                imageView.visibility = View.INVISIBLE
-                clearData()
-            }
+        val selectQuery = "SELECT  * FROM ${product_databaseHandler.TABLE_CONTACTS} " +
+                "where ${product_databaseHandler.SHOP_NAME}='$strShopName'"
+        val cursor: Cursor
 
-        } catch (e: Exception) {
-            Log.i("error", e.toString())
+        try{
+            cursor = dbSqliteDb.rawQuery(selectQuery, null)
+        }catch (e: SQLiteException) {
+            dbSqliteDb.execSQL(selectQuery)
+            return null
         }
-    }
+        val ShopID:Int
+        val ShopName: String
+        val ShopEstablishDate: String
+        val ShopAddress:String
+        val ShopImage: ByteArray
+        val ShopStatus: String
+        val ShopContact_Person:String
+        val ShopPhoneNo:String
 
-    private fun clearDataConfirmation() {
-        val builder = AlertDialog.Builder(this)
-        with(builder)
-        {
-            setTitle("Clear Data")
-            setMessage("Are you sure to clear all field?")
-            setPositiveButton("Yes") { dialog, which ->
-                clearData()
-            }
+        if (cursor.moveToFirst()) {
 
-            setNegativeButton("NO") { dialog, which ->
-                //clear all data
-                dialog.dismiss()
-            }
-            show()
+            do {
+                ShopID=cursor.getInt(cursor.getColumnIndex(product_databaseHandler.SHOP_ID))
+                ShopName = cursor.getString(cursor.getColumnIndex(product_databaseHandler.SHOP_NAME))
+                ShopEstablishDate = cursor.getString(cursor.getColumnIndex(product_databaseHandler.SHOP_ESTABLISH_DATE))
+                ShopAddress = cursor.getString(cursor.getColumnIndex(product_databaseHandler.SHOP_ADDRESS))
+                ShopImage = cursor.getBlob(cursor.getColumnIndex(product_databaseHandler.SHOP_IMAGE))
+                ShopStatus = cursor.getString(cursor.getColumnIndex(product_databaseHandler.SHOP_STATUS))
+                ShopContact_Person = cursor.getString(cursor.getColumnIndex(product_databaseHandler.CONTACT_PERSON))
+                ShopPhoneNo = cursor.getString(cursor.getColumnIndex(product_databaseHandler.PHONE_NUMBER))
+                val formatter= DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss",Locale.ENGLISH)
+
+                return product_LaundryShopModelClass(shopID =ShopID ,shopName = ShopName,
+                    establishDate =LocalDate.parse(ShopEstablishDate,formatter),
+                    shopAddress = ShopAddress,
+                    shopImage=ShopImage,
+                    shopStatus =ShopStatus,
+                    contactPerson  = ShopContact_Person,
+                    phoneNo =ShopPhoneNo)
+
+
+            } while (cursor.moveToNext())
         }
 
+        return null
+
     }
 
-    private fun clearData() {
-        EditTextShopName.text = null
-        EditTxtAddress.text = null
-        editTextContactPerson.text = null
-        editTextTelNo.text = null
-        editTextPoscode.text = null
-        spinnerState.getItemAtPosition(0)
-        imageView.setImageResource(0)
-        editTextContactPerson.error = null
-    }
+        fun updateData():Int {
+            val shopAddress= "${this.strShopStreet},@@$poscode,@@$stateSelected"
+            val db = product_databaseHandler(this)
+            val dbSqliteDb = db.readableDatabase
+            val contentValues = ContentValues()
+
+//                contentValues.put(product_databaseHandler.SHOP_NAME, this.strShopName)//LaundryShopModel shopName
+                // contentValues.put(SHOP_ESTABLISH_DATE, lShop.getEstablishDateTime()) //LaundryShopModel EstablishedDate
+                contentValues.put(product_databaseHandler.SHOP_ADDRESS, shopAddress) //LaundryShopModel shopAddress
+                contentValues.put(product_databaseHandler.SHOP_IMAGE, this.byteArrayImage) //LaundryShopModel shopAddress
+                //contentValues.put(SHOP_STATUS,lShop.shopStatus) //LaundryShopModel shopAddress
+                contentValues.put(product_databaseHandler.CONTACT_PERSON, this.strContactPerson) //LaundryShopModel shopAddress
+                contentValues.put(product_databaseHandler.PHONE_NUMBER, this.strShopTelNo) //LaundryShopModel shopAddress
+                // Inserting Row
+                val success = dbSqliteDb.update(product_databaseHandler.TABLE_CONTACTS, contentValues,
+                    "shopName='${this.strShopName}'",null)
+                //2nd argument is String containing nullColumnHack
+                db.close() // Closing database connection
+            return success
+
+        }
+
 
 
 }
+
+
+
+
