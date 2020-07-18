@@ -150,14 +150,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="32dp"
                 android:text="Delivery Time:"
-                android:textAllCaps="true"
+                android:textAllCaps="false"
                 android:textColor="@android:color/black"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/line1" />
+                app:layout_constraintTop_toBottomOf="@+id/lbl_pickup_time_slot_available" />
 
             <TextView
                 android:id="@+id/lblregister"
@@ -209,14 +207,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="32dp"
                 android:text="Pickup Time:"
-                android:textAllCaps="true"
+                android:textAllCaps="false"
                 android:textColor="@android:color/black"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lblregister" />
+                app:layout_constraintTop_toBottomOf="@+id/line4" />
 
             <TextView
                 android:id="@+id/textView9"
@@ -265,6 +261,19 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_delivery_time_slot_available" />
+
+            <TextView
+                android:id="@+id/line4"
+                android:layout_width="0dp"
+                android:layout_height="3dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="#BCB4B4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/lbl_delivery_date" />
 
             <TextView
@@ -281,19 +290,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView23" />
 
             <TextView
-                android:id="@+id/line1"
-                android:layout_width="0dp"
-                android:layout_height="3dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="#BCB4B4"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lbl_pickup_date" />
-
-            <TextView
                 android:id="@+id/textView11"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -303,7 +299,7 @@
                 android:textColor="@android:color/black"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spn_time_pickup" />
+                app:layout_constraintTop_toBottomOf="@+id/lblregister" />
 
             <TextView
                 android:id="@+id/textView12"
@@ -327,7 +323,7 @@
                 android:textColor="@android:color/black"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spn_time_delivery" />
+                app:layout_constraintTop_toBottomOf="@+id/lbl_pickup_date" />
 
             <ImageButton
                 android:id="@+id/imgback"
@@ -365,19 +361,6 @@
                     android:text="Credit Card" />
             </RadioGroup>
 
-            <Spinner
-                android:id="@+id/spn_time_pickup"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="32dp"
-                android:background="@android:drawable/dialog_holo_light_frame"
-                android:entries="@array/schedule_pickup_time_slot"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView8" />
-
             <TextView
                 android:id="@+id/lbl_pickup_timeslot"
                 android:layout_width="0dp"
@@ -395,14 +378,16 @@
                 android:id="@+id/lbl_pickup_date"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
                 android:text="Please select the pickup date"
+                android:textAlignment="textEnd"
                 android:textColor="#2E76DC"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/textView11"
-                app:layout_constraintTop_toBottomOf="@+id/spn_time_pickup" />
+                app:layout_constraintTop_toBottomOf="@+id/lblregister" />
 
             <TextView
                 android:id="@+id/lbl_delivery_timeslot"
@@ -425,24 +410,11 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
                 android:text="Please select the delivery date"
+                android:textAlignment="textEnd"
                 android:textColor="#2E76DC"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView13"
-                app:layout_constraintTop_toBottomOf="@+id/spn_time_delivery" />
-
-            <Spinner
-                android:id="@+id/spn_time_delivery"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="32dp"
-                android:background="@android:drawable/dialog_holo_light_frame"
-                android:entries="@array/schedule_delivery_time_slot"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView10" />
+                app:layout_constraintTop_toBottomOf="@+id/lbl_pickup_date" />
 
             <TextView
                 android:id="@+id/lbl_get_date_pickup"
@@ -548,6 +520,35 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/radioGroup2" />
+
+            <TextView
+                android:id="@+id/lbl_pickup_time_slot_available"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:text="Please select the pickup time slot"
+                android:textAlignment="textEnd"
+                android:textColor="#2E76DC"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/textView8"
+                app:layout_constraintTop_toBottomOf="@+id/line4" />
+
+            <TextView
+                android:id="@+id/lbl_delivery_time_slot_available"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:text="Please select the delivery time slot"
+                android:textAlignment="textEnd"
+                android:textColor="#2E76DC"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView10"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_pickup_time_slot_available" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

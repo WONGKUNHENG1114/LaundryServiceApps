@@ -116,7 +116,7 @@
                 android:textColor="@android:color/black"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView27" />
+                app:layout_constraintTop_toBottomOf="@+id/lblget_address_pickup" />
 
             <TextView
                 android:id="@+id/lblget_time_pickup"
@@ -204,7 +204,7 @@
                 android:textColor="@android:color/black"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView28" />
+                app:layout_constraintTop_toBottomOf="@+id/lblget_address_delivery" />
 
             <TextView
                 android:id="@+id/lbl_date_order"

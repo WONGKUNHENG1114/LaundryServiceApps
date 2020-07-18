@@ -51,7 +51,7 @@
                 android:id="@+id/btnreset"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
-                android:layout_marginTop="70dp"
+                android:layout_marginTop="150dp"
                 android:background="#2E76DC"
                 android:text="RESET"
                 android:textColor="@android:color/white"
@@ -94,7 +94,7 @@
                 android:layout_marginStart="50dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="50dp"
-                android:text="Select the Weight Selection"
+                android:text="Selection of quantity of common clothes"
                 android:textColor="@android:color/black"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -167,19 +167,19 @@
                     android:id="@+id/rd5kg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="5 kg - (RM 6.00)" />
+                    android:text="1 - 12  pieces clothes (RM 6.00)" />
 
                 <RadioButton
                     android:id="@+id/rd9kg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="9 kg - (RM 8.00)" />
+                    android:text="12 - 24  pieces clothes (RM 8.00)" />
 
                 <RadioButton
                     android:id="@+id/rd12kg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="More than 12 kg - (RM 14.00)" />
+                    android:text="More than 24 pieces clothes - (RM 14.00)" />
             </RadioGroup>
 
 

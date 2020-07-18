@@ -1,16 +1,17 @@
 package com.example.laundryserviceapps
 
 import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.widget.AdapterView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_select_time_slot.*
+import java.text.SimpleDateFormat
 import java.util.*
 
 class SelectTimeSlot : AppCompatActivity() {
+    var time_format = SimpleDateFormat("hh:mm a", Locale.US)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,47 +40,12 @@ class SelectTimeSlot : AppCompatActivity() {
             onBackPressed()
         }
 
-        timeslot_selection()
         date_selection()
+        time_selection()
+
 
         btnproceed.setOnClickListener {
             proceed_to_next()
-        }
-    }
-
-
-
-    fun timeslot_selection(){
-        spn_time_pickup?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-            }
-
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                when(spn_time_pickup.selectedItemPosition){
-                    1 -> lbl_pickup_timeslot.text = "12:00PM  - 2:00PM"
-                    2 -> lbl_pickup_timeslot.text = "2:00PM - 4:00PM"
-                    3 -> lbl_pickup_timeslot.text = "4:00PM - 6:00PM"
-                    4 -> lbl_pickup_timeslot.text = "6:00PM - 8:00PM"
-                    5 -> lbl_pickup_timeslot.text = "8:00PM - 10:00PM"
-                    6 -> lbl_pickup_timeslot.text = "10:00PM - 12:00AM"
-                }
-            }
-        }
-
-        spn_time_delivery?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-            }
-
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                when(spn_time_delivery.selectedItemPosition){
-                    1 -> lbl_delivery_timeslot.text = "12:00PM  - 2:00PM"
-                    2 -> lbl_delivery_timeslot.text = "2:00PM - 4:00PM"
-                    3 -> lbl_delivery_timeslot.text = "4:00PM - 6:00PM"
-                    4 -> lbl_delivery_timeslot.text = "6:00PM - 8:00PM"
-                    5 -> lbl_delivery_timeslot.text = "8:00PM - 10:00PM"
-                    6 -> lbl_delivery_timeslot.text = "10:00PM - 12:00AM"
-                }
-            }
         }
     }
 
@@ -96,6 +62,7 @@ class SelectTimeSlot : AppCompatActivity() {
                 lbl_pickup_date.setText("%d-%d-%d".format(dayOfMonth,monthOfYear+1,year))
                 lbl_get_date_pickup.setText("%d-%d-%d".format(dayOfMonth,monthOfYear+1,year))
             },mYear,mMonth,mDay)
+            date_pickup.datePicker.minDate = c.getTimeInMillis()
             date_pickup.show()
         }
 
@@ -106,102 +73,91 @@ class SelectTimeSlot : AppCompatActivity() {
                 lbl_delivery_date.setText("%d-%d-%d".format(dayOfMonth,monthOfYear+1,year))
                 lbl_get_date_delivery.setText("%d-%d-%d".format(dayOfMonth,monthOfYear+1,year))
             },mYear,mMonth,mDay)
+            date_delivery.datePicker.minDate = c.getTimeInMillis()
             date_delivery.show()
         }
+
     }
 
+
+
+    fun time_selection(){
+            lbl_pickup_time_slot_available.setOnClickListener {
+                val now = Calendar.getInstance()
+                val time_pickup = TimePickerDialog(this,TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+                    val selected_time = Calendar.getInstance()
+                    selected_time.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                    selected_time.set(Calendar.MINUTE, minute)
+
+                    //displaytime.text = time_format.format(selected_time.time)
+                    if (selected_time.getTimeInMillis() >= now.getTimeInMillis()) {
+                        //it's after current
+                        val hour = hourOfDay % 12
+                        lbl_pickup_timeslot.setText(String.format("%02d:%02d %s",
+                            if (hour == 0) 12 else hour, minute,
+                            if (hourOfDay < 12) "AM" else "PM"))
+                        lbl_pickup_time_slot_available.setText(String.format("%02d:%02d %s",
+                            if (hour == 0) 12 else hour, minute,
+                            if (hourOfDay < 12) "AM" else "PM"))
+
+                    } else {
+                        Toast.makeText(applicationContext, "Invalid pick up time slot selected", Toast.LENGTH_LONG).show()
+                    }
+                },
+                    now.get(Calendar.HOUR_OF_DAY),now.get(Calendar.MINUTE),false)
+                time_pickup.show()
+            }
+
+            val pickup_date_slot = lbl_pickup_date.text.toString()
+            val delivery_date_slot = lbl_delivery_date.text.toString()
+
+            lbl_delivery_time_slot_available.setOnClickListener {
+                val now = Calendar.getInstance()
+                val time_delivery = TimePickerDialog(this,TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+                    val selected_delivery_time = Calendar.getInstance()
+                    selected_delivery_time.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                    selected_delivery_time.set(Calendar.MINUTE, minute)
+
+                    if(pickup_date_slot.equals(delivery_date_slot)){
+                        if (selected_delivery_time.getTimeInMillis() >= now.getTimeInMillis()) {
+                            val hour = hourOfDay % 12
+                            lbl_delivery_timeslot.setText(String.format("%02d:%02d %s",
+                                if (hour == 0) 12 else hour, minute,
+                                if (hourOfDay < 12) "AM" else "PM"))
+                            lbl_delivery_time_slot_available.setText(String.format("%02d:%02d %s",
+                                if (hour == 0) 12 else hour, minute,
+                                if (hourOfDay < 12) "AM" else "PM"))
+
+                        } else {
+                            Toast.makeText(applicationContext, "Invalid pick up time slot selected", Toast.LENGTH_LONG).show()
+                        }
+                    }else {
+                        lbl_delivery_timeslot.text = time_format.format(selected_delivery_time.time)
+                        lbl_delivery_time_slot_available.text = time_format.format(selected_delivery_time.time)
+                    }
+                },
+                    now.get(Calendar.HOUR_OF_DAY),now.get(Calendar.MINUTE),false)
+                time_delivery.show()
+            }
+    }
+
+
     fun proceed_to_next(){
-        val timepickup = spn_time_pickup.selectedItemPosition
-        val timedelivery = spn_time_delivery.selectedItemPosition
+        val pickup_time_slot = lbl_pickup_timeslot.text.toString()
+        val delivery_time_slot = lbl_delivery_timeslot.text.toString()
 
-        if(lbl_pickup_date.text.equals(lbl_delivery_date.text)) {
-            if(timepickup == 1 && timedelivery == 1) {
-                Toast.makeText(this,"Please select the valid time slot or date for delivery.", Toast.LENGTH_LONG).show()
-            }else if(timepickup == 2 && timedelivery <= 2) {
-                Toast.makeText(this,"Please select the valid time slot for delivery.", Toast.LENGTH_LONG).show()
-            }else if(timepickup == 3 && timedelivery <= 3) {
-                Toast.makeText(this,"Please select the valid time slot for delivery.", Toast.LENGTH_LONG).show()
-            }else if(timepickup == 4 && timedelivery <= 4) {
-                Toast.makeText(this,"Please select the valid time slot for delivery.", Toast.LENGTH_LONG).show()
-            }else if(timepickup == 5 && timedelivery <= 5) {
-                Toast.makeText(this,"Please select the valid time slot for delivery.", Toast.LENGTH_LONG).show()
-            }else if(timepickup == 6 && timedelivery <= 6) {
-                Toast.makeText(this,"Please select the valid time slot for delivery.", Toast.LENGTH_LONG).show()
-            }else if(timepickup == 7 && timedelivery <= 7) {
-                Toast.makeText(this,"Please select the valid time slot for delivery.", Toast.LENGTH_LONG).show()
-            }else if(timepickup == 8 && timedelivery <= 8) {
-                Toast.makeText(this,"Please select the valid time slot for delivery.", Toast.LENGTH_LONG).show()
-            }else if(timepickup == 9 && timedelivery <= 9) {
-                Toast.makeText(this,"Please select the valid time slot for delivery.", Toast.LENGTH_LONG).show()
-            }else if(timepickup == 10 && timedelivery <= 10) {
-                Toast.makeText(this,"Please select the valid time slot for delivery.", Toast.LENGTH_LONG).show()
-            }else if(timepickup == 11 && timedelivery <= 11) {
-                Toast.makeText(this,"Please select the valid time slot for delivery.", Toast.LENGTH_LONG).show()
-            }else if(timepickup == 12 && timedelivery <= 12) {
-                Toast.makeText(this,"Please select the valid time slot for delivery.", Toast.LENGTH_LONG).show()
-            }
-
-            else if (timepickup >= 1 && timepickup <= 3 && timedelivery >= 1 && timedelivery <= 3) {
-                Toast.makeText(this, "Please select the valid time slot", Toast.LENGTH_LONG).show()
-            } else if (timepickup >= 2 && timepickup <= 4 && timedelivery >= 2 && timedelivery <= 4) {
-                Toast.makeText(this, "Please select the valid time slot", Toast.LENGTH_LONG).show()
-            } else if (timepickup >= 3 && timepickup <= 5 && timedelivery >= 3 && timedelivery <= 5) {
-                Toast.makeText(this, "Please select the valid time slot", Toast.LENGTH_LONG).show()
-            } else if (timepickup >= 4 && timepickup <= 6 && timedelivery >= 4 && timedelivery <= 6) {
-                Toast.makeText(this, "Please select the valid time slot", Toast.LENGTH_LONG).show()
-            } else if (timepickup >= 5 && timepickup <= 7 && timedelivery >= 5 && timedelivery <= 7) {
-                Toast.makeText(this, "Please select the valid time slot", Toast.LENGTH_LONG).show()
-            }
-            else if (timepickup >= 6 && timepickup <= 8 && timedelivery >= 6 && timedelivery <= 8) {
-                Toast.makeText(this, "Please select the valid time slot", Toast.LENGTH_LONG).show()
-            } else if (timepickup >= 7 && timepickup <= 9 && timedelivery >= 7 && timedelivery <= 9) {
-                Toast.makeText(this, "Please select the valid time slot", Toast.LENGTH_LONG).show()
-            } else if (timepickup >= 8 && timepickup <= 10 && timedelivery >= 8 && timedelivery <= 10) {
-                Toast.makeText(this, "Please select the valid time slot", Toast.LENGTH_LONG).show()
-            } else if (timepickup >= 9 && timepickup <= 11 && timedelivery >= 9 && timedelivery <= 11) {
-                Toast.makeText(this, "Please select the valid time slot", Toast.LENGTH_LONG).show()
-            } else if (timepickup >= 10 && timepickup <= 12 && timedelivery >= 10 && timedelivery <= 12) {
-                Toast.makeText(this, "Please select the valid time slot", Toast.LENGTH_LONG).show()
-            } else {
-                pass_the_value()
-            }
-//            if (spn_time_pickup.selectedItemPosition >= 2 && spn_time_delivery.selectedItemPosition == 2) {
-//                Toast.makeText(this,"Please select the valid time slot for pickup.",Toast.LENGTH_LONG).show()
-//            }else if (spn_time_pickup.selectedItemPosition >= 3 && spn_time_delivery.selectedItemPosition == 3) {
-//                Toast.makeText(this,"Please select the valid time slot for pickup.",Toast.LENGTH_LONG).show()
-//            }else if (spn_time_pickup.selectedItemPosition >= 4 && spn_time_delivery.selectedItemPosition == 4) {
-//                Toast.makeText(this,"Please select the valid time slot for pickup.",Toast.LENGTH_LONG).show()
-//            }else if (spn_time_pickup.selectedItemPosition >= 5 && spn_time_delivery.selectedItemPosition == 5) {
-//                Toast.makeText(this,"Please select the valid time slot for pickup.",Toast.LENGTH_LONG).show()
-//            }else if (spn_time_pickup.selectedItemPosition >= 6 && spn_time_delivery.selectedItemPosition == 6) {
-//                Toast.makeText(this, "Please select the valid time slot for pickup.", Toast.LENGTH_LONG).show()
-//            }else if (spn_time_pickup.selectedItemPosition >= 7 && spn_time_delivery.selectedItemPosition == 7) {
-//                Toast.makeText(this, "Please select the valid time slot for pickup.", Toast.LENGTH_LONG).show()
-//            }else if (spn_time_pickup.selectedItemPosition >= 8 && spn_time_delivery.selectedItemPosition == 8) {
-//                Toast.makeText(this, "Please select the valid time slot for pickup.", Toast.LENGTH_LONG).show()
-//            }else if (spn_time_pickup.selectedItemPosition >= 9 && spn_time_delivery.selectedItemPosition == 9) {
-//                Toast.makeText(this, "Please select the valid time slot for pickup.", Toast.LENGTH_LONG).show()
-//            }else if (spn_time_pickup.selectedItemPosition >= 10 && spn_time_delivery.selectedItemPosition == 10) {
-//                Toast.makeText(this, "Please select the valid time slot for pickup.", Toast.LENGTH_LONG).show()
-//            }else if (spn_time_pickup.selectedItemPosition >= 11 && spn_time_delivery.selectedItemPosition == 11) {
-//                Toast.makeText(this, "Please select the valid time slot for pickup.", Toast.LENGTH_LONG).show()
-//            }else if (spn_time_pickup.selectedItemPosition >= 12 && spn_time_delivery.selectedItemPosition == 12) {
-//                Toast.makeText(this, "Please select the valid time slot for pickup.", Toast.LENGTH_LONG).show()
-//            }
-//            validate_time_frame()
-        } else if(timepickup == 0) {
-            Toast.makeText(this,"Please select the time slot for pick up.", Toast.LENGTH_LONG).show()
-        } else if(lbl_get_date_pickup.text == "" ) {
+        if(lbl_get_date_pickup.text == "" ) {
             Toast.makeText(this,"Please select the date for pickup.", Toast.LENGTH_LONG).show()
-        } else if(timedelivery == 0) {
-            Toast.makeText(this,"Please select the time slot for delivery.", Toast.LENGTH_LONG).show()
         } else if(lbl_get_date_delivery.text == "" ) {
             Toast.makeText(this,"Please select the date for delivery.", Toast.LENGTH_LONG).show()
-        }
-        if (radioGroup2.getCheckedRadioButtonId() == -1){
+        } else if (pickup_time_slot.equals(delivery_time_slot)) {
+            Toast.makeText(applicationContext, "Invalid time slot selected", Toast.LENGTH_LONG).show()
+        } else if (radioGroup2.getCheckedRadioButtonId() == -1){
             Toast.makeText(this, "Please select the payment method", Toast.LENGTH_LONG).show()
         } else if(!checkBoxTerm.isChecked) {
             Toast.makeText(this, "Please check this term of condition and privacy notice", Toast.LENGTH_LONG).show()
+        } else {
+            pass_the_value()
         }
 //        else if(spn_time_pickup.selectedItemPosition != -1 && spn_time_delivery.selectedItemPosition != -1 && lbl_get_date_delivery.text != ""
 //            && lbl_get_date_delivery.text != "" && radioGroup2.getCheckedRadioButtonId() != -1 && checkBoxTerm.isChecked){

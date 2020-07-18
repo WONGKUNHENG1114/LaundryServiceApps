@@ -49,24 +49,24 @@ class SelectService : AppCompatActivity() {
         //jeans
         if(rd5kg.isChecked()){
             total+=6.0;
-            item_selection.add(" Weight Selection - (5 kg) ")
+            item_selection.add(" (Common Clothes) 1 - 12  pieces clothes (RM 6.00) ")
         }else{
             total+=0.0
-            item_selection.remove(" Weight Selection - (5 kg) ")
+            item_selection.remove(" (Common Clothes) 1 - 12  pieces clothes (RM 6.00) ")
         }
         if(rd9kg.isChecked()){
             total+=8.0
-            item_selection.add(" Weight Selection - (9 kg) ")
+            item_selection.add(" (Common Clothes) 12 - 24  pieces clothes (RM 8.00) ")
         }else{
             total+=0.0
-            item_selection.remove(" Weight Selection - (9 kg) ")
+            item_selection.remove(" (Common Clothes) 12 - 24  pieces clothes (RM 8.00) ")
         }
         if(rd12kg.isChecked()){
             total+=14.0;
-            item_selection.add(" Weight Selection - (12 kg) ")
+            item_selection.add(" (Common Clothes) More than 24 pieces clothes - (RM 14.00) ")
         }else{
             total+=0.0
-            item_selection.remove(" Weight Selection - (12 kg) ")
+            item_selection.remove(" (Common Clothes) More than 24 pieces clothes - (RM 14.00) ")
         }
 
         lbl_payment_amt.text = "Payment: RM " + total

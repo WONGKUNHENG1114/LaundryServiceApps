@@ -1,12 +1,14 @@
 package com.example.laundryserviceapps.DatabaseHelper
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import android.widget.Toast
+import com.example.laundryserviceapps.ClassModel.Laundry_Shop
 import com.example.laundryserviceapps.ClassModel.Order
+import kotlin.collections.ArrayList
 
 class SQLiteHelper(context:Context): SQLiteOpenHelper(context,DATABASE_NAME,null,DATABASE_VERSION){
 
@@ -39,17 +41,29 @@ class SQLiteHelper(context:Context): SQLiteOpenHelper(context,DATABASE_NAME,null
                 "order_status VARCHAR(15)," +
                 "payment_amt DECIMAL(20,2))"
 
+        val CREATE_TABLE_LAUNDRY_SHOP = "CREATE TABLE LaundryShop (shopID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "laundry_shop_name TEXT," +
+                "laundry_shop_Address TEXT, " +
+                "shop_date_establish TEXT, " +
+                "shop_status TEXT" +
+                "contact_person TEXT" +
+                "phone_number TEXT)"
+
         db?.execSQL(CREATE_TABLE_CUSTOMER)
         db?.execSQL(CREATE_TABLE_ORDER)
+        db?.execSQL(CREATE_TABLE_LAUNDRY_SHOP)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         val DROP_TABLE_CUSTOMER = "DROP TABLE IF EXISTS Customer"
         val DROP_TABLE_ORDER = "DROP TABLE IF EXISTS Orders"
+        val DROP_TABLE_LAUNDRY_SHOP = "DROP TABLE IF EXISTS LaundryShop"
 
         db!!.execSQL(DROP_TABLE_CUSTOMER)
         db!!.execSQL(DROP_TABLE_ORDER)
+        db!!.execSQL(DROP_TABLE_LAUNDRY_SHOP)
     }
+
 
     fun insertCustomerData(first_name: String, last_name: String, email: String, phone_num: Long,
                            account_mode: String, password: String, date_registered: String){
@@ -139,24 +153,6 @@ class SQLiteHelper(context:Context): SQLiteOpenHelper(context,DATABASE_NAME,null
         db.close()
         return orderlist
     }
-
-//    fun getOrderNo():ArrayList<Order>{
-//        val query = "SELECT last_insert_rowid() FROM Orders"
-//        val db = this.readableDatabase
-//        val cursor: Cursor = db.rawQuery(query,null)
-//        val orderlist = ArrayList<Order>()
-//
-//        if(cursor.moveToFirst()){
-//            do {
-//                val order = Order()
-//                order.order_no = cursor.getInt(cursor.getColumnIndex("order_no"))
-//                orderlist.add(order)
-//            }while (cursor.moveToNext())
-//        }
-//        cursor.close()
-//        db.close()
-//        return orderlist
-//    }
 
     fun updateOrderStatus(order: Order) {
         val db: SQLiteDatabase = writableDatabase
