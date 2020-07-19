@@ -18,18 +18,6 @@
 
 
             <TextView
-                android:id="@+id/textView689"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="8dp"
-                android:text="Promo Discount (RM): "
-                android:textColor="@android:color/black"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/radioGroup2" />
-
-            <TextView
                 android:id="@+id/lbltitle2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -163,7 +151,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lbl_get_discount" />
+                app:layout_constraintTop_toBottomOf="@+id/radioGroup2" />
 
             <RadioGroup
                 android:id="@+id/radioGroup2"
@@ -263,20 +251,6 @@
                 app:layout_constraintEnd_toStartOf="@+id/lbl_getshopaddress"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/lbl_getshopname" />
-
-            <TextView
-                android:id="@+id/lbl_get_discount"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="50dp"
-                android:text="TextView"
-                android:textAlignment="textEnd"
-                android:textColor="@android:color/black"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView689"
-                app:layout_constraintTop_toBottomOf="@+id/radioGroup2" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
