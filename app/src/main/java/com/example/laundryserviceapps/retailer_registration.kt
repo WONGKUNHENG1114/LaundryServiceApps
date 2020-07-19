@@ -72,7 +72,7 @@ class retailer_registration : AppCompatActivity() {
 
     fun register_user() {
         val password=edtPassword.text.toString()
-        outputString=encrypt(password,KEY)
+
 
     }
 
