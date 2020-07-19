@@ -20,6 +20,8 @@ class SelectService : AppCompatActivity() {
 
         lbl_getshopname.text = get_shop
         lbl_getshopaddress.text = get_address
+        lblgetpromo_name3.text =
+            lblgetpromo_discount3.text =
 
         imgback.setOnClickListener {
             finish()

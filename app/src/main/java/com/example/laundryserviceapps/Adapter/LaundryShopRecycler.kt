@@ -48,6 +48,8 @@ class LaundryShopRecycler(val lstLaundryshop:ArrayList<Laundry_Shop>, val contex
                 val intent = Intent(context, SelectService::class.java)
                 intent.putExtra("Shop",g_shop)
                 intent.putExtra("Address",g_address)
+                intent.putExtra("promo_name2",g_shop)
+                intent.putExtra("discount2",g_address)
                 context.startActivity(intent)
             }
         }

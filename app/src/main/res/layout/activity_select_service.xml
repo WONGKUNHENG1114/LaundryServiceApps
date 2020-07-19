@@ -17,6 +17,56 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/textView678"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="8dp"
+                android:text="Promo Name:"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/radioGroup2" />
+
+
+            <TextView
+                android:id="@+id/textView689"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="8dp"
+                android:text="Promo Discount (RM): "
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lblgetpromo_name3" />
+
+            <TextView
+                android:id="@+id/lblgetpromo_discount3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="50dp"
+                android:text="0.0"
+                android:textColor="@android:color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView689"
+                app:layout_constraintTop_toBottomOf="@+id/lblgetpromo_name3" />
+
+            <TextView
+                android:id="@+id/lblgetpromo_name3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="74dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="50dp"
+                android:textColor="@android:color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView678"
+                app:layout_constraintTop_toBottomOf="@+id/radioGroup2" />
+
+            <TextView
                 android:id="@+id/lbltitle2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -139,7 +189,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="70dp"
                 android:layout_marginEnd="50dp"
                 android:background="#266D8F"
                 android:padding="5dp"
