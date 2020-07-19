@@ -10,7 +10,6 @@ import android.content.Intent
 import android.database.Cursor
 import android.database.sqlite.SQLiteException
 import android.graphics.Bitmap
-import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.os.Build
 import android.os.Bundle
@@ -25,6 +24,8 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.example.laundryserviceapps.ClassModel.product_LaundryShopModelClass
+import com.example.laundryserviceapps.DatabaseHandler.product_databaseHandler
 import kotlinx.android.synthetic.main.product_laundry_editshop_item.*
 import kotlinx.android.synthetic.main.product_laundry_editshop_item.btnCancel
 import kotlinx.android.synthetic.main.product_laundry_editshop_item.btnPicBrowse
@@ -133,7 +134,7 @@ class product_LaundryEditShopItem : AppCompatActivity() {
         LaundryShopsetText(lShopList)
     }
 
-    private fun LaundryShopsetText(lShopList:product_LaundryShopModelClass?)
+    private fun LaundryShopsetText(lShopList: product_LaundryShopModelClass?)
     {
         val arrAddresss=lShopList?.shopAddress?.split(",@@")
         val contactPerson=lShopList?.contactPerson
@@ -361,9 +362,12 @@ class product_LaundryEditShopItem : AppCompatActivity() {
 
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun retrieveData():product_LaundryShopModelClass?{
+    fun retrieveData(): product_LaundryShopModelClass?{
 
-        val db = product_databaseHandler(this)
+        val db =
+            product_databaseHandler(
+                this
+            )
         val dbSqliteDb = db.readableDatabase
 
         val selectQuery = "SELECT  * FROM ${product_databaseHandler.TABLE_CONTACTS} " +
@@ -398,13 +402,15 @@ class product_LaundryEditShopItem : AppCompatActivity() {
                 ShopPhoneNo = cursor.getString(cursor.getColumnIndex(product_databaseHandler.PHONE_NUMBER))
                 val formatter= DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss",Locale.ENGLISH)
 
-                return product_LaundryShopModelClass(shopID =ShopID ,shopName = ShopName,
-                    establishDate =LocalDate.parse(ShopEstablishDate,formatter),
+                return product_LaundryShopModelClass(
+                    shopID = ShopID, shopName = ShopName,
+                    establishDate = LocalDate.parse(ShopEstablishDate, formatter),
                     shopAddress = ShopAddress,
-                    shopImage=ShopImage,
-                    shopStatus =ShopStatus,
-                    contactPerson  = ShopContact_Person,
-                    phoneNo =ShopPhoneNo)
+                    shopImage = ShopImage,
+                    shopStatus = ShopStatus,
+                    contactPerson = ShopContact_Person,
+                    phoneNo = ShopPhoneNo
+                )
 
 
             } while (cursor.moveToNext())
@@ -416,7 +422,10 @@ class product_LaundryEditShopItem : AppCompatActivity() {
 
         fun updateData():Int {
             val shopAddress= "${this.strShopStreet},@@$poscode,@@$stateSelected"
-            val db = product_databaseHandler(this)
+            val db =
+                product_databaseHandler(
+                    this
+                )
             val dbSqliteDb = db.readableDatabase
             val contentValues = ContentValues()
 
@@ -428,7 +437,8 @@ class product_LaundryEditShopItem : AppCompatActivity() {
                 contentValues.put(product_databaseHandler.CONTACT_PERSON, this.strContactPerson) //LaundryShopModel shopAddress
                 contentValues.put(product_databaseHandler.PHONE_NUMBER, this.strShopTelNo) //LaundryShopModel shopAddress
                 // Inserting Row
-                val success = dbSqliteDb.update(product_databaseHandler.TABLE_CONTACTS, contentValues,
+                val success = dbSqliteDb.update(
+                    product_databaseHandler.TABLE_CONTACTS, contentValues,
                     "shopName='${this.strShopName}'",null)
                 //2nd argument is String containing nullColumnHack
                 db.close() // Closing database connection

@@ -33,11 +33,7 @@
         <activity
             android:name=".product_laundryMainMenu"
             android:label="ProductManage" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
             android:value=".MainActivity" />
@@ -67,6 +63,32 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".product_viewShopItem" />
+        </activity>
+        <activity
+            android:name=".retailer_registration"
+            android:label="Retailer user registration">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".retailer_login" />
+        </activity>
+        <activity
+            android:name=".retailer_login"
+            android:label="Retailer user login">
+
+        </activity>
+        <activity
+            android:name=".retailer_forgotPassword"
+            android:label="Forgot password">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".retailer_login" />
+
         </activity>
     </application>
 

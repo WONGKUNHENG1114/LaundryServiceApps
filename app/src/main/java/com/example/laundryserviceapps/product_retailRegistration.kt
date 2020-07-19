@@ -18,11 +18,12 @@ import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
-import android.widget.CheckBox
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.example.laundryserviceapps.ClassModel.product_LaundryShopModelClass
+import com.example.laundryserviceapps.DatabaseHandler.product_databaseHandler
 import kotlinx.android.synthetic.main.product_retailer_registration_page.*
 import kotlinx.android.synthetic.main.product_retailer_registration_page.EditTxtAddress
 import kotlinx.android.synthetic.main.product_retailer_registration_page.btnUpdate
@@ -115,13 +116,6 @@ class product_retailRegistration : AppCompatActivity() {
 
         }
 
-        btnCancel.setOnClickListener {
-
-            val intent =
-                Intent(this@product_retailRegistration, product_laundryMainMenu::class.java)
-
-            startActivity(intent)
-        }
 
         val list = resources.getStringArray(R.array.state_array)
         list.sort()
@@ -386,13 +380,17 @@ class product_retailRegistration : AppCompatActivity() {
         val state=spinnerState.selectedItem.toString()
         val poscode=editTextPoscode.text.toString()
         val shopAddress= "${this.strShopStreet},@@$poscode,@@$state"
-        val lShopList = product_LaundryShopModelClass(
-            null, this.strShopName, null, shopAddress, this.byteArrayImage,
-            null, this.strContactPerson, this.strShopTelNo
-        )
+        val lShopList =
+            product_LaundryShopModelClass(
+                null, this.strShopName, null, shopAddress, this.byteArrayImage,
+                null, this.strContactPerson, this.strShopTelNo
+            )
         try {
 
-            val dBHelper = product_databaseHandler(this)
+            val dBHelper =
+                product_databaseHandler(
+                    this
+                )
             dBHelper.onCreateLaundryShop()
 
             val stmt = dBHelper.addLaundryShop(lShopList)

@@ -1,4 +1,4 @@
-package com.example.laundryserviceapps
+package com.example.laundryserviceapps.DatabaseHandler
 
 import android.content.ContentValues
 import android.content.Context
@@ -9,13 +9,16 @@ import android.database.sqlite.SQLiteOpenHelper
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
-import java.lang.Exception
+import com.example.laundryserviceapps.ClassModel.product_LaundryShopModelClass
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
 
-class product_databaseHandler(context:Context):SQLiteOpenHelper(context,DATABASE_NAME,null,DATABASE_VERSION) {
+class product_databaseHandler(context:Context):SQLiteOpenHelper(context,
+    DATABASE_NAME,null,
+    DATABASE_VERSION
+) {
     companion object {
 
          const val DATABASE_VERSION = 1
@@ -44,8 +47,8 @@ class product_databaseHandler(context:Context):SQLiteOpenHelper(context,DATABASE
                 + SHOP_ID + " INTEGER PRIMARY KEY,"
                 + SHOP_NAME + " TEXT,"
                 + SHOP_ESTABLISH_DATE + " TEXT DEFAULT CURRENT_TIMESTAMP NOT NULL,"
-                + SHOP_ADDRESS+" TEXT,"
-                + SHOP_IMAGE+" BLOB,"
+                + SHOP_ADDRESS +" TEXT,"
+                + SHOP_IMAGE +" BLOB,"
                 + SHOP_STATUS +" TEXT DEFAULT 'Active',"
                 + CONTACT_PERSON +" TEXT,"
                 + PHONE_NUMBER +" TEXT)")
@@ -61,8 +64,8 @@ class product_databaseHandler(context:Context):SQLiteOpenHelper(context,DATABASE
                 + SHOP_ID + " INTEGER PRIMARY KEY,"
                 + SHOP_NAME + " TEXT,"
                 + SHOP_ESTABLISH_DATE + " TEXT DEFAULT CURRENT_TIMESTAMP NOT NULL,"
-                + SHOP_ADDRESS+" TEXT,"
-                + SHOP_IMAGE+" BLOB,"
+                + SHOP_ADDRESS +" TEXT,"
+                + SHOP_IMAGE +" BLOB,"
                 + SHOP_STATUS +" TEXT DEFAULT 'Active',"
                 + CONTACT_PERSON +" TEXT,"
                 + PHONE_NUMBER +" TEXT)")
@@ -76,7 +79,7 @@ class product_databaseHandler(context:Context):SQLiteOpenHelper(context,DATABASE
         onCreate(db)
     }
 
-    fun addLaundryShop(lShop:product_LaundryShopModelClass): Long?
+    fun addLaundryShop(lShop: product_LaundryShopModelClass): Long?
     {
 
         val db = this.writableDatabase
@@ -140,13 +143,16 @@ class product_databaseHandler(context:Context):SQLiteOpenHelper(context,DATABASE
                 ShopContact_Person = cursor.getString(cursor.getColumnIndex(CONTACT_PERSON))
                 ShopPhoneNo = cursor.getString(cursor.getColumnIndex(PHONE_NUMBER))
                 val formatter= DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss",Locale.ENGLISH)
-                val lShop= product_LaundryShopModelClass(shopID =ShopID ,shopName = ShopName,
-                    establishDate =LocalDate.parse(ShopEstablishDate,formatter),
-                    shopAddress = ShopAddress,
-                    shopImage=ShopImage,
-                    shopStatus =ShopStatus,
-                    contactPerson  = ShopContact_Person,
-                    phoneNo =ShopPhoneNo)
+                val lShop=
+                    product_LaundryShopModelClass(
+                        shopID = ShopID, shopName = ShopName,
+                        establishDate = LocalDate.parse(ShopEstablishDate, formatter),
+                        shopAddress = ShopAddress,
+                        shopImage = ShopImage,
+                        shopStatus = ShopStatus,
+                        contactPerson = ShopContact_Person,
+                        phoneNo = ShopPhoneNo
+                    )
 
                 laundryShopList.add(lShop)
 
@@ -167,7 +173,7 @@ class product_databaseHandler(context:Context):SQLiteOpenHelper(context,DATABASE
 
         val selectQuery = "SELECT  * FROM $TABLE_CONTACTS  WHERE ShopName ='$lShop' LIMIT 1"
         val db = this.readableDatabase
-        var cursor: Cursor?=null
+        val cursor: Cursor
         cursor = db.rawQuery(selectQuery, null)
         return try{
             if(cursor.count<1) {

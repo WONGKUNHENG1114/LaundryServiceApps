@@ -2,17 +2,14 @@ package com.example.laundryserviceapps
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat.startActivity
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.laundryserviceapps.ClassModel.product_LaundryShopModelClass
 
 
 class product_LaundryAdapter (private val context: Context, private val mLaundryShopList: List<product_LaundryShopModelClass>) : RecyclerView.Adapter<product_LaundryAdapter.ViewHolder>(){

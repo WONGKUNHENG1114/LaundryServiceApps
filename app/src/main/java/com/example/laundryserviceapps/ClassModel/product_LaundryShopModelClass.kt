@@ -1,4 +1,4 @@
-package com.example.laundryserviceapps
+package com.example.laundryserviceapps.ClassModel
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory

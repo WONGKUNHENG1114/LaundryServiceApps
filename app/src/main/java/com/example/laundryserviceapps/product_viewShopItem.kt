@@ -1,12 +1,12 @@
 package com.example.laundryserviceapps
 
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.laundryserviceapps.ClassModel.product_LaundryShopModelClass
+import com.example.laundryserviceapps.DatabaseHandler.product_databaseHandler
 import kotlinx.android.synthetic.main.product_view_shop_item.*
 
 class product_viewShopItem: AppCompatActivity() {
@@ -22,7 +22,10 @@ class product_viewShopItem: AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     fun retrieveData()
     {
-        val db=product_databaseHandler(this)
+        val db=
+            product_databaseHandler(
+                this
+            )
         val registeredRetailer=db.viewShopLaundry()
         val adapter=product_LaundryAdapter(this,registeredRetailer)
         rvLaundryShops.adapter=adapter
