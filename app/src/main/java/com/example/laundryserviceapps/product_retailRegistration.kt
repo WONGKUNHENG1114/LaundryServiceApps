@@ -12,34 +12,43 @@ import android.graphics.drawable.BitmapDrawable
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.ArrayAdapter
 import android.widget.CheckBox
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.product_add_shop_page.*
-import kotlinx.android.synthetic.main.product_add_shop_page.EditTxtAddress
-import kotlinx.android.synthetic.main.product_add_shop_page.btnConfirm
-import kotlinx.android.synthetic.main.product_add_shop_page.imageView
+import kotlinx.android.synthetic.main.product_retailer_registration_page.*
+import kotlinx.android.synthetic.main.product_retailer_registration_page.EditTxtAddress
+import kotlinx.android.synthetic.main.product_retailer_registration_page.btnUpdate
+import kotlinx.android.synthetic.main.product_retailer_registration_page.imageView
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.util.regex.Pattern
 
 
-class product_addShop : AppCompatActivity() {
-    val KEY_User_Document1 = "doc1"
-    private var Document_img1: String = ""
+class product_retailRegistration : AppCompatActivity() {
+
     val arrayList = ArrayList<String>()
 
     private var strShopName: String? = null
-    private var strShopAddress: String? = null
+    private var strShopStreet: String? = null
     private var arrayListServices: ArrayList<String>? = null
     private var strContactPerson: String? = null
     private var strShopTelNo: String? = null
     private var filePath: File? = null
     private var byteArrayImage: ByteArray? = null
+    private var poscode: String? = null
+    private var stateSelected: String? = null
+
+    private var nameValid: Boolean = false
+
+    private var contactPersonValid: Boolean = false
 
     companion object {
         private val PICK_IMAGE = 1000
@@ -51,7 +60,7 @@ class product_addShop : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.product_add_shop_page)
+        setContentView(R.layout.product_retailer_registration_page)
         val view = this.currentFocus
 
 
@@ -60,20 +69,90 @@ class product_addShop : AppCompatActivity() {
             false
         }
 
+        EditTextShopName.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+//                Toast.makeText(getApplicationContext(),"after text change",Toast.LENGTH_LONG).show();
+                return
+
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                return
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                nameValid = shopNameFieldValidation()
+            }
+
+        })
+
+        editTextContactPerson.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+//                Toast.makeText(getApplicationContext(),"after text change",Toast.LENGTH_LONG).show();
+               return
+
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                return
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                contactPersonValid = contactPersonValidation()
+            }
+
+        })
+
+        editTextPoscode
         btnPicBrowse.setOnClickListener {
             selectImage()
         }
 
-        btnConfirm.setOnClickListener {
+        btnUpdate.setOnClickListener {
             if (fieldValidation()) {
                 dialogBuilder()
             }
 
         }
+
+        btnCancel.setOnClickListener {
+
+            val intent =
+                Intent(this@product_retailRegistration, product_laundryMainMenu::class.java)
+
+            startActivity(intent)
+        }
+
+        val list = resources.getStringArray(R.array.state_array)
+        list.sort()
+        ArrayAdapter.createFromResource(
+            this,
+            R.array.state_array,
+            android.R.layout.simple_spinner_item
+        ).also { arrayAdapter ->
+            arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spinnerState.adapter = arrayAdapter
+//          spinnerState.onItemSelectedListener=object:
+
+//          AdapterView.OnItemSelectedListener{
+//              override fun onNothingSelected(parent: AdapterView<*>?) {
+//                  TODO("Not yet implemented")
+//              }
+//
+//              override fun onItemSelected(
+//                  parent: AdapterView<*>?,
+//                  view: View?,
+//                  position: Int,
+//                  id: Long
+//              ) {
 //
 //
 //
-//        }
+//              }
+//          }
+        }
+
+
     }
 
     private fun hideSoftKeyboard(view: View) {
@@ -86,115 +165,78 @@ class product_addShop : AppCompatActivity() {
     private fun shopNameFieldValidation(): Boolean {
         val strShopName = EditTextShopName.text.toString()
         val sPattern =
-            Pattern.compile("^[a-zA-Z][a-zA-Z0-9]*")//match the pattern insert in the shop name
+            Pattern.compile("^[a-zA-Z][a-zA-Z0-9\\s_]*")//match the pattern insert in the shop name
         val match = sPattern.matcher(strShopName)
-        return if (strShopName.isNotEmpty() && match.find()) {
+        if (strShopName.isNotEmpty() && match.find()) {
             this.strShopName = strShopName
             EditTextShopName.error = null
-            true
+            return true
+        } else if (strShopName.isEmpty()) {
+            this.strShopName = ""
+
+            return false
         } else {
             this.strShopName = ""
-            EditTextShopName.error = "The shop name must start with letter"
-            false
+            EditTextShopName.error =
+                "The shop name must start with letter and no special character consist"
+            return false
         }
+
+
     }
 
-    private fun shopAddressFieldValidation(): Boolean {
-        val address = EditTxtAddress.text.toString()
-        if (address.isNotEmpty()) {
-            this.strShopAddress = address
-            EditTxtAddress.error = null
-            return true
+    private fun shopStreetFieldValidation(): Boolean {
+        val street = EditTxtAddress.text.toString()
+
+
+        return when {
+            street.isNotEmpty() -> {
+                this.strShopStreet = street
+                EditTxtAddress.error = null
+                true
+            }
+            else -> {
+                this.strShopStreet = ""
+                EditTxtAddress.error = "The address field cannot be empty"
+                false
+            }
+        }
+
+    }
+
+    private fun shopStateFieldValidation(): Boolean {
+        val selectedItem = spinnerState.selectedItemPosition
+        return if (selectedItem != 0) {
+            stateSelected = spinnerState.getItemAtPosition(selectedItem).toString()
+            true
         } else
-            strShopAddress = ""
-        EditTxtAddress.error = "The address field cannot be empty"
+            false
+
+
+    }
+
+    private fun shopPoscodeFieldValidation(): Boolean {
+        poscode = editTextPoscode.text.toString()
+        val poscodeLength=poscode?.length
+        if (poscodeLength != null) {
+            if (poscodeLength >= 5) {
+                return true
+            } else {
+                editTextPoscode.error = "please fill in the poscode value"
+                return  false
+            }
+
+        }
+        editTextPoscode.error = "please fill in the poscode value"
         return false
     }
 
-    private fun checkboxServiceFieldValidation(): Boolean {
-        return if (this.arrayList.size == 0) {
 
-            txtViewServices.error = "The checkbox must at least one check "
-            false
-        } else {
-            this.arrayListServices = arrayList
-            txtViewServices.error = null
-            true
-        }
-
-    }
-
-    fun onCheckboxClicked(view: View) {
-        if (view is CheckBox) {
-            val checked: Boolean = view.isChecked
-
-            when (view.id) {
-                R.id.checkBoxWashIron -> {
-                    if (checked) {
-                        this.arrayList.add(view.id.toString())
-                        Toast.makeText(
-                            this@product_addShop,
-                            "Select service: " + view.text,
-                            Toast.LENGTH_SHORT
-                        ).show()
-
-                    } else {
-                        this.arrayList.remove(view.id.toString())
-                        Toast.makeText(
-                            this@product_addShop,
-                            "Deselect service: " + view.text,
-                            Toast.LENGTH_SHORT
-                        ).show()
-
-                    }
-                }
-                R.id.checkBoxIroning -> {
-                    if (checked) {
-                        this.arrayList.add(view.id.toString())
-                        Toast.makeText(
-                            this@product_addShop,
-                            "Select service: " + view.text,
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    } else {
-                        this.arrayList.remove(view.id.toString())
-                        Toast.makeText(
-                            this@product_addShop,
-                            "Deselect service: " + view.text,
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }
-                R.id.checkBoxWashFold -> {
-                    if (checked) {
-                        this.arrayList.add(view.id.toString())
-                        Toast.makeText(
-                            this@product_addShop,
-                            "Select service: " + view.text,
-                            Toast.LENGTH_SHORT
-                        )
-                            .show()
-                    } else {
-                        this.arrayList.remove(view.id.toString())
-                        Toast.makeText(
-                            this@product_addShop,
-                            "Deselect service: " + view.text,
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }
-
-
-            }
-
-
-        }
-    }
 
     private fun selectImage() {
         val options =
             arrayOf<CharSequence>("Choose from Gallery", "Cancel")
-        val alertDialog1 = AlertDialog.Builder(this@product_addShop)
+        val alertDialog1 = AlertDialog.Builder(this@product_retailRegistration)
         with(alertDialog1)
         {
             setTitle("AddPhoto")
@@ -238,14 +280,14 @@ class product_addShop : AppCompatActivity() {
         val sPattern =
             Pattern.compile("^[a-zA-Z][a-zA-Z0-9]*")//match the pattern insert in the shop name
         val match = sPattern.matcher(strContactPerson)
-        if (strContactPerson.isNotEmpty() && match.find()) {
+        return if (strContactPerson.isNotEmpty() && match.find()) {
             this.strContactPerson = strContactPerson
             editTextContactPerson.error = null
-            return true
+            true
         } else {
             this.strContactPerson = ""
             editTextContactPerson.error = "The contact person must start with letter"
-            return false
+            false
         }
     }
 
@@ -296,12 +338,18 @@ class product_addShop : AppCompatActivity() {
 
 
     private fun fieldValidation(): Boolean {
-
-        return if (!shopNameFieldValidation() && !shopAddressFieldValidation() && !checkboxServiceFieldValidation() && !contactTelNoValidation() && !contactPersonValidation() && !imageViewFieldValidation()) {
+        val contactTelNoValid = contactTelNoValidation()
+        val imageValid=imageViewFieldValidation()
+        val stateValidation=shopStateFieldValidation()
+        val poscodeValidation= shopPoscodeFieldValidation()
+        val addressValid = shopStreetFieldValidation()
+        return if (!this.nameValid || !addressValid || !contactTelNoValid
+            || !this.contactPersonValid || !imageValid || !stateValidation ||!poscodeValidation
+        ) {
             Toast.makeText(
-                this@product_addShop,
+                this@product_retailRegistration,
                 "Please complete compulsory field above",
-                Toast.LENGTH_SHORT
+                Toast.LENGTH_LONG
             ).show()
             false
         } else
@@ -314,7 +362,7 @@ class product_addShop : AppCompatActivity() {
         with(builder)
         {
             setTitle("Add Profile Confirmation")
-
+            setMessage("Confirm to add new product profile?")
             setPositiveButton("Confirm") { dialog, which ->
                 //insert into database
                 insertData()
@@ -335,23 +383,41 @@ class product_addShop : AppCompatActivity() {
     }
 
     private fun insertData() {
-
+        val state=spinnerState.selectedItem.toString()
+        val poscode=editTextPoscode.text.toString()
+        val shopAddress= "${this.strShopStreet},@@$poscode,@@$state"
         val lShopList = product_LaundryShopModelClass(
-            null, this.strShopName, null, this.strShopAddress, this.byteArrayImage,
+            null, this.strShopName, null, shopAddress, this.byteArrayImage,
             null, this.strContactPerson, this.strShopTelNo
         )
-        val db = product_databaseHandler(this)
-//        db.onCreate()
-        val stmt = db.addLaundryShop(lShopList)
-        if (stmt == null) {
-            Toast.makeText(
-                this@product_addShop,
-                "The shopName is duplicate",
-                Toast.LENGTH_SHORT
-            ).show()
+        try {
+
+            val dBHelper = product_databaseHandler(this)
+            dBHelper.onCreateLaundryShop()
+
+            val stmt = dBHelper.addLaundryShop(lShopList)
+            if (stmt == null) {
+                Toast.makeText(
+                    this@product_retailRegistration,
+                    "The shopName is duplicate",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+            } else {
+                Toast.makeText(
+                    this@product_retailRegistration,
+                    "Laundry shop added",
+                    Toast.LENGTH_SHORT
+                ).show()
+                txtViewImageNote.visibility = View.VISIBLE
+                txtViewImageNote.setTextColor(Color.GRAY)
+                imageView.visibility = View.INVISIBLE
+                clearData()
+            }
+
+        } catch (e: Exception) {
+            Log.i("error", e.toString())
         }
-        else
-            clearData()
     }
 
     private fun clearDataConfirmation() {
@@ -372,26 +438,17 @@ class product_addShop : AppCompatActivity() {
         }
 
     }
-    private fun clearData()
-    {
+
+    private fun clearData() {
         EditTextShopName.text = null
         EditTxtAddress.text = null
         editTextContactPerson.text = null
         editTextTelNo.text = null
+        editTextPoscode.text = null
+        spinnerState.getItemAtPosition(0)
         imageView.setImageResource(0)
-        checkBoxWashFold.isChecked = false
-        checkBoxWashIron.isChecked = false
-        checkBoxIroning.isChecked = false
+        editTextContactPerson.error = null
     }
-//val i = Intent(this, addShopConfirmation::class.java)
-//val bundle = Bundle()
-//
-//bundle.putParcelable("confirmImage", this.byteArrayImage)
-//startActivity(i)
-    //            bundle.putString("confirmShopName", this.strShopName)
-//            bundle.putString("confirmShopAddress", this.strShopAddress)
-//            bundle.putString("confirmShopContactPerson", this.strContactPerson)
-//            bundle.putString("confirmShopTelNo", this.strShopTelNo)
-//            bundle.putStringArrayList("confirmCheckBox", this.arrayListServices)
-//            i.putExtras(bundle)
+
+
 }

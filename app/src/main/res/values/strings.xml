@@ -39,6 +39,7 @@
     <string name="title_1"><u>Pickup Address</u></string>
     <string name="title_2"><u>Delivery Address</u></string>
 
+
     <string name="payment"><b>Payment Amount: </b> RM 0.0</string>
 
     <string name="note"><b><u>*Note:</u></b>\n=> If you placed order for pickup and delivery at the same time, we need 4 or 5 hours to complete\n=> If you placed order for pickup and delivery at different date, we need a day to complete</string>
@@ -94,4 +95,22 @@
     <string name="strFeedback_comment">Thank you!!!\nPlease comment or rate our service!!</string>
     <string name="strWashIron">Wash&#38;Ironing</string>
     <string name="strIroning">Ironing</string>
+
+
+    <string-array name="state_array">
+        <item>--Select state--</item>
+        <item>Negeri Sembilan</item>
+        <item>Johor</item>
+        <item>Kedah</item>
+        <item>Kelantan</item>
+        <item>Kuala Lumpur</item>
+        <item>Malacca</item>
+        <item>Pahang</item>
+        <item>Penang</item>
+        <item>Perak</item>
+        <item>Perlis</item>
+        <item>Terangganu</item>
+        <item>Selangor</item>
+    </string-array>
+    <string name="plus_sign">+</string>
 </resources>

@@ -3,7 +3,6 @@ package com.example.laundryserviceapps
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_update_order_status.*
 import kotlinx.android.synthetic.main.product_main_menu_page.*
 
 class product_laundryMainMenu : AppCompatActivity() {
@@ -13,13 +12,13 @@ class product_laundryMainMenu : AppCompatActivity() {
 
         btnAddShop.setOnClickListener()
         {
-            val i= Intent(this@product_laundryMainMenu,product_addShop::class.java)
+            val i= Intent(this@product_laundryMainMenu,product_retailRegistration::class.java)
             startActivity(i)
         }
 
         btnViewShop.setOnClickListener()
         {
-            val i= Intent(this@product_laundryMainMenu,product_viewShop::class.java)
+            val i= Intent(this@product_laundryMainMenu,product_viewShopItem::class.java)
             startActivity(i)
         }
 
