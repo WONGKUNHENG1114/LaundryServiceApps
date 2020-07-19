@@ -72,24 +72,84 @@ app:layout_constraintStart_toStartOf="parent" />
         android:id="@+id/img_place_order"
         android:layout_width="98dp"
         android:layout_height="90dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="35dp"
         android:layout_marginBottom="16dp"
         android:background="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/imageView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lbltitle1"
+        app:layout_constraintTop_toBottomOf="@+id/lblgetpromo_discount"
         app:srcCompat="@drawable/group_34" />
 
     <ImageButton
         android:id="@+id/img_order_tracking"
         android:layout_width="98dp"
         android:layout_height="90dp"
+        android:layout_marginStart="70dp"
         android:layout_marginTop="16dp"
         android:background="@android:color/white"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2"
         app:srcCompat="@drawable/group_35" />
+
+    <ImageButton
+        android:id="@+id/img_promotion"
+        android:layout_width="98dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="70dp"
+        android:background="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:srcCompat="@drawable/promotion" />
+
+    <TextView
+        android:id="@+id/textView65"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="16dp"
+        android:text="Promo Name:"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lbltitle1" />
+
+    <TextView
+        android:id="@+id/textView66"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="8dp"
+        android:text="Promo Discount (RM): "
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lblgetpromo_name" />
+
+    <TextView
+        android:id="@+id/lblgetpromo_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="74dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="50dp"
+        android:textColor="@android:color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView65"
+        app:layout_constraintTop_toBottomOf="@+id/lbltitle1" />
+
+    <TextView
+        android:id="@+id/lblgetpromo_discount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="50dp"
+        android:text="0.0"
+        android:textColor="@android:color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView66"
+        app:layout_constraintTop_toBottomOf="@+id/lblgetpromo_name" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

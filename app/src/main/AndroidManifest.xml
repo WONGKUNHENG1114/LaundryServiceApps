@@ -11,7 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddPromotion"></activity>
+        <activity android:name=".AddPromotion">
+
+        </activity>
         <activity android:name=".PromotionPage">
 
         </activity>
@@ -30,11 +32,7 @@
         <activity android:name=".MyOrderList" />
         <activity android:name=".OrderSuccess" />
         <activity android:name=".SelectTimeSlot" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".SelectService" />
         <activity android:name=".ReviewOrder" />
@@ -45,7 +43,13 @@
         <activity android:name=".ForgotPassword" />
         <activity android:name=".PickupAddress" />
         <activity android:name=".DeliveryAddress" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".product_laundryMainMenu"
             android:label="ProductManage">

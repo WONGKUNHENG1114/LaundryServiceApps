@@ -72,7 +72,7 @@ class SelectService : AppCompatActivity() {
             Toast.makeText(this, "Please select the items", Toast.LENGTH_LONG).show()
 
         } else{
-            val intent = Intent(this, PickupAddress::class.java)
+            val intent = Intent(this, Location::class.java)
             intent.putExtra("Shop2",lbl_getshopname.text.toString())
             intent.putExtra("Address2",lbl_getshopaddress.text.toString())
 

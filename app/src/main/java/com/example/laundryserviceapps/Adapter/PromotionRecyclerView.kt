@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.laundryserviceapps.ClassModel.Laundry_Shop
 import com.example.laundryserviceapps.ClassModel.Promotion
+import com.example.laundryserviceapps.MainActivity
 import com.example.laundryserviceapps.R
 import com.example.laundryserviceapps.SelectService
 import com.example.laundryserviceapps.Test
@@ -41,7 +42,7 @@ class PromotionRecyclerView(val context: Context, val lstPromotion:List<Promotio
             val promo = lstPromotion.get(position)
             var g_promo : String = promo.promo_name
             var g_discount : String = promo.discount.toString()
-            val intent = Intent(context, Test::class.java)
+            val intent = Intent(context, MainActivity::class.java)
             intent.putExtra("promo_name",g_promo)
             intent.putExtra("discount",g_discount)
             context.startActivity(intent)

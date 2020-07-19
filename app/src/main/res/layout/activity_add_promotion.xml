@@ -125,7 +125,6 @@
         android:id="@+id/btnsavepromotion"
         android:layout_width="0dp"
         android:layout_height="55dp"
-        android:layout_marginTop="360dp"
         android:background="#2E76DC"
         android:text="SAVE PROMOTION"
         android:textColor="@android:color/white"
@@ -133,6 +132,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lbl_promo_expired_date" />
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

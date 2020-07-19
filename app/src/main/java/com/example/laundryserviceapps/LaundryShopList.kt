@@ -18,6 +18,7 @@ import com.example.laundryserviceapps.ClassModel.Order
 import com.example.laundryserviceapps.DatabaseHelper.SQLiteHelper
 import kotlinx.android.synthetic.main.activity_history.*
 import kotlinx.android.synthetic.main.activity_laundry_shop_list.*
+import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -31,6 +32,13 @@ class LaundryShopList : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_laundry_shop_list)
+
+        var intent = intent
+        val get_shop1 = intent.getStringExtra("promo_name1")
+        val get_address1 = intent.getStringExtra("discount1")
+
+        lblgetpromo_name2.text = get_shop1
+        lblgetpromo_discount2.text = get_address1
 
 //        handler = SQLiteHelper(this)
         arrayList.add(Laundry_Shop(0,"Kat Dobi","No 18, Kampung Poh Wah, 11200, Tanjong Bungah, Pulau Pinang","","Active"))
