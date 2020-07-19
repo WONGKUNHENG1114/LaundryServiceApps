@@ -159,16 +159,74 @@
                 app:layout_constraintTop_toBottomOf="@+id/lbldelivery" />
 
             <TextView
-                android:id="@+id/lbldelivery3"
-                android:layout_width="0dp"
+                android:id="@+id/textView354"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:text="Laundry Shop:"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/lbl_getshopname4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_date_order" />
+
+            <TextView
+                android:id="@+id/lbl_getshopname4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="70dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="50dp"
+                android:text="TextView"
+                android:textAlignment="textEnd"
+                android:textColor="@android:color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView354"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_date_order" />
+
+            <TextView
+                android:id="@+id/lbl_getshopaddress4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="50dp"
+                android:text="TextView"
+                android:textAlignment="textEnd"
+                android:textColor="@android:color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView524"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_getshopname4" />
+
+            <TextView
+                android:id="@+id/textView524"
+                android:layout_width="0dp"
+                android:layout_height="34dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:text="Laundry Shop Address:"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/lbl_getshopaddress4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_getshopname4" />
+
+            <TextView
+                android:id="@+id/lbldelivery3"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
                 android:text="Type of Laundry Service:"
                 android:textColor="@android:color/black"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/lbl_ro_laundry_service"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/lbl_ro_laundry_service" />
+                app:layout_constraintTop_toBottomOf="@+id/lbl_getshopaddress4" />
 
             <TextView
                 android:id="@+id/lbldelivery4"
@@ -224,14 +282,14 @@
                 android:id="@+id/lbl_ro_laundry_service"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="50dp"
                 android:text="TextView"
                 android:textAlignment="textEnd"
                 android:textColor="@android:color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/lbldelivery3"
-                app:layout_constraintTop_toBottomOf="@+id/lbl_date_order" />
+                app:layout_constraintTop_toBottomOf="@+id/lbl_getshopaddress4" />
 
             <TextView
                 android:id="@+id/lblget_date_delivery"

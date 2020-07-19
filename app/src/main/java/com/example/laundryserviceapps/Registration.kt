@@ -70,8 +70,8 @@ class Registration : AppCompatActivity() {
         }else if (phone.length <= 9 || phone.length > 10){
             edtPhone.error = "Please enter the valid phone number."
         }else if (!pattern.matches(str)){
-            edtNewpassword.error = "Weak password, minimum 7 or more digits, including combine with special character, numbers and capital and small letter."
-            Toast.makeText(this,"Weak password, minimum 7 or more digits, including combine with special character, numbers and capital and small letter.", Toast.LENGTH_LONG).show()
+            edtNewpassword.error = "Weak password, minimum 8 or more digits, including combine with special character, numbers and capital and small letter."
+            Toast.makeText(this,"Weak password, minimum 8 or more digits, including combine with special character, numbers and capital and small letter.", Toast.LENGTH_LONG).show()
         }else if (!newpassword.equals(confirmpassword)){
             edtConfirmpassword.error = "Confirm password is not matched with new password."
         }else{

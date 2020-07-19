@@ -9,6 +9,7 @@ import android.view.MenuItem
 import android.widget.EditText
 import android.widget.SearchView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.laundryserviceapps.Adapter.LaundryShopRecycler
 import com.example.laundryserviceapps.Adapter.OrderHolder
@@ -32,11 +33,12 @@ class LaundryShopList : AppCompatActivity() {
         setContentView(R.layout.activity_laundry_shop_list)
 
 //        handler = SQLiteHelper(this)
-        arrayList.add(Laundry_Shop(0,"Kat Dobi","No 11, Taman Bukit, 56721, Kuching, Sarawak","","Active"))
-        arrayList.add(Laundry_Shop(0,"Clean Dobi","No 12, Taman Jala, 56231, Kuching, Sarawak","","Active"))
-        arrayList.add(Laundry_Shop(0,"Everday Dobi","No 11, Taman Sri Muda, 40400, Shah Alam, Selangor","","Active"))
+        arrayList.add(Laundry_Shop(0,"Kat Dobi","No 18, Kampung Poh Wah, 11200, Tanjong Bungah, Pulau Pinang","","Active"))
+        arrayList.add(Laundry_Shop(0,"Orchard Dobi","No 11, Lebuh Orchard, 11200, Tanjong Bungah, Pulau Pinang","","Active"))
+        arrayList.add(Laundry_Shop(0,"Clean Dobi","No 12, Taman Bukit Cheras, 56000, Cheras, Kuala Lumpur","","Active"))
+        arrayList.add(Laundry_Shop(0,"Everday Dobi","No 11, Jalan Tokoh 25/28, 40400, Shah Alam, Selangor","","Active"))
         arrayList.add(Laundry_Shop(0,"24Hours Dobi","No 12, Jln Midah 8A, 56000, Cheras, Kuala Lumpur","","Active"))
-        arrayList.add(Laundry_Shop(0,"CLS Dobi","No 15, Jalan Bukit Kemuning, 40400, Shah Alam, Selangor","","Inactive"))
+        arrayList.add(Laundry_Shop(0,"CLS Dobi","No 15, Jalan Bukit Kemuning, 40400, Shah Alam, Selangor","","Active"))
         displayList.addAll(arrayList)
 
         val adapter = LaundryShopRecycler(displayList,this)
@@ -44,7 +46,20 @@ class LaundryShopList : AppCompatActivity() {
         recyclerlaundryshop.adapter = adapter
 
         imgback7.setOnClickListener {
-            onBackPressed()
+            val mAlertDialog = AlertDialog.Builder(this)
+            mAlertDialog.setIcon(R.mipmap.ic_launcher_round)
+            mAlertDialog.setTitle("INFO")
+            mAlertDialog.setMessage("Are you sure want to cancel the order? \nOnce you cancelled the order, all the services are ordered will not be saved")
+            mAlertDialog.setPositiveButton("Yes") { dialog, id ->
+                finish()
+            }
+            mAlertDialog.setNegativeButton("No") { dialog, id ->
+                dialog.dismiss()
+            }
+            mAlertDialog.setNeutralButton("Cancel") { dialog, id ->
+                dialog.cancel()
+            }
+            mAlertDialog.show()
         }
     }
 

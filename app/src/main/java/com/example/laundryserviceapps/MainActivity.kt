@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         img_place_order.setOnClickListener {
-            val intent = Intent(this,SelectService::class.java)
+            val intent = Intent(this,LaundryShopList::class.java)
             startActivity(intent)
         }
         img_product_item.setOnClickListener(){

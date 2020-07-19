@@ -18,7 +18,13 @@
 
     <string name="hint_update_field"> Please enter the order no (eg. 1, 2, 3 etc) ...</string>
 
-<string name="notes_for_laundry_shop_selection">Please select a laundry shop you prefer by tapping</string>
+    <string name="notes_for_laundry_shop_selection">Please select a laundry shop you prefer by tapping</string>
+
+    <string name="hint_pickup_address">Please enter pickup address to search ....</string>
+    <string name="hint_delivery_address">Please enter delivery address to search ....</string>
+
+    <string name="promo_hint_1">Enter the promotion name ...</string>
+    <string name="promo_hint_2">Enter the discount value ...</string>
 
     <string-array name="user_mode_list">
         <item>-- Select the type of user --</item>

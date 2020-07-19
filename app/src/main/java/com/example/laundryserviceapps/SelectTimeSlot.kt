@@ -28,13 +28,19 @@ class SelectTimeSlot : AppCompatActivity() {
         lbl_get_address_pickup_p_3.setText(get_address_pickup_p2)
         lbl_get_list_item3.setText(get_list_item_selection_p3)
 
-        val get_address_delivery_p3 = i.getStringExtra("P3DELIVERY_ADDRESS")
-        val get_city_delivery_p3 = i.getStringExtra("P3DELIVERY_CITY")
-        val get_poscode_delivery_p3 = i.getStringExtra("P3DELIVERY_POSCODE")
-        val get_state_delivery_p3 = i.getStringExtra("P3DELIVERY_STATE")
-        val get_full_delivery_address = "$get_address_delivery_p3, $get_city_delivery_p3, $get_poscode_delivery_p3, $get_state_delivery_p3"
+//        val get_address_delivery_p3 = i.getStringExtra("P3DELIVERY_ADDRESS")
+//        val get_city_delivery_p3 = i.getStringExtra("P3DELIVERY_CITY")
+//        val get_poscode_delivery_p3 = i.getStringExtra("P3DELIVERY_POSCODE")
+//        val get_state_delivery_p3 = i.getStringExtra("P3DELIVERY_STATE")
+//        val get_full_delivery_address = "$get_address_delivery_p3, $get_city_delivery_p3, $get_poscode_delivery_p3, $get_state_delivery_p3"
 
-        lbl_get_address_delivery_p_3.setText(get_full_delivery_address)
+        val get_deliveryaddress = i.getStringExtra("DELIVERYADDRESS")
+        val get_shopname_3 = i.getStringExtra("Shop3")
+        val get_shopaddress_3 = i.getStringExtra("Address3")
+
+        lbl_getshopname3.setText(get_shopname_3)
+        lbl_getshopaddress3.setText(get_shopaddress_3)
+        lbl_get_address_delivery_p_3.setText(get_deliveryaddress)
 
         imgback.setOnClickListener {
             onBackPressed()
@@ -184,6 +190,10 @@ class SelectTimeSlot : AppCompatActivity() {
             intent.putExtra("DELIVERY_TIME", lbl_delivery_timeslot.text.toString())
             intent.putExtra("PICKUP_DATE", lbl_pickup_date.text.toString())
             intent.putExtra("DELIVERY_DATE", lbl_delivery_date.text.toString())
+
+            intent.putExtra("FShop4", lbl_getshopname3.text.toString())
+            intent.putExtra("FAddress4", lbl_getshopaddress3.text.toString())
+
             startActivity(intent)
     }
 
