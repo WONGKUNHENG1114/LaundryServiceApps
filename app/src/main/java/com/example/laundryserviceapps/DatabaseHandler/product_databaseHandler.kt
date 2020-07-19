@@ -41,6 +41,7 @@ class product_databaseHandler(context:Context):SQLiteOpenHelper(context,
 //    ShopAddress TEXT
 //    ContactPerson TEXT
 //    PhoneNumber  TEXT
+
     override fun onCreate(db: SQLiteDatabase?) {
 
         val CREATE_CONTACTS_TABLE = ("CREATE TABLE IF NOT EXISTS  " + TABLE_CONTACTS + "("

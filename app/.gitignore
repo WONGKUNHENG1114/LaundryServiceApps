@@ -1,5 +1,7 @@
 /build
-.idea/libraries
-.idea/tasks.xml
-.idea/vcs.xml
-.idea/workspace.xml
+.gradle
+/build
+/.idea
+*.iml
+local.properties
+.DS_Store

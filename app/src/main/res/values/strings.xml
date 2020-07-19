@@ -18,6 +18,13 @@
 
     <string name="hint_update_field"> Please enter the order no (eg. 1, 2, 3 etc) ...</string>
 
+    <string name="notes_for_laundry_shop_selection">Please select a laundry shop you prefer by tapping</string>
+
+    <string name="hint_pickup_address">Please enter pickup address to search ....</string>
+    <string name="hint_delivery_address">Please enter delivery address to search ....</string>
+
+    <string name="promo_hint_1">Enter the promotion name ...</string>
+    <string name="promo_hint_2">Enter the discount value ...</string>
 
     <string-array name="user_mode_list">
         <item>-- Select the type of user --</item>
@@ -28,7 +35,7 @@
     <string name="order_success"> Thank you for your order!
         \nYour order has been successfully placed.</string>
 
-    <string name="title"><u>Weight Selection</u></string>
+    <string name="title"><u>Common Clothes</u></string>
     <string name="title_1"><u>Pickup Address</u></string>
     <string name="title_2"><u>Delivery Address</u></string>
 
@@ -85,8 +92,8 @@
     <string name="strTxtViewTime"><u>Time:</u></string>
     <string name="strTxtViewAddLaundryShop"><u>Add Laundry Shop</u></string>
     <string name="strWashFold">Wash&#38;fold</string>
-    <string name="strFeedback_comment" >Thank you!!!\nPlease comment or rate our service!!</string>
-    <string name="strWashIron" >Wash&#38;Ironing</string>
+    <string name="strFeedback_comment">Thank you!!!\nPlease comment or rate our service!!</string>
+    <string name="strWashIron">Wash&#38;Ironing</string>
     <string name="strIroning">Ironing</string>
 
 

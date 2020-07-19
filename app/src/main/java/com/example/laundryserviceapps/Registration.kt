@@ -40,7 +40,7 @@ class Registration : AppCompatActivity() {
         val lastname = edtLastName.text.toString()
         val email = edtEmail.text.toString()
         val phone = edtPhone.text.toString()
-        val user_mode = spnUserMode.selectedItem.toString()
+        val user_mode = lblaccountMode.text.toString()
         val newpassword = edtNewpassword.text.toString()
         val confirmpassword = edtConfirmpassword.text.toString()
 
@@ -69,11 +69,9 @@ class Registration : AppCompatActivity() {
             Toast.makeText(this,"Please enter the valid email.", Toast.LENGTH_LONG).show()
         }else if (phone.length <= 9 || phone.length > 10){
             edtPhone.error = "Please enter the valid phone number."
-        }else if(spnUserMode.selectedItemPosition == 0 ) {
-            Toast.makeText(this,"Please select the type of user.", Toast.LENGTH_LONG).show()
         }else if (!pattern.matches(str)){
-            edtNewpassword.error = "Weak password, minimum 7 or more digits, including combine with special character, numbers and capital and small letter."
-            Toast.makeText(this,"Weak password, minimum 7 or more digits, including combine with special character, numbers and capital and small letter.", Toast.LENGTH_LONG).show()
+            edtNewpassword.error = "Weak password, minimum 8 or more digits, including combine with special character, numbers and capital and small letter."
+            Toast.makeText(this,"Weak password, minimum 8 or more digits, including combine with special character, numbers and capital and small letter.", Toast.LENGTH_LONG).show()
         }else if (!newpassword.equals(confirmpassword)){
             edtConfirmpassword.error = "Confirm password is not matched with new password."
         }else{
@@ -88,7 +86,6 @@ class Registration : AppCompatActivity() {
         edtLastName.setText("")
         edtEmail.setText("")
         edtPhone.setText("")
-        spnUserMode.setSelection(0)
         edtNewpassword.setText("")
         edtConfirmpassword.setText("")
     }

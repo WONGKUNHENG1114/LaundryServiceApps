@@ -5,31 +5,45 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_laundry_shop_list.*
 import kotlinx.android.synthetic.main.activity_select_service.*
+import kotlinx.android.synthetic.main.activity_test.*
 
 class SelectService : AppCompatActivity() {
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_select_service)
 
-        imgback.setOnClickListener {
-            val mAlertDialog = AlertDialog.Builder(this)
-            mAlertDialog.setIcon(R.mipmap.ic_launcher_round)
-            mAlertDialog.setTitle("INFO")
-            mAlertDialog.setMessage("Are you sure want to cancel the order? \nOnce you cancelled the order, all the services are ordered will not be saved")
-            mAlertDialog.setPositiveButton("Yes") { dialog, id ->
-                finish()
-                clear()
-            }
-            mAlertDialog.setNegativeButton("No") { dialog, id ->
-                dialog.dismiss()
-            }
-            mAlertDialog.setNeutralButton("Cancel") { dialog, id ->
-                dialog.cancel()
-            }
-            mAlertDialog.show()
+        var intent = intent
+        val get_shop = intent.getStringExtra("Shop")
+        val get_address = intent.getStringExtra("Address")
+//        val get_promo_name = intent.getStringExtra("promo_name2")
+        val get_promo_discount = intent.getStringExtra("discount2")
 
+        lbl_getshopname.setText(get_shop)
+        lbl_getshopaddress.setText(get_address)
+
+//        lblget_promo.setText(get_promo_name)
+        lbl_get_discount.setText(get_promo_discount)
+
+//        if(lblgetpromo_name.text == "" && lblgetpromo_discount.text == ""){
+//            intent.putExtra("promo_name1","No Promotion")
+//            intent.putExtra("discount1","0.0")
+//        }else{
+//            intent.putExtra("promo_name1",lblgetpromo_name.text.toString())
+//            intent.putExtra("discount1",lblgetpromo_discount.text.toString())
+//        }
+
+//        lblAskForPromotion.setOnClickListener {
+//            val intent = Intent(this,PromotionPage::class.java)
+//            startActivity(intent)
+//        }
+
+        imgback.setOnClickListener {
+            finish()
+            clear()
         }
 
         btnNext.setOnClickListener {
@@ -49,24 +63,24 @@ class SelectService : AppCompatActivity() {
         //jeans
         if(rd5kg.isChecked()){
             total+=6.0;
-            item_selection.add(" Weight Selection - (5 kg) ")
+            item_selection.add(" (Common Clothes) 1 - 12  pieces clothes (RM 6.00) ")
         }else{
             total+=0.0
-            item_selection.remove(" Weight Selection - (5 kg) ")
+            item_selection.remove(" (Common Clothes) 1 - 12  pieces clothes (RM 6.00) ")
         }
         if(rd9kg.isChecked()){
             total+=8.0
-            item_selection.add(" Weight Selection - (9 kg) ")
+            item_selection.add(" (Common Clothes) 12 - 24  pieces clothes (RM 8.00) ")
         }else{
             total+=0.0
-            item_selection.remove(" Weight Selection - (9 kg) ")
+            item_selection.remove(" (Common Clothes) 12 - 24  pieces clothes (RM 8.00) ")
         }
         if(rd12kg.isChecked()){
             total+=14.0;
-            item_selection.add(" Weight Selection - (12 kg) ")
+            item_selection.add(" (Common Clothes) More than 24 pieces clothes - (RM 14.00) ")
         }else{
             total+=0.0
-            item_selection.remove(" Weight Selection - (12 kg) ")
+            item_selection.remove(" (Common Clothes) More than 24 pieces clothes - (RM 14.00) ")
         }
 
         lbl_payment_amt.text = "Payment: RM " + total
@@ -78,7 +92,10 @@ class SelectService : AppCompatActivity() {
             Toast.makeText(this, "Please select the items", Toast.LENGTH_LONG).show()
 
         } else{
-            val intent = Intent(this, PickupAddress::class.java)
+            val intent = Intent(this, Location::class.java)
+            intent.putExtra("Shop2",lbl_getshopname.text.toString())
+            intent.putExtra("Address2",lbl_getshopaddress.text.toString())
+
             intent.putExtra("LAUNDRY_TYPE",spn_type_laundry_service.selectedItem.toString())
             intent.putExtra("PAYMENTAMT",total.toString())
             intent.putStringArrayListExtra("ITEMSELECTION1", item_selection)

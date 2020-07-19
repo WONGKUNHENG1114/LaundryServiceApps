@@ -1,12 +1,17 @@
 package com.example.laundryserviceapps.DatabaseHelper
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
+import android.database.sqlite.SQLiteException
 import android.database.sqlite.SQLiteOpenHelper
-import android.widget.Toast
+import android.util.Log
+import com.example.laundryserviceapps.ClassModel.Laundry_Shop
 import com.example.laundryserviceapps.ClassModel.Order
+import com.example.laundryserviceapps.ClassModel.Promotion
+import kotlin.collections.ArrayList
 
 class SQLiteHelper(context:Context): SQLiteOpenHelper(context,DATABASE_NAME,null,DATABASE_VERSION){
 
@@ -39,17 +44,159 @@ class SQLiteHelper(context:Context): SQLiteOpenHelper(context,DATABASE_NAME,null
                 "order_status VARCHAR(15)," +
                 "payment_amt DECIMAL(20,2))"
 
+        val CREATE_TABLE_LAUNDRY_SHOP = "CREATE TABLE LaundryShop (shopID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "laundry_shop_name TEXT," +
+                "laundry_shop_Address TEXT, " +
+                "shop_date_establish TEXT, " +
+                "shop_status TEXT" +
+                "contact_person TEXT" +
+                "phone_number TEXT)"
+
+        val CREATE_SHOP_PROMOTION = ("CREATE TABLE IF NOT EXISTS Promotion( " +
+                "promoID INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "promo_name TEXT, " +
+                "discount TEXT, " +
+                "dateexpired TEXT)")
+
+        val CREATE_TABLE_STAFF = "CREATE TABLE Staff (staff_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "s_first_name TEXT," +
+                "s_last_name TEXT,"  +
+                "s_email TEXT," +
+                "s_phone_num BIGINT," +
+                "s_account_mode TEXT," +
+                "s_password VARCHAR(20)," +
+                "s_date_registered TEXT)"
+
         db?.execSQL(CREATE_TABLE_CUSTOMER)
         db?.execSQL(CREATE_TABLE_ORDER)
+        db?.execSQL(CREATE_TABLE_LAUNDRY_SHOP)
+
+        db?.execSQL(CREATE_TABLE_STAFF)
+        db?.execSQL(CREATE_SHOP_PROMOTION)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         val DROP_TABLE_CUSTOMER = "DROP TABLE IF EXISTS Customer"
         val DROP_TABLE_ORDER = "DROP TABLE IF EXISTS Orders"
+        val DROP_TABLE_LAUNDRY_SHOP = "DROP TABLE IF EXISTS LaundryShop"
 
         db!!.execSQL(DROP_TABLE_CUSTOMER)
         db!!.execSQL(DROP_TABLE_ORDER)
+        db!!.execSQL(DROP_TABLE_LAUNDRY_SHOP)
     }
+
+    // ========================================================================================
+
+    fun onCreatePromotion()
+    {
+        val db=this.writableDatabase
+        Log.i("databaseOnCreate","it is created")
+        val CREATE_SHOP_PROMOTION = ("CREATE TABLE IF NOT EXISTS Promotion( " +
+                "promoID INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "promo_name TEXT, " +
+                "discount TEXT, " +
+                "dateexpired TEXT DEFAULT CURRENT_TIMESTAMP NOT NULL)")
+
+        db?.execSQL(CREATE_SHOP_PROMOTION)
+    }
+
+    fun addPromotion(promotion: Promotion){
+        val db: SQLiteDatabase = writableDatabase
+        val values: ContentValues  = ContentValues()
+        values.put("promo_name",promotion.promo_name)
+        values.put("discount",promotion.discount) //
+        db.insert("Promotion",null,values)
+        db.close()
+    }
+
+    fun getPromo():List<Promotion>{
+        val lstpromo:ArrayList<Promotion> = ArrayList()
+        val query = "SELECT * FROM Promotion"
+        val db = this.readableDatabase
+        var cursor: Cursor
+
+        try{
+            cursor = db.rawQuery(query, null)
+        }catch (e: SQLiteException) {
+            db.execSQL(query)
+            return ArrayList()
+        }
+        var promoid: Int
+        var promoname: String
+        var discount: Double
+        var dateexpired: String
+
+        if (cursor.moveToFirst()) {
+            do {
+                promoid = cursor.getInt(cursor.getColumnIndex("promoID"))
+                promoname = cursor.getString(cursor.getColumnIndex("promo_name"))
+                discount = cursor.getDouble(cursor.getColumnIndex("discount"))
+                dateexpired = cursor.getString(cursor.getColumnIndex("dateexpired"))
+                val lpromotion= Promotion(promoID = promoid,promo_name = promoname,discount = discount,dateexpired = dateexpired)
+                lstpromo.add(lpromotion)
+
+            } while (cursor.moveToNext())
+        }
+        return lstpromo
+    }
+
+    // ========================================================================================
+
+    fun onCreateStaff()
+    {
+        val db=this.writableDatabase
+        Log.i("databaseOnCreate","it is created")
+        val CREATE_TABLE_STAFF = "CREATE TABLE Staff (staff_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "s_first_name TEXT," +
+                "s_last_name TEXT,"  +
+                "s_email TEXT," +
+                "s_phone_num BIGINT," +
+                "s_account_mode TEXT," +
+                "s_password VARCHAR(20)," +
+                "s_date_registered TEXT)"
+
+        db?.execSQL(CREATE_TABLE_STAFF)
+    }
+
+
+    fun insertStaffData(s_first_name: String, s_last_name: String, s_email: String, s_phone_num: Long,
+                        s_account_mode: String, s_password: String, s_date_registered: String){
+        val db: SQLiteDatabase = writableDatabase
+        val values: ContentValues  = ContentValues()
+        values.put("s_first_name",s_first_name)
+        values.put("s_last_name",s_last_name)
+        values.put("s_email",s_email)
+        values.put("s_phone_num",s_phone_num)
+        values.put("s_account_mode",s_account_mode)
+        values.put("s_password",s_password)
+        values.put("s_date_registered",s_date_registered)
+
+        db.insert("Staff",null,values)
+        db.close()
+    }
+
+    fun checkStaffUser(s_email: String, s_password: String): Boolean {
+        val db = readableDatabase
+        val query = "SELECT * FROM Staff WHERE s_email='$s_email' AND s_password='$s_password'"
+        val cursor: Cursor = db.rawQuery(query,null)
+        if(cursor.count<=0){
+            cursor.close()
+            return false
+        }
+        cursor.close()
+        return true
+    }
+
+
+    fun changeStaffPassword(s_email: String, s_password: String): Boolean {
+        val db = writableDatabase
+        val values: ContentValues  = ContentValues()
+        values.put("s_password",s_password)
+        db.update("Staff",values,"s_email = ?",arrayOf(s_email))
+        return true
+    }
+
+   // ========================================================================================
 
     fun insertCustomerData(first_name: String, last_name: String, email: String, phone_num: Long,
                            account_mode: String, password: String, date_registered: String){
@@ -87,6 +234,8 @@ class SQLiteHelper(context:Context): SQLiteOpenHelper(context,DATABASE_NAME,null
         db.update("Customer",values,"email = ?",arrayOf(email))
         return true
     }
+
+    // ========================================================================================
 
     fun addOrder(order:Order){
         val db: SQLiteDatabase = writableDatabase
@@ -140,29 +289,19 @@ class SQLiteHelper(context:Context): SQLiteOpenHelper(context,DATABASE_NAME,null
         return orderlist
     }
 
-//    fun getOrderNo():ArrayList<Order>{
-//        val query = "SELECT last_insert_rowid() FROM Orders"
-//        val db = this.readableDatabase
-//        val cursor: Cursor = db.rawQuery(query,null)
-//        val orderlist = ArrayList<Order>()
-//
-//        if(cursor.moveToFirst()){
-//            do {
-//                val order = Order()
-//                order.order_no = cursor.getInt(cursor.getColumnIndex("order_no"))
-//                orderlist.add(order)
-//            }while (cursor.moveToNext())
-//        }
-//        cursor.close()
-//        db.close()
-//        return orderlist
-//    }
-
     fun updateOrderStatus(order: Order) {
         val db: SQLiteDatabase = writableDatabase
         val query = "UPDATE Orders SET order_status='${order.order_status}' WHERE order_no = ${order.order_no}"
         db.execSQL(query)
     }
+
+    // ========================================================================================
+
+
+    // ========================================================================================
+
+
+    // ========================================================================================
 
     companion object{
         internal val DATABASE_NAME = "LaundryServiceDB.db"

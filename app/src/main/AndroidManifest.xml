@@ -11,12 +11,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".AddPromotion">
 
+        </activity>
+        <activity android:name=".PromotionPage">
+
+        </activity>
+        <activity android:name=".WelcomeLaundryApp" />
+        <activity android:name=".StaffForgotPassword" />
+        <activity android:name=".StaffRegistration" />
+        <activity android:name=".StaffLoginPage" />
+        <activity android:name=".Location" >
+
+        </activity>
+        <activity android:name=".LaundryShopList" />
+        <activity android:name=".AddLaundryShop_Page" />
+        <activity android:name=".Test" />
         <activity android:name=".History" />
         <activity android:name=".UpdateOrderStatus" />
         <activity android:name=".MyOrderList" />
         <activity android:name=".OrderSuccess" />
-        <activity android:name=".SelectTimeSlot">
+        <activity android:name=".SelectTimeSlot" >
 
         </activity>
         <activity android:name=".SelectService" />
@@ -28,8 +43,22 @@
         <activity android:name=".ForgotPassword" />
         <activity android:name=".PickupAddress" />
         <activity android:name=".DeliveryAddress" />
-        <activity android:name=".MainActivity">
+
+        <activity android:name=".MainActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+
+        <activity
+            android:name=".product_laundryMainMenu"
+            android:label="ProductManage">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+ 
         <activity
             android:name=".product_laundryMainMenu"
             android:label="ProductManage" >
@@ -43,14 +72,18 @@
             android:name=".product_viewShopItem"
             android:label="View Laundry Shop">
 
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".product_laundryMainMenu" />
-        </activity>
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".product_laundryMainMenu" />
 
+        </activity>
         <activity
-            android:name=".product_retailRegistration"
-            android:label="Laundry retail registration">
+            android:name=".product_addShop"
+            android:label="Add Laundry Shop">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".product_laundryMainMenu" />
+
 
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"

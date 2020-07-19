@@ -114,20 +114,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/edtPhone" />
 
-            <Spinner
-                android:id="@+id/spnUserMode"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="50dp"
-                android:background="@android:drawable/dialog_holo_light_frame"
-                android:entries="@array/user_mode_list"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView5" />
-
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="0dp"
@@ -280,7 +266,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="32dp"
                 android:layout_marginEnd="50dp"
                 android:text="Setup Password"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -289,7 +275,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spnUserMode" />
+                app:layout_constraintTop_toBottomOf="@+id/lblaccountMode" />
 
             <ImageButton
                 android:id="@+id/imgback"
@@ -301,6 +287,19 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="?attr/actionModeCloseDrawable" />
+
+            <TextView
+                android:id="@+id/lblaccountMode"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="50dp"
+                android:text="Normal"
+                android:textColor="@android:color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

@@ -4,42 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PickupAddress">
+    tools:context=".Location">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        tools:layout_editor_absoluteY="-195dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/lbltitle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="50dp"
-                android:text="Pickup Address"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColor="@android:color/black"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imgback"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/btnNext2"
+                android:id="@+id/btnNext4"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="70dp"
                 android:background="#2E76DC"
                 android:text="NEXT"
                 android:textColor="@android:color/white"
@@ -48,181 +31,190 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lbl_get_laundry_service"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintTop_toBottomOf="@+id/lbl_get_laundry_service2" />
 
             <TextView
-                android:id="@+id/lbladdress"
+                android:id="@+id/lbltitle4"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="50dp"
-                android:text="Address:"
+                android:text="Pickup and Delivery Location"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="@android:color/black"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lbltitle" />
-
-            <TextView
-                android:id="@+id/lblcity"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="50dp"
-                android:text="City: "
-                android:textColor="@android:color/black"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edt_address" />
-
-            <TextView
-                android:id="@+id/lblpostcode"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="50dp"
-                android:text="Postcode:"
-                android:textColor="@android:color/black"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edt_city" />
-
-
-            <TextView
-                android:id="@+id/line5"
-                android:layout_width="0dp"
-                android:layout_height="5dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="24dp"
-                android:background="#BCB4B4"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/chk_same_add" />
-
-            <EditText
-                android:id="@+id/edt_address"
-                android:layout_width="0dp"
-                android:layout_height="120dp"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="50dp"
-                android:background="@drawable/borderlineforimage"
-                android:ems="10"
-                android:hint="@string/hint_field1"
-                android:inputType="textMultiLine|textPostalAddress"
-                android:padding="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/lbladdress" />
-
-            <EditText
-                android:id="@+id/edt_poscode"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="50dp"
-                android:background="@drawable/borderline"
-                android:ems="10"
-                android:hint="@string/hint_field3"
-                android:inputType="number"
-                android:padding="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lblpostcode" />
-
-            <EditText
-                android:id="@+id/edt_city"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="50dp"
-                android:background="@drawable/borderline"
-                android:ems="10"
-                android:hint="@string/hint_field2"
-                android:inputType="text"
-                android:padding="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lblcity" />
-
-            <TextView
-                android:id="@+id/lblstate"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="50dp"
-                android:text="State:"
-                android:textColor="@android:color/black"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edt_poscode" />
-
-            <EditText
-                android:id="@+id/edt_state"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="50dp"
-                android:background="@drawable/borderline"
-                android:ems="10"
-                android:hint="@string/hint_field4"
-                android:inputType="textPersonName"
-                android:padding="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lblstate" />
+                app:layout_constraintStart_toEndOf="@+id/imgback7"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
-                android:id="@+id/imgback"
+                android:id="@+id/imgback7"
                 android:layout_width="0dp"
                 android:layout_height="30dp"
-                android:layout_marginStart="50dp"
+                android:layout_marginStart="40dp"
                 android:layout_marginTop="24dp"
                 android:background="@android:color/transparent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="?attr/actionModeCloseDrawable" />
 
-            <CheckBox
-                android:id="@+id/chk_same_add"
+            <TextView
+                android:id="@+id/textView32"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
+                android:layout_marginStart="40dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="50dp"
-                android:text="Same as delivery address"
+                android:layout_marginEnd="32dp"
+                android:text="Pickup Address:"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edt_state" />
+                app:layout_constraintTop_toBottomOf="@+id/lbltitle4" />
+
+            <TextView
+                android:id="@+id/textView34"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:text="Delivery Address:"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnlocationpickup" />
+
+            <EditText
+                android:id="@+id/edt_get_pickup_address"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:background="@drawable/borderline"
+                android:ems="10"
+                android:hint="@string/hint_pickup_address"
+                android:inputType="textMultiLine|textPostalAddress"
+                android:padding="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView32" />
+
+            <EditText
+                android:id="@+id/edt_delivery_address"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:background="@drawable/borderline"
+                android:ems="10"
+                android:hint="@string/hint_delivery_address"
+                android:inputType="textMultiLine|textPostalAddress"
+                android:padding="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView34" />
+
+            <Button
+                android:id="@+id/btnlocationpickup"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="32dp"
+                android:background="#2E76DC"
+                android:text="SEARCH PICKUP LOCATION"
+                android:textColor="@android:color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edt_get_pickup_address" />
+
+            <Button
+                android:id="@+id/btnlocationdelivery"
+                android:layout_width="240dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="32dp"
+                android:background="#2E76DC"
+                android:text="SEARCH DELIVERY LOCATION"
+                android:textColor="@android:color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edt_delivery_address" />
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/imgviewphase2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.453"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/line5"
+                app:layout_constraintTop_toBottomOf="@+id/btnlocationdelivery"
                 app:srcCompat="@drawable/phase_2" />
 
             <TextView
-                android:id="@+id/textView21"
+                android:id="@+id/textView35"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Laundry Shop:"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/lbl_getshopname2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imgviewphase2" />
+
+            <TextView
+                android:id="@+id/lbl_getshopname2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="70dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:text="TextView"
+                android:textAlignment="textEnd"
+                android:textColor="@android:color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView35"
+                app:layout_constraintTop_toBottomOf="@+id/imgviewphase2" />
+
+            <TextView
+                android:id="@+id/lbl_getshopaddress2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:text="TextView"
+                android:textAlignment="textEnd"
+                android:textColor="@android:color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView52"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_getshopname2" />
+
+            <TextView
+                android:id="@+id/textView52"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Laundry Shop Address:"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/lbl_getshopaddress2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_getshopname2" />
+
+            <TextView
+                android:id="@+id/textView212"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
@@ -231,10 +223,10 @@
                 android:textColor="@android:color/black"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lbl_get_list_item" />
+                app:layout_constraintTop_toBottomOf="@+id/lbl_get_list_item2" />
 
             <TextView
-                android:id="@+id/textView25"
+                android:id="@+id/textView252"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
@@ -243,10 +235,10 @@
                 android:textColor="@android:color/black"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView21" />
+                app:layout_constraintTop_toBottomOf="@+id/lbl_get_payment_amt22" />
 
             <TextView
-                android:id="@+id/lbl_get_payment_amt2"
+                android:id="@+id/lbl_get_payment_amt22"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -256,11 +248,11 @@
                 android:textAlignment="textEnd"
                 android:textColor="@android:color/black"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView21"
-                app:layout_constraintTop_toBottomOf="@+id/lbl_get_list_item" />
+                app:layout_constraintStart_toEndOf="@+id/textView212"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_get_list_item2" />
 
             <TextView
-                android:id="@+id/lbl_get_laundry_service"
+                android:id="@+id/lbl_get_laundry_service2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -271,24 +263,24 @@
                 android:textColor="@android:color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView25"
-                app:layout_constraintTop_toBottomOf="@+id/lbl_get_payment_amt2" />
+                app:layout_constraintTop_toBottomOf="@+id/lbl_get_payment_amt22" />
 
             <TextView
-                android:id="@+id/textView53"
+                android:id="@+id/textView532"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
                 android:text="Item Selected:"
                 android:textColor="@android:color/black"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+                app:layout_constraintTop_toBottomOf="@+id/lbl_getshopaddress2" />
 
             <TextView
-                android:id="@+id/lbl_get_list_item"
+                android:id="@+id/lbl_get_list_item2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
@@ -298,7 +290,9 @@
                 android:textColor="@android:color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView53" />
+                app:layout_constraintTop_toBottomOf="@+id/textView532" />
+
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
