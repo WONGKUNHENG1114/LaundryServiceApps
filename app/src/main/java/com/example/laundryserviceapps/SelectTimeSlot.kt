@@ -180,11 +180,11 @@ class SelectTimeSlot : AppCompatActivity() {
             intent.putExtra("P4DELIVERY_ADDRESS", lbl_get_address_delivery_p_3.text.toString())
             intent.putExtra("P4LISTITEM",lbl_get_list_item3.text.toString())
 
-            if(radoption1.isChecked){
+//            if(radoption1.isChecked){
                 intent.putExtra("PAYMENTMETHOD",radoption1.text.toString())
-            }else{
-                intent.putExtra("PAYMENTMETHOD",radoption2.text.toString())
-            }
+//            }else{
+//                intent.putExtra("PAYMENTMETHOD",radoption2.text.toString())
+//            }
 
             intent.putExtra("PICKUP_TIME", lbl_pickup_timeslot.text.toString())
             intent.putExtra("DELIVERY_TIME", lbl_delivery_timeslot.text.toString())

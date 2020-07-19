@@ -5,10 +5,12 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_laundry_shop_list.*
 import kotlinx.android.synthetic.main.activity_select_service.*
 import kotlinx.android.synthetic.main.activity_test.*
 
 class SelectService : AppCompatActivity() {
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,11 +19,27 @@ class SelectService : AppCompatActivity() {
         var intent = intent
         val get_shop = intent.getStringExtra("Shop")
         val get_address = intent.getStringExtra("Address")
+//        val get_promo_name = intent.getStringExtra("promo_name2")
+        val get_promo_discount = intent.getStringExtra("discount2")
 
-        lbl_getshopname.text = get_shop
-        lbl_getshopaddress.text = get_address
-        lblgetpromo_name3.text =
-            lblgetpromo_discount3.text =
+        lbl_getshopname.setText(get_shop)
+        lbl_getshopaddress.setText(get_address)
+
+//        lblget_promo.setText(get_promo_name)
+        lbl_get_discount.setText(get_promo_discount)
+
+//        if(lblgetpromo_name.text == "" && lblgetpromo_discount.text == ""){
+//            intent.putExtra("promo_name1","No Promotion")
+//            intent.putExtra("discount1","0.0")
+//        }else{
+//            intent.putExtra("promo_name1",lblgetpromo_name.text.toString())
+//            intent.putExtra("discount1",lblgetpromo_discount.text.toString())
+//        }
+
+//        lblAskForPromotion.setOnClickListener {
+//            val intent = Intent(this,PromotionPage::class.java)
+//            startActivity(intent)
+//        }
 
         imgback.setOnClickListener {
             finish()

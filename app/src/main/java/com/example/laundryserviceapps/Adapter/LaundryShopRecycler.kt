@@ -8,9 +8,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.laundryserviceapps.ClassModel.Laundry_Shop
+import com.example.laundryserviceapps.LaundryShopList
 import com.example.laundryserviceapps.R
 import com.example.laundryserviceapps.SelectService
 import com.example.laundryserviceapps.Test
+import kotlinx.android.synthetic.main.activity_laundry_shop_list.*
+import kotlinx.android.synthetic.main.activity_laundry_shop_list.view.*
 import kotlinx.android.synthetic.main.list_laundryshop_row.view.*
 
 
@@ -21,7 +24,6 @@ class LaundryShopRecycler(val lstLaundryshop:ArrayList<Laundry_Shop>, val contex
         fun bindItem(laundryshop: Laundry_Shop){
             itemView.laundryshop.text = laundryshop.laundry_shop_name
             itemView.laundryshopaddress.text = laundryshop.laundry_shop_Address
-//            itemView.shopstatus.text = laundryshop.shop_status
         }
     }
 
@@ -42,15 +44,17 @@ class LaundryShopRecycler(val lstLaundryshop:ArrayList<Laundry_Shop>, val contex
             var g_shop : String = LS.laundry_shop_name
             var g_address : String = LS.laundry_shop_Address
 
+//            lblgetpromo_name2.text
+//            var g_promo : String =
+
             if(LS.shop_status != "Active"){
                 Toast.makeText(context,"This laundry shop status is not active.", Toast.LENGTH_LONG).show()
             }else{
                 val intent = Intent(context, SelectService::class.java)
                 intent.putExtra("Shop",g_shop)
                 intent.putExtra("Address",g_address)
-                intent.putExtra("promo_name2",g_shop)
-                intent.putExtra("discount2",g_address)
                 context.startActivity(intent)
+
             }
         }
     }

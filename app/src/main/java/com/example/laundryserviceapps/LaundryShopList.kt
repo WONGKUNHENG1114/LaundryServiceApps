@@ -27,8 +27,8 @@ class LaundryShopList : AppCompatActivity() {
     lateinit var handler: SQLiteHelper
     val arrayList = ArrayList<Laundry_Shop>()
     val displayList = ArrayList<Laundry_Shop>()
-//    private var lstLS = ArrayList<Laundry_Shop>()
 
+    var promotion:String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_laundry_shop_list)
@@ -37,8 +37,8 @@ class LaundryShopList : AppCompatActivity() {
         val get_shop1 = intent.getStringExtra("promo_name1")
         val get_address1 = intent.getStringExtra("discount1")
 
-        lblgetpromo_name2.text = get_shop1
-        lblgetpromo_discount2.text = get_address1
+        lblgetpromo_name2.setText(get_shop1)
+        lblgetpromo_discount2.setText(get_address1)
 
 //        handler = SQLiteHelper(this)
         arrayList.add(Laundry_Shop(0,"Kat Dobi","No 18, Kampung Poh Wah, 11200, Tanjong Bungah, Pulau Pinang","","Active"))
@@ -52,6 +52,15 @@ class LaundryShopList : AppCompatActivity() {
         val adapter = LaundryShopRecycler(displayList,this)
         recyclerlaundryshop.layoutManager = LinearLayoutManager(this)
         recyclerlaundryshop.adapter = adapter
+
+//        btnNext5.setOnClickListener {
+//            val passDiscount2 = lblgetpromo_discount2.text.toString()
+//            val intent = Intent(this,SelectService::class.java)
+////                intent.putExtra("promo_name2",lblgetpromo_name2.text.toString())
+//                intent.putExtra("discount2",passDiscount2)
+//            startActivity(intent)
+//        }
+
 
         imgback7.setOnClickListener {
             val mAlertDialog = AlertDialog.Builder(this)
@@ -78,7 +87,6 @@ class LaundryShopList : AppCompatActivity() {
         if(menuItem != null){
             val searchView = menuItem.actionView as SearchView
             val edittext = searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
-//            edittext.hint  = "Search ... "
 
             searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
                 override fun onQueryTextSubmit(query: String?): Boolean {

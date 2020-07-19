@@ -46,8 +46,6 @@ class PromotionRecyclerView(val context: Context, val lstPromotion:List<Promotio
             intent.putExtra("promo_name",g_promo)
             intent.putExtra("discount",g_discount)
             context.startActivity(intent)
-
-
         }
     }
 }

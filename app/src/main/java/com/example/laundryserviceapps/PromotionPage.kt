@@ -22,6 +22,10 @@ class PromotionPage : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_promotion_page)
         create_promotion()
+
+        imgback11.setOnClickListener {
+            onBackPressed()
+        }
     }
 
     fun create_promotion(){
