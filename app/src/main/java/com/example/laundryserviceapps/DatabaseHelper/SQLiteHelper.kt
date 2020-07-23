@@ -1,6 +1,5 @@
 package com.example.laundryserviceapps.DatabaseHelper
 
-import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
@@ -8,26 +7,12 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteException
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
+import com.example.laundryserviceapps.ClassModel.Feedback
 import com.example.laundryserviceapps.ClassModel.Laundry_Shop
 import com.example.laundryserviceapps.ClassModel.Order
 import com.example.laundryserviceapps.ClassModel.Promotion
-import kotlin.collections.ArrayList
 
 class SQLiteHelper(context:Context): SQLiteOpenHelper(context,DATABASE_NAME,null,DATABASE_VERSION){
-
-//        val ORDER_DETAIL_TABLE = "Order_Detail"
-//        val QUANTITY = "quantity"
-//        val ITEM_DESC = "item_desc"
-//        val PICKUP_LOCATION = "pickup_location"
-//        val DELIVERY_LOCATION = "delivery_location"
-//        val PICKUP_DATE = "pickup_date"
-//        val DELIVERY_DATE = "delivery_date"
-
-//    val ORDER_TABLE = "Orders"
-//    val ORDER_NO = "order_no"
-//    val ORDER_DATE = "order_date"
-//    val ORDER_STATUS = "order_status"
-//    val PAYMENT_AMOUNT = "payment_amt"
 
     override fun onCreate(db: SQLiteDatabase?) {
         val CREATE_TABLE_CUSTOMER = "CREATE TABLE Customer (cust_id INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -48,8 +33,8 @@ class SQLiteHelper(context:Context): SQLiteOpenHelper(context,DATABASE_NAME,null
                 "laundry_shop_name TEXT," +
                 "laundry_shop_Address TEXT, " +
                 "shop_date_establish TEXT, " +
-                "shop_status TEXT" +
-                "contact_person TEXT" +
+                "shop_status TEXT," +
+                "contact_person TEXT," +
                 "phone_number TEXT)"
 
         val CREATE_SHOP_PROMOTION = ("CREATE TABLE IF NOT EXISTS Promotion( " +
@@ -67,12 +52,18 @@ class SQLiteHelper(context:Context): SQLiteOpenHelper(context,DATABASE_NAME,null
                 "s_password VARCHAR(20)," +
                 "s_date_registered TEXT)"
 
+        val CREATE_TABLE_FEEDBACK = "CREATE TABLE Feedback (feedback_no INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "feedback_rate DOUBLE," +
+                "comment TEXT," +
+                "post_date TEXT)"
+
         db?.execSQL(CREATE_TABLE_CUSTOMER)
         db?.execSQL(CREATE_TABLE_ORDER)
         db?.execSQL(CREATE_TABLE_LAUNDRY_SHOP)
 
         db?.execSQL(CREATE_TABLE_STAFF)
         db?.execSQL(CREATE_SHOP_PROMOTION)
+        db?.execSQL(CREATE_TABLE_FEEDBACK)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
@@ -80,9 +71,168 @@ class SQLiteHelper(context:Context): SQLiteOpenHelper(context,DATABASE_NAME,null
         val DROP_TABLE_ORDER = "DROP TABLE IF EXISTS Orders"
         val DROP_TABLE_LAUNDRY_SHOP = "DROP TABLE IF EXISTS LaundryShop"
 
+        val CREATE_TABLE_FEEDBACK = "DROP TABLE IF EXISTS Feedback"
+        val CREATE_TABLE_STAFF = "DROP TABLE IF EXISTS Staff"
+        val CREATE_SHOP_PROMOTION = "DROP TABLE IF EXISTS Promotion"
+
         db!!.execSQL(DROP_TABLE_CUSTOMER)
         db!!.execSQL(DROP_TABLE_ORDER)
         db!!.execSQL(DROP_TABLE_LAUNDRY_SHOP)
+
+        db!!.execSQL(CREATE_TABLE_FEEDBACK)
+        db!!.execSQL(CREATE_TABLE_STAFF)
+        db!!.execSQL(CREATE_SHOP_PROMOTION)
+    }
+
+    // ========================================================================================
+
+    fun onDropLaundryShop()
+    {
+        val db=this.writableDatabase
+        val DROP_TABLE_LAUNDRY_SHOP = "DROP TABLE IF EXISTS LaundryShop"
+        db!!.execSQL(DROP_TABLE_LAUNDRY_SHOP)
+    }
+
+    fun onCreateLaundryShop()
+    {
+        val db=this.writableDatabase
+        Log.i("databaseOnCreate","it is created")
+        val CREATE_TABLE_LAUNDRY_SHOP = "CREATE TABLE LaundryShop (shopID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "laundry_shop_name TEXT," +
+                "laundry_shop_Address TEXT, " +
+                "shop_date_establish TEXT, " +
+                "shop_status TEXT," +
+                "contact_person TEXT," +
+                "phone_number TEXT)"
+
+        db?.execSQL(CREATE_TABLE_LAUNDRY_SHOP)
+    }
+
+    fun addLaundryShop(laundryshop: Laundry_Shop){
+        val db: SQLiteDatabase = writableDatabase
+        val values  = ContentValues()
+        values.put("laundry_shop_name",laundryshop.laundry_shop_name)
+        values.put("laundry_shop_Address",laundryshop.laundry_shop_Address)
+        values.put("shop_date_establish",laundryshop.datecreated)
+        values.put("shop_status",laundryshop.shop_status)
+        values.put("contact_person",laundryshop.contact_person)
+        values.put("phone_number",laundryshop.phone_number)
+        db.insert("LaundryShop",null,values)
+        db.close()
+    }
+
+    fun getLaundryShop():ArrayList<Laundry_Shop>{
+        val lstLS:ArrayList<Laundry_Shop> = ArrayList()
+        val query = "SELECT * FROM LaundryShop"
+        val db = this.readableDatabase
+        var cursor: Cursor
+
+        try{
+            cursor = db.rawQuery(query, null)
+        }catch (e: SQLiteException) {
+            db.execSQL(query)
+            return ArrayList()
+        }
+        var shopID: Int
+        var laundry_shop_name: String
+        var laundry_shop_Address: String
+        var shop_date_establish: String
+        var shop_status: String
+        var contact_person: String
+        var phone_number: String
+
+        if (cursor.moveToFirst()) {
+            do {
+                shopID = cursor.getInt(cursor.getColumnIndex("shopID"))
+                laundry_shop_name = cursor.getString(cursor.getColumnIndex("laundry_shop_name"))
+                laundry_shop_Address = cursor.getString(cursor.getColumnIndex("laundry_shop_Address"))
+                shop_date_establish = cursor.getString(cursor.getColumnIndex("shop_date_establish"))
+                shop_status = cursor.getString(cursor.getColumnIndex("shop_status"))
+                contact_person = cursor.getString(cursor.getColumnIndex("contact_person"))
+                phone_number = cursor.getString(cursor.getColumnIndex("phone_number"))
+                val lstlaundryshop = Laundry_Shop(shopID = shopID ,laundry_shop_name = laundry_shop_name,laundry_shop_Address = laundry_shop_Address,
+                    shop_status = shop_status,contact_person =  contact_person, datecreated = shop_date_establish, phone_number = phone_number)
+                lstLS.add(lstlaundryshop)
+
+            } while (cursor.moveToNext())
+        }
+        return lstLS
+    }
+
+//    fun getLaundryShopListByKeyword(search: String): Cursor? {
+//        //Open connection to read only
+//        val db = this.readableDatabase
+//        val selectQuery = "SELECT laundry_shop_name," +
+//                " laundry_shop_Address" +
+//                " FROM LaundryShop" +
+//                " WHERE laundry_shop_Address LIKE '%" + search + "%' "
+//        val cursor = db.rawQuery(selectQuery, null)
+//        // looping through all rows and adding to list
+//        if (cursor == null) {
+//            return null
+//        } else if (!cursor.moveToFirst()) {
+//            cursor.close()
+//            return null
+//        }
+//        return cursor
+//    }
+
+    fun updateLaundryShopStatus(laundryshop: Laundry_Shop) {
+        val db: SQLiteDatabase = writableDatabase
+        val query = "UPDATE LaundryShop SET shop_status='${laundryshop.shop_status}' WHERE shopID = ${laundryshop.shopID}"
+        db.execSQL(query)
+    }
+    // ========================================================================================
+
+    fun onDropFeedback()
+    {
+        val db=this.writableDatabase
+        val CREATE_TABLE_FEEDBACK = "DROP TABLE IF EXISTS Feedback"
+        db?.execSQL(CREATE_TABLE_FEEDBACK)
+    }
+
+    fun onCreateFeedback()
+    {
+        val db=this.writableDatabase
+        Log.i("databaseOnCreate","it is created")
+        val CREATE_TABLE_FEEDBACK = "CREATE TABLE Feedback (feedback_no INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "feedback_rate DOUBLE," +
+                "comment TEXT," +
+                "post_date TEXT)"
+
+        db?.execSQL(CREATE_TABLE_FEEDBACK)
+    }
+
+    fun postFeedback(feedback: Feedback){
+        val db: SQLiteDatabase = writableDatabase
+        val values: ContentValues  = ContentValues()
+        values.put("feedback_rate",feedback.feedback_rate)
+        values.put("comment",feedback.comment)
+        values.put("post_date",feedback.post_date)
+        db.insert("Feedback",null,values)
+        db.close()
+    }
+
+
+    fun getFeedback():ArrayList<Feedback>{
+        val query = "SELECT * FROM Feedback"
+        val db = this.readableDatabase
+        val cursor: Cursor = db.rawQuery(query,null)
+        val lstfeedback = ArrayList<Feedback>()
+
+        if(cursor.moveToFirst()){
+            do {
+                val feedback = Feedback()
+                feedback.feedback_no = cursor.getInt(cursor.getColumnIndex("feedback_no"))
+                feedback.feedback_rate = cursor.getDouble(cursor.getColumnIndex("feedback_rate"))
+                feedback.comment = cursor.getString(cursor.getColumnIndex("comment"))
+                feedback.post_date = cursor.getString(cursor.getColumnIndex("post_date"))
+                lstfeedback.add(feedback)
+            }while (cursor.moveToNext())
+        }
+        cursor.close()
+        db.close()
+        return lstfeedback
     }
 
     // ========================================================================================
@@ -102,7 +252,7 @@ class SQLiteHelper(context:Context): SQLiteOpenHelper(context,DATABASE_NAME,null
 
     fun addPromotion(promotion: Promotion){
         val db: SQLiteDatabase = writableDatabase
-        val values: ContentValues  = ContentValues()
+        val values  = ContentValues()
         values.put("promo_name",promotion.promo_name)
         values.put("discount",promotion.discount) //
         db.insert("Promotion",null,values)

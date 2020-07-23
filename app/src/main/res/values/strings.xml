@@ -17,6 +17,7 @@
     <string name="hint_field4"> (State eg. Selangor etc.) ...</string>
 
     <string name="hint_update_field"> Please enter the order no (eg. 1, 2, 3 etc) ...</string>
+    <string name="hint_update_field2"> Please enter the laundry shop ID (eg. 1, 2, 3 etc) ...</string>
 
     <string name="notes_for_laundry_shop_selection">Please select a laundry shop you prefer by tapping</string>
 
@@ -26,6 +27,7 @@
     <string name="promo_hint_1">Enter the promotion name ...</string>
     <string name="promo_hint_2">Enter the discount value ...</string>
 
+    <string name="feedback">Comment about this service or laundry apps .... </string>
     <string-array name="user_mode_list">
         <item>-- Select the type of user --</item>
         <item>Normal</item>
@@ -44,6 +46,16 @@
 
     <string name="note"><b><u>*Note:</u></b>\n=> If you placed order for pickup and delivery at the same time, we need 4 or 5 hours to complete\n=> If you placed order for pickup and delivery at different date, we need a day to complete</string>
 
+    <string name="laundry_note"><b><u>*Note:</u></b>
+        \n<u>Wash and Fold</u>
+        \n=> 1 - 12 pieces - (RM 4.50)\n=> 12 - 24 pieces - (RM 6.00)\n=> 24 - 30 pieces - (RM 10.00)\n
+        \n<u>Wash and Iron</u>
+        \n=> 1 - 12 pieces - (RM 5.50)\n=> 12 - 24 pieces - (RM 7.00)\n=> 24 - 30 pieces - (RM 12.00)\n
+        \n<u>Ironing</u>
+        \n=> 1 - 12 pieces - (RM 6.00)\n=> 12 - 24 pieces - (RM 8.00)\n=> 24 - 30 pieces - (RM 14.00)\n
+       </string>
+
+
     <string-array name="schedule_pickup_time_slot">
         <item>-- Select the pickup time slot --</item>
         <item> 12:00PM  - 2:00PM </item>
@@ -60,20 +72,10 @@
         <item> 10:00AM - 12:00PM </item>
     </string-array>
 
-    <string-array name="schedule_delivery_time_slot">
-        <item>-- Select the delivery time slot --</item>
-        <item> 12:00PM  - 2:00PM </item>
-        <item> 2:00PM - 4:00PM </item>
-        <item> 4:00PM - 6:00PM </item>
-        <item> 6:00PM - 8:00PM </item>
-        <item> 8:00PM - 10:00PM </item>
-        <item> 10:00PM - 12:00AM </item>
-        <item> 12:00AM  - 2:00AM </item>
-        <item> 2:00AM - 4:00AM </item>
-        <item> 4:00AM - 6:00AM </item>
-        <item> 6:00AM - 8:00AM </item>
-        <item> 8:00AM - 10:00AM </item>
-        <item> 10:00AM - 12:00PM </item>
+    <string-array name="business_status">
+        <item>-- Select the business status --</item>
+        <item> Active </item>
+        <item> Inactive </item>
     </string-array>
 
     <string-array name="select_type_of_laundry_service">
@@ -87,8 +89,8 @@
         <item>-- Select the order status --</item>
         <item> Pending </item>
         <item> Completed </item>
-
     </string-array>
+
     <string name="strTxtViewTime"><u>Time:</u></string>
     <string name="strTxtViewAddLaundryShop"><u>Add Laundry Shop</u></string>
     <string name="strWashFold">Wash&#38;fold</string>

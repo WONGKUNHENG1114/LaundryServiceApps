@@ -27,6 +27,7 @@ import kotlinx.android.synthetic.main.activity_delivery_address.*
 import kotlinx.android.synthetic.main.activity_pickup_address.*
 import kotlinx.android.synthetic.main.activity_registration.*
 import kotlinx.android.synthetic.main.activity_review_order.*
+import kotlinx.android.synthetic.main.activity_select_service.*
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
@@ -112,11 +113,12 @@ class ReviewOrder : AppCompatActivity() {
             }
             notificationManager.notify(1234,builder.build())
 
+            intent.putExtra("Shop_name_feedback",lbl_getshopname4.text.toString())
+            intent.putExtra("Shop_address_feedback",lbl_getshopaddress4.text.toString())
+
             startActivity(intent)
             finish()
         }
-
-
     }
 
     private fun save_Pdf_file() {

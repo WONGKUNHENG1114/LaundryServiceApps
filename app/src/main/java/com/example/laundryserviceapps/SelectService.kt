@@ -19,14 +19,13 @@ class SelectService : AppCompatActivity() {
         var intent = intent
         val get_shop = intent.getStringExtra("Shop")
         val get_address = intent.getStringExtra("Address")
-//        val get_promo_name = intent.getStringExtra("promo_name2")
         val get_promo_discount = intent.getStringExtra("discount2")
 
         lbl_getshopname.setText(get_shop)
         lbl_getshopaddress.setText(get_address)
 
 //        lblget_promo.setText(get_promo_name)
-        lbl_get_discount.setText(get_promo_discount)
+//        lbl_get_discount.setText(get_promo_discount)
 
 //        if(lblgetpromo_name.text == "" && lblgetpromo_discount.text == ""){
 //            intent.putExtra("promo_name1","No Promotion")
@@ -60,27 +59,76 @@ class SelectService : AppCompatActivity() {
         val item_selection: ArrayList<String> = ArrayList()
         var total = 0.0
 
-        //jeans
-        if(rd5kg.isChecked()){
-            total+=6.0;
-            item_selection.add(" (Common Clothes) 1 - 12  pieces clothes (RM 6.00) ")
-        }else{
-            total+=0.0
-            item_selection.remove(" (Common Clothes) 1 - 12  pieces clothes (RM 6.00) ")
+        if(spn_type_laundry_service.selectedItemPosition == 1) {
+            if (rd5kg.isChecked()) {
+                total += 4.5;
+                item_selection.add(" (Common Clothes) 1 - 12  pieces clothes & Wash and Fold (RM 4.50) ")
+            } else {
+                total += 0.0
+                item_selection.remove(" (Common Clothes) 1 - 12  pieces clothes & Wash and Fold (RM 4.50) ")
+            }
+            if (rd9kg.isChecked()) {
+                total += 6.0
+                item_selection.add(" (Common Clothes) 12 - 24  pieces clothes & Wash and Fold (RM 6.00) ")
+            } else {
+                total += 0.0
+                item_selection.remove(" (Common Clothes) 12 - 24  pieces clothes & Wash and Fold (RM 6.00) ")
+            }
+            if (rd12kg.isChecked()) {
+                total += 10.0;
+                item_selection.add(" (Common Clothes) More than 24 pieces clothes & Wash and Fold (RM 10.00) ")
+            } else {
+                total += 0.0
+                item_selection.remove(" (Common Clothes) More than 24 pieces clothes & Wash and Fold (RM 10.00) ")
+            }
         }
-        if(rd9kg.isChecked()){
-            total+=8.0
-            item_selection.add(" (Common Clothes) 12 - 24  pieces clothes (RM 8.00) ")
-        }else{
-            total+=0.0
-            item_selection.remove(" (Common Clothes) 12 - 24  pieces clothes (RM 8.00) ")
+
+        if(spn_type_laundry_service.selectedItemPosition == 2){
+            if(rd5kg.isChecked()){
+                total+=5.5;
+                item_selection.add(" (Common Clothes) 1 - 12  pieces clothes & Wash and Iron (RM 5.50) ")
+            }else{
+                total+=0.0
+                item_selection.remove(" (Common Clothes) 1 - 12  pieces clothes & Wash and Iron (RM 5.50) ")
+            }
+            if(rd9kg.isChecked()){
+                total+=7.0
+                item_selection.add(" (Common Clothes) 12 - 24  pieces clothes & Wash and Iron (RM 7.00) ")
+            }else{
+                total+=0.0
+                item_selection.remove(" (Common Clothes) 12 - 24  pieces clothes & Wash and Iron (RM 7.00) ")
+            }
+            if(rd12kg.isChecked()){
+                total+=12.0;
+                item_selection.add(" (Common Clothes) More than 24 pieces clothes & Wash and Iron (RM 12.00) ")
+            }else{
+                total+=0.0
+                item_selection.remove(" (Common Clothes) More than 24 pieces clothes & Wash and Iron (RM 12.00) ")
+            }
         }
-        if(rd12kg.isChecked()){
-            total+=14.0;
-            item_selection.add(" (Common Clothes) More than 24 pieces clothes - (RM 14.00) ")
-        }else{
-            total+=0.0
-            item_selection.remove(" (Common Clothes) More than 24 pieces clothes - (RM 14.00) ")
+
+        if(spn_type_laundry_service.selectedItemPosition == 3){
+            if(rd5kg.isChecked()){
+                total+=6.0;
+                item_selection.add(" (Common Clothes) 1 - 12  pieces clothes & Ironing (RM 6.00) ")
+            }else{
+                total+=0.0
+                item_selection.remove(" (Common Clothes) 1 - 12  pieces clothes & Ironing (RM 6.00) ")
+            }
+            if(rd9kg.isChecked()){
+                total+=8.0
+                item_selection.add(" (Common Clothes) 12 - 24  pieces clothes & Ironing (RM 8.00) ")
+            }else{
+                total+=0.0
+                item_selection.remove(" (Common Clothes) 12 - 24  pieces clothes & Ironing (RM 8.00) ")
+            }
+            if(rd12kg.isChecked()){
+                total+=14.0;
+                item_selection.add(" (Common Clothes) More than 24 pieces clothes & Ironing (RM 14.00) ")
+            }else{
+                total+=0.0
+                item_selection.remove(" (Common Clothes) More than 24 pieces clothes & Ironing (RM 14.00) ")
+            }
         }
 
         lbl_payment_amt.text = "Payment: RM " + total

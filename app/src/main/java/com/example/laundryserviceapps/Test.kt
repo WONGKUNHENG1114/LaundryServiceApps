@@ -1,24 +1,13 @@
 package com.example.laundryserviceapps
 
-import android.annotation.SuppressLint
-import android.app.ActionBar
-import android.app.TimePickerDialog
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_select_service.*
 import kotlinx.android.synthetic.main.activity_test.*
-import java.lang.String
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.Period
-import java.time.format.DateTimeFormatter
-import java.time.format.FormatStyle
-import java.time.temporal.ChronoUnit
-import java.util.*
-import kotlin.time.days
-
 
 class Test : AppCompatActivity() {
 
@@ -27,11 +16,28 @@ class Test : AppCompatActivity() {
         setContentView(R.layout.activity_test)
 
         var intent = intent
-        val get_shop = intent.getStringExtra("promo_name")
-        val get_address = intent.getStringExtra("discount")
+        val get_shop = intent.getStringExtra("Shop")
+        val get_address = intent.getStringExtra("Address")
+        val get_promo = intent.getStringExtra("promo_name")
+        val get_discount = intent.getStringExtra("discount")
 
-        getshopname.text = get_shop
-        getaddress.text = get_address
+        getshopname.setText(get_shop)
+        getaddress.setText(get_address)
+
+        getpromo.setText(get_promo)
+        getdiscount.setText(get_discount)
+
+        linkpromo.setOnClickListener {
+            val intent = Intent(this,SelectService::class.java)
+            startActivity(intent)
+        }
+
+        btnok.setOnClickListener {
+            val intent = Intent(this, SelectService::class.java)
+            intent.putExtra("discount2",getdiscount.text.toString())
+            startActivity(intent)
+        }
+
 
 //        val dateTime = LocalDate.now()
 //        val start = LocalDate.of(2020,7,18)

@@ -9,8 +9,9 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="-42dp"
-        tools:layout_editor_absoluteY="162dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="-36dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -108,7 +109,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="50dp"
                 android:background="#266D8F"
                 android:padding="5dp"
@@ -119,7 +120,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView16" />
+                app:layout_constraintTop_toBottomOf="@+id/textView79" />
 
             <Spinner
                 android:id="@+id/spn_type_laundry_service"
@@ -168,19 +169,19 @@
                     android:id="@+id/rd5kg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1 - 12  pieces clothes (RM 6.00)" />
+                    android:text="1 - 12  pieces clothes" />
 
                 <RadioButton
                     android:id="@+id/rd9kg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="12 - 24  pieces clothes (RM 8.00)" />
+                    android:text="12 - 24  pieces clothes" />
 
                 <RadioButton
                     android:id="@+id/rd12kg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="More than 24 pieces clothes - (RM 14.00)" />
+                    android:text="24 - 30 pieces clothes" />
             </RadioGroup>
 
             <ImageView
@@ -188,7 +189,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -251,6 +252,20 @@
                 app:layout_constraintEnd_toStartOf="@+id/lbl_getshopaddress"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/lbl_getshopname" />
+
+            <TextView
+                android:id="@+id/textView79"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="50dp"
+                android:text="@string/laundry_note"
+                android:textColor="@android:color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

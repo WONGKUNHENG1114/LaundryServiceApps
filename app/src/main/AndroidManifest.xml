@@ -11,6 +11,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".UpdateLaundryShopStatus">
+
+        </activity>
+        <activity android:name=".LaundryShopSelectionList">
+
+        </activity>
+        <activity android:name=".ReviewFeedback"></activity>
         <activity android:name=".AddPromotion">
 
         </activity>
@@ -21,29 +28,29 @@
         <activity android:name=".StaffForgotPassword" />
         <activity android:name=".StaffRegistration" />
         <activity android:name=".StaffLoginPage" />
-        <activity android:name=".Location" >
+        <activity android:name=".Location" />
+        <activity android:name=".LaundryShopList"></activity>
+        <activity android:name=".AddLaundryShop_Page">
 
         </activity>
-        <activity android:name=".LaundryShopList" />
-        <activity android:name=".AddLaundryShop_Page" />
-        <activity android:name=".Test" />
+        <activity android:name=".Test" >
+
+
+        </activity>
         <activity android:name=".History" />
-        <activity android:name=".UpdateOrderStatus" />
+        <activity android:name=".UpdateOrderStatus">
+
+        </activity>
         <activity android:name=".MyOrderList" />
         <activity android:name=".OrderSuccess" />
-        <activity android:name=".SelectTimeSlot" >
-
-        </activity>
+        <activity android:name=".SelectTimeSlot" />
         <activity android:name=".SelectService" />
         <activity android:name=".ReviewOrder" />
         <activity android:name=".Registration" />
-        <activity android:name=".LoginPage">
-
-        </activity>
+        <activity android:name=".LoginPage" />
         <activity android:name=".ForgotPassword" />
         <activity android:name=".PickupAddress" />
         <activity android:name=".DeliveryAddress" />
-
         <activity android:name=".MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -52,26 +59,8 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".product_laundryMainMenu"
-            android:label="ProductManage">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
- 
-        <activity
-            android:name=".product_laundryMainMenu"
-            android:label="ProductManage" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".MainActivity" />
 
-        </activity>
         <activity
             android:name=".product_viewShopItem"
             android:label="View Laundry Shop">
@@ -81,19 +70,7 @@
                 android:value=".product_laundryMainMenu" />
 
         </activity>
-        <activity
-            android:name=".product_addShop"
-            android:label="Add Laundry Shop">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".product_laundryMainMenu" />
 
-
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".product_laundryMainMenu" />
-
-        </activity>
         <activity
             android:name=".product_LaundryEditShopItem"
             android:label="Edit laundry shop">
@@ -101,6 +78,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".product_viewShopItem" />
         </activity>
+
     </application>
 
 </manifest>
