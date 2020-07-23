@@ -29,11 +29,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/imageViewLaundry"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="124dp"
-        android:layout_marginTop="7dp"
+        android:layout_marginStart="131dp"
+        android:layout_marginTop="-1dp"
         android:layout_weight="0"
         android:text="text"
-        android:textSize="30sp" />
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/btnEdit"
@@ -55,7 +55,7 @@
         android:layout_marginStart="35dp"
         android:layout_marginTop="12dp"
         android:text="Address:"
-        android:textSize="24sp" />
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/textViewtelNottl"
@@ -63,32 +63,32 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textViewAddressttl"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="66dp"
-        android:layout_marginTop="65dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="50dp"
         android:text="telNo:"
-        android:textSize="24sp" />
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/textViewAddress"
-        android:layout_width="177dp"
-        android:layout_height="81dp"
+        android:layout_width="246dp"
+        android:layout_height="50dp"
         android:layout_below="@+id/textViewLaundryShopName"
         android:layout_marginStart="12dp"
         android:layout_marginTop="10dp"
         android:layout_toEndOf="@+id/textViewAddressttl"
         android:text="TextView"
-        android:textSize="24sp" />
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/textViewTelNo"
         android:layout_width="182dp"
         android:layout_height="33dp"
         android:layout_below="@+id/textViewAddress"
-        android:layout_marginStart="11dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="22dp"
         android:layout_toEndOf="@+id/textViewtelNottl"
         android:text="TextView"
-        android:textSize="24sp" />
+        android:textSize="14sp" />
 
     <Button
         android:id="@+id/btnView"
