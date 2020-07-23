@@ -2,12 +2,14 @@ package com.example.laundryserviceapps
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.laundryserviceapps.ClassModel.product_LaundryShopModelClass
 
@@ -23,6 +25,7 @@ class product_LaundryAdapter (private val context: Context, private val mLaundry
         val laundryShopTelNo = itemView.findViewById<TextView>(R.id.textViewTelNo)
         val laundryShopImage = itemView.findViewById<ImageView>(R.id.imageViewLaundry)
         val btnEdit = itemView.findViewById<Button>(R.id.btnEdit)
+        val btnViewItem=itemView.findViewById<Button>(R.id.btnView)
     }
     // ... constructor and member variables
     // Usually involves inflating a layout from XML and returning the holder
@@ -46,6 +49,7 @@ class product_LaundryAdapter (private val context: Context, private val mLaundry
         val textViewlaundryShopAddress = viewHolder.laundryShopAddress
         val textViewlaundryShopTelNo = viewHolder.laundryShopTelNo
         val laundryShopImage = viewHolder.laundryShopImage
+        val btnViewItem=viewHolder.btnViewItem
         val btnEditItem=viewHolder.btnEdit
         textViewLaundryShopName.text = laundryShop.shopName
         textViewlaundryShopAddress.text= address
@@ -55,6 +59,12 @@ class product_LaundryAdapter (private val context: Context, private val mLaundry
 
         btnEditItem.setOnClickListener {
            val i=Intent(context,product_LaundryEditShopItem::class.java)
+            i.putExtra("shopName",laundryShop.shopName)
+            context.startActivity(i)
+
+        }
+        btnViewItem.setOnClickListener {
+            val i=Intent(context,feedback::class.java)
             i.putExtra("shopName",laundryShop.shopName)
             context.startActivity(i)
 

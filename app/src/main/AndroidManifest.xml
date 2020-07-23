@@ -17,7 +17,12 @@
         <activity android:name=".PromotionPage">
 
         </activity>
-        <activity android:name=".WelcomeLaundryApp" />
+        <activity android:name=".WelcomeLaundryApp">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".StaffForgotPassword" />
         <activity android:name=".StaffRegistration" />
         <activity android:name=".StaffLoginPage" />
@@ -45,29 +50,25 @@
         <activity android:name=".DeliveryAddress" />
 
         <activity android:name=".MainActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity
             android:name=".product_laundryMainMenu"
-            android:label="ProductManage">
+            android:label="Product Manage(Retailer)">
+
+
+        </activity>
+        <activity
+            android:name=".product_retailRegistration"
+            android:label="Laundry Product Registration">
+
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
- 
-        <activity
-            android:name=".product_laundryMainMenu"
-            android:label="ProductManage" >
-
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".MainActivity" />
 
         </activity>
+
         <activity
             android:name=".product_viewShopItem"
             android:label="View Laundry Shop">
@@ -75,21 +76,8 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".product_laundryMainMenu" />
-
         </activity>
-        <activity
-            android:name=".product_addShop"
-            android:label="Add Laundry Shop">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".product_laundryMainMenu" />
 
-
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".product_laundryMainMenu" />
-
-        </activity>
         <activity
             android:name=".product_LaundryEditShopItem"
             android:label="Edit laundry shop">
@@ -100,11 +88,7 @@
         <activity
             android:name=".retailer_registration"
             android:label="Retailer user registration">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".retailer_login" />
@@ -123,6 +107,32 @@
                 android:value=".retailer_login" />
 
         </activity>
+
+        <activity
+            android:name=".feedback"
+            android:label="View Shop feedback">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".product_viewShopItem" />
+        </activity>
+
+        <activity
+            android:name=".test1"
+            android:label="Forgot password">
+
+        </activity>
+
+        <activity
+            android:name=".test2"
+            android:label="Forgot password">
+        </activity>
+
+        <activity
+            android:name=".test3"
+            android:label="Forgot password">
+        </activity>
+
     </application>
 
 </manifest>

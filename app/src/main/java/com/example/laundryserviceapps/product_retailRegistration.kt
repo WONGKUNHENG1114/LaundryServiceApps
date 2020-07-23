@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.Bitmap.CompressFormat
 import android.graphics.Color
@@ -30,16 +31,17 @@ import kotlinx.android.synthetic.main.product_retailer_registration_page.btnUpda
 import kotlinx.android.synthetic.main.product_retailer_registration_page.imageView
 import java.io.ByteArrayOutputStream
 import java.io.File
+import java.util.*
 import java.util.regex.Pattern
 
 
 class product_retailRegistration : AppCompatActivity() {
 
-    val arrayList = ArrayList<String>()
+
+
 
     private var strShopName: String? = null
     private var strShopStreet: String? = null
-    private var arrayListServices: ArrayList<String>? = null
     private var strContactPerson: String? = null
     private var strShopTelNo: String? = null
     private var filePath: File? = null
@@ -62,7 +64,6 @@ class product_retailRegistration : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.product_retailer_registration_page)
-        val view = this.currentFocus
 
 
         scrollViewId.setOnTouchListener { v, _ ->
@@ -126,24 +127,7 @@ class product_retailRegistration : AppCompatActivity() {
         ).also { arrayAdapter ->
             arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinnerState.adapter = arrayAdapter
-//          spinnerState.onItemSelectedListener=object:
 
-//          AdapterView.OnItemSelectedListener{
-//              override fun onNothingSelected(parent: AdapterView<*>?) {
-//                  TODO("Not yet implemented")
-//              }
-//
-//              override fun onItemSelected(
-//                  parent: AdapterView<*>?,
-//                  view: View?,
-//                  position: Int,
-//                  id: Long
-//              ) {
-//
-//
-//
-//              }
-//          }
         }
 
 
@@ -360,6 +344,8 @@ class product_retailRegistration : AppCompatActivity() {
             setPositiveButton("Confirm") { dialog, which ->
                 //insert into database
                 insertData()
+                val i = Intent(this@product_retailRegistration,product_laundryMainMenu::class.java)
+                startActivity(i)
             }
 
             setNegativeButton("Discard") { dialog, which ->
@@ -377,13 +363,16 @@ class product_retailRegistration : AppCompatActivity() {
     }
 
     private fun insertData() {
+        val pref: SharedPreferences = this.getSharedPreferences("retailer_user_details", MODE_PRIVATE)
+        val RetailerUsername= pref.getString("username", null)
         val state=spinnerState.selectedItem.toString()
         val poscode=editTextPoscode.text.toString()
         val shopAddress= "${this.strShopStreet},@@$poscode,@@$state"
+
         val lShopList =
             product_LaundryShopModelClass(
                 null, this.strShopName, null, shopAddress, this.byteArrayImage,
-                null, this.strContactPerson, this.strShopTelNo
+                null, this.strContactPerson, this.strShopTelNo,RetailerUsername.toString()
             )
         try {
 

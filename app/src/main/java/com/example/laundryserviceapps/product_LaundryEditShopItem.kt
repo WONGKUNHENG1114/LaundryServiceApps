@@ -3,10 +3,7 @@ package com.example.laundryserviceapps
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.ContentValues
-import android.content.Context
-import android.content.DialogInterface
-import android.content.Intent
+import android.content.*
 import android.database.Cursor
 import android.database.sqlite.SQLiteException
 import android.graphics.Bitmap
@@ -27,7 +24,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.laundryserviceapps.ClassModel.product_LaundryShopModelClass
 import com.example.laundryserviceapps.DatabaseHandler.product_databaseHandler
 import kotlinx.android.synthetic.main.product_laundry_editshop_item.*
-import kotlinx.android.synthetic.main.product_laundry_editshop_item.btnCancel
 import kotlinx.android.synthetic.main.product_laundry_editshop_item.btnPicBrowse
 import kotlinx.android.synthetic.main.product_laundry_editshop_item.btnUpdate
 import kotlinx.android.synthetic.main.product_laundry_editshop_item.editTextContactPerson
@@ -112,11 +108,15 @@ class product_LaundryEditShopItem : AppCompatActivity() {
 
         }
 
-        btnCancel.setOnClickListener {
-
+        btnDeleteShop.setOnClickListener {
+            disableShop()
+            Toast.makeText(
+                this@product_LaundryEditShopItem,
+                "The shop has been deleted",
+                Toast.LENGTH_SHORT
+            ).show()
             val intent =
                 Intent(this@product_LaundryEditShopItem, product_laundryMainMenu::class.java)
-
             startActivity(intent)
         }
 
@@ -363,7 +363,8 @@ class product_LaundryEditShopItem : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun retrieveData(): product_LaundryShopModelClass?{
-
+         val pref: SharedPreferences = this.getSharedPreferences("retailer_user_details", MODE_PRIVATE)
+         val RetailerUsername= pref.getString("username", null)
         val db =
             product_databaseHandler(
                 this
@@ -410,7 +411,7 @@ class product_LaundryEditShopItem : AppCompatActivity() {
                     shopStatus = ShopStatus,
                     contactPerson = ShopContact_Person,
                     phoneNo = ShopPhoneNo
-                )
+                ,retailerUser = RetailerUsername.toString())
 
 
             } while (cursor.moveToNext())
@@ -426,7 +427,7 @@ class product_LaundryEditShopItem : AppCompatActivity() {
                 product_databaseHandler(
                     this
                 )
-            val dbSqliteDb = db.readableDatabase
+            val dbSqliteDb = db.writableDatabase
             val contentValues = ContentValues()
 
 //                contentValues.put(product_databaseHandler.SHOP_NAME, this.strShopName)//LaundryShopModel shopName
@@ -446,7 +447,27 @@ class product_LaundryEditShopItem : AppCompatActivity() {
 
         }
 
+    fun disableShop():Int {
+        val shopAddress= "${this.strShopStreet},@@$poscode,@@$stateSelected"
+        val db =
+            product_databaseHandler(
+                this
+            )
+        val dbSqliteDb = db.writableDatabase
+        val contentValues = ContentValues()
 
+//
+        contentValues.put(product_databaseHandler.SHOP_STATUS,"Inactive") //LaundryShopModel shopAddress
+
+        // Inserting Row
+        val success = dbSqliteDb.update(
+            product_databaseHandler.TABLE_CONTACTS, contentValues,
+            "shopName='${this.strShopName}'",null)
+        //2nd argument is String containing nullColumnHack
+        db.close() // Closing database connection
+        return success
+
+    }
 
 }
 

@@ -10,7 +10,7 @@ class product_LaundryShopModelClass(
     var shopID:Int?,var shopName: String?, val establishDate: LocalDate?, val shopAddress: String?, val shopImage:ByteArray?,
     val shopStatus:String?,
     val contactPerson:String?,
-    val phoneNo:String?) {
+    val phoneNo:String?,val retailerUser:String) {
 
 
 

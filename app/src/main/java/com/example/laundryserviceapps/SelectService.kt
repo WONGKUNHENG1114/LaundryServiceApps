@@ -26,7 +26,7 @@ class SelectService : AppCompatActivity() {
         lbl_getshopaddress.setText(get_address)
 
 //        lblget_promo.setText(get_promo_name)
-        lbl_get_discount.setText(get_promo_discount)
+//        lbl_get_discount.setText(get_promo_discount)
 
 //        if(lblgetpromo_name.text == "" && lblgetpromo_discount.text == ""){
 //            intent.putExtra("promo_name1","No Promotion")
