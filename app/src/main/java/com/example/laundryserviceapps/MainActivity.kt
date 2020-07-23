@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         img_place_order.setOnClickListener {
-            val intent = Intent(this,LaundryShopList::class.java)
+            val intent = Intent(this,LaundryShopSelectionList::class.java)
             if(lblgetpromo_name.text == "" && lblgetpromo_discount.text == ""){
                 intent.putExtra("promo_name1","No Promotion")
                 intent.putExtra("discount1","0.0")

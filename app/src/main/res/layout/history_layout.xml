@@ -42,10 +42,10 @@
             android:id="@+id/textView49"
             android:layout_width="93dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textView47"
+            android:layout_below="@+id/lbl_orderdate"
             android:layout_alignParentStart="true"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="13dp"
             android:text="Payment Amount (RM): "
             android:textColor="@android:color/black"
             android:textStyle="bold" />

@@ -6,6 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".OrderSuccess">
 
+    <Button
+        android:id="@+id/btnreviewfeedback"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="50dp"
+        android:background="#2E76DC"
+        android:text="REVIEW FEEDBACK"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btndone" />
+
     <TextView
         android:id="@+id/textView17"
         android:layout_width="0dp"
@@ -40,8 +56,8 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="265dp"
-        android:layout_height="218dp"
+        android:layout_width="214dp"
+        android:layout_height="163dp"
         android:layout_marginTop="32dp"
         android:background="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -55,13 +71,44 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="50dp"
         android:background="#2E76DC"
         android:text="DONE"
         android:textColor="@android:color/white"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lblshop_address_order_success" />
+
+    <TextView
+        android:id="@+id/lblshop_order_success"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="50dp"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+    <TextView
+        android:id="@+id/lblshop_address_order_success"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="50dp"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lblshop_order_success" />
 </androidx.constraintlayout.widget.ConstraintLayout>

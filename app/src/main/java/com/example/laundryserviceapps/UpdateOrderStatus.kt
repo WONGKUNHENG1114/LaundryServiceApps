@@ -25,6 +25,7 @@ class UpdateOrderStatus : AppCompatActivity() {
 
         btnupdate_status.setOnClickListener {
             validate_order_status()
+            view_update_order_list()
         }
 
     }
@@ -36,6 +37,7 @@ class UpdateOrderStatus : AppCompatActivity() {
         val adapter = RecyclerViewHolder(display_order_list)
         rv_update_order_status.layoutManager = LinearLayoutManager(this)
         rv_update_order_status.adapter = adapter
+        adapter.notifyDataSetChanged()
     }
 
     fun validate_order_status() {
