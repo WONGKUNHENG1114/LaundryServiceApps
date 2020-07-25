@@ -25,13 +25,12 @@
 
         </activity>
 
-
         <activity android:name=".WelcomeLaundryApp">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
->>>>>>> aeabbe410f41151cb2c169fceefd14c0ffe43b4f
+
         </activity>
         <activity android:name=".StaffForgotPassword" />
         <activity android:name=".StaffRegistration" />
@@ -142,7 +141,7 @@
             android:name=".test3"
             android:label="Forgot password">
         </activity>
-
+        
     </application>
 
 </manifest>
