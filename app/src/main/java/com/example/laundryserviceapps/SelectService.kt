@@ -1,5 +1,6 @@
 package com.example.laundryserviceapps
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -7,7 +8,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_laundry_shop_list.*
 import kotlinx.android.synthetic.main.activity_select_service.*
-import kotlinx.android.synthetic.main.activity_test.*
 
 class SelectService : AppCompatActivity() {
 
@@ -19,10 +19,16 @@ class SelectService : AppCompatActivity() {
         var intent = intent
         val get_shop = intent.getStringExtra("Shop")
         val get_address = intent.getStringExtra("Address")
-        val get_promo_discount = intent.getStringExtra("discount2")
 
         lbl_getshopname.setText(get_shop)
         lbl_getshopaddress.setText(get_address)
+
+        val sharedPreferences = getSharedPreferences("Promotion", Context.MODE_PRIVATE)
+        val promo_name = sharedPreferences.getString("Promo_Name",lblget_promo.text.toString())
+        val discount = sharedPreferences.getString("Promo_Discount",lbl_get_discount.text.toString())
+
+        lblget_promo.text = String.format("%s%s","",promo_name)
+        lbl_get_discount.text = String.format("%s%s", "",discount)
 
 //        lblget_promo.setText(get_promo_name)
 //        lbl_get_discount.setText(get_promo_discount)
@@ -58,6 +64,8 @@ class SelectService : AppCompatActivity() {
     fun proceed_to_next(){
         val item_selection: ArrayList<String> = ArrayList()
         var total = 0.0
+
+        var discountprice = lbl_get_discount.text.toString()
 
         if(spn_type_laundry_service.selectedItemPosition == 1) {
             if (rd5kg.isChecked()) {
@@ -131,7 +139,7 @@ class SelectService : AppCompatActivity() {
             }
         }
 
-        lbl_payment_amt.text = "Payment: RM " + total
+        lbl_payment_amt.text = "Payment: RM " + (total - discountprice.toDouble())
 
         if(spn_type_laundry_service.selectedItemPosition == 0) {
             Toast.makeText(this,"Please select the type of laundry service.", Toast.LENGTH_LONG).show()
@@ -144,8 +152,17 @@ class SelectService : AppCompatActivity() {
             intent.putExtra("Shop2",lbl_getshopname.text.toString())
             intent.putExtra("Address2",lbl_getshopaddress.text.toString())
 
+            if(lblget_promo.equals("") && lbl_get_discount.equals("")){
+                intent.putExtra("PROMOTION_NAME","No Promotion")
+                intent.putExtra("PROMOTION_PRICE","0.0")
+            }else{
+                intent.putExtra("PROMOTION_NAME",lblget_promo.text.toString())
+                intent.putExtra("PROMOTION_PRICE",lbl_get_discount.text.toString())
+            }
+
             intent.putExtra("LAUNDRY_TYPE",spn_type_laundry_service.selectedItem.toString())
-            intent.putExtra("PAYMENTAMT",total.toString())
+            intent.putExtra("PAYMENTAMT",(total - discountprice.toDouble()).toString())
+
             intent.putStringArrayListExtra("ITEMSELECTION1", item_selection)
             startActivity(intent)
         }

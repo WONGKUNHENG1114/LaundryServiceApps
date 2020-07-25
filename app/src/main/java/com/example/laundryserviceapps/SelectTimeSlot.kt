@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_location.*
 import kotlinx.android.synthetic.main.activity_select_time_slot.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -41,6 +42,12 @@ class SelectTimeSlot : AppCompatActivity() {
         lbl_getshopname3.setText(get_shopname_3)
         lbl_getshopaddress3.setText(get_shopaddress_3)
         lbl_get_address_delivery_p_3.setText(get_deliveryaddress)
+
+        val get_promo3 = i.getStringExtra("PROMOTION_NAME2")
+        val get_discount3 = i.getStringExtra("PROMOTION_PRICE2")
+
+        lblget_promo3.setText(get_promo3)
+        lbl_get_discount3.setText(get_discount3)
 
         imgback.setOnClickListener {
             onBackPressed()
@@ -185,6 +192,9 @@ class SelectTimeSlot : AppCompatActivity() {
 //            }else{
 //                intent.putExtra("PAYMENTMETHOD",radoption2.text.toString())
 //            }
+
+            intent.putExtra("PROMOTION_NAME3", lblget_promo3.text.toString())
+            intent.putExtra("PROMOTION_PRICE3", lbl_get_discount3.text.toString())
 
             intent.putExtra("PICKUP_TIME", lbl_pickup_timeslot.text.toString())
             intent.putExtra("DELIVERY_TIME", lbl_delivery_timeslot.text.toString())

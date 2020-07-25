@@ -8,12 +8,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.laundryserviceapps.ClassModel.Laundry_Shop
-import com.example.laundryserviceapps.LaundryShopList
 import com.example.laundryserviceapps.R
 import com.example.laundryserviceapps.SelectService
-import com.example.laundryserviceapps.Test
-import kotlinx.android.synthetic.main.activity_laundry_shop_list.*
-import kotlinx.android.synthetic.main.activity_laundry_shop_list.view.*
 import kotlinx.android.synthetic.main.list_laundryshop_row.view.*
 
 

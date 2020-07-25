@@ -1,5 +1,6 @@
 package com.example.laundryserviceapps
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.laundryserviceapps.Adapter.FeedbackRecyclerView
 import com.example.laundryserviceapps.ClassModel.Feedback
 import com.example.laundryserviceapps.DatabaseHelper.SQLiteHelper
+import kotlinx.android.synthetic.main.activity_order_success.*
 import kotlinx.android.synthetic.main.activity_review_feedback.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -39,7 +41,8 @@ class ReviewFeedback : AppCompatActivity() {
         }
 
         imageButtonclose.setOnClickListener {
-            finish()
+            val intent = Intent(this,MainActivity::class.java)
+            startActivity(intent)
         }
     }
 

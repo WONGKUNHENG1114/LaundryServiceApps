@@ -115,4 +115,6 @@
         <item>Selangor</item>
     </string-array>
     <string name="plus_sign">+</string>
+    <string name="bullet">&#8226;</string>
+    <string name="strGmail">\u0040gmail.com</string>
 </resources>

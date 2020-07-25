@@ -2,17 +2,16 @@ package com.example.laundryserviceapps.Adapter
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
+import android.provider.Settings.Global.getString
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.example.laundryserviceapps.*
 import com.example.laundryserviceapps.ClassModel.Laundry_Shop
 import com.example.laundryserviceapps.ClassModel.Promotion
-import com.example.laundryserviceapps.MainActivity
-import com.example.laundryserviceapps.R
-import com.example.laundryserviceapps.SelectService
-import com.example.laundryserviceapps.Test
 import kotlinx.android.synthetic.main.list_laundryshop_row.view.*
 import kotlinx.android.synthetic.main.list_of_promotion.view.*
 

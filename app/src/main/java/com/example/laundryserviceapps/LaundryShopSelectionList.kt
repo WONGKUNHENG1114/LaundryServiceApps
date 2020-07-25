@@ -32,11 +32,15 @@ class LaundryShopSelectionList : AppCompatActivity() {
         setContentView(R.layout.activity_laundry_shop_selection_list)
 
         var intent = intent
-        val get_shop1 = intent.getStringExtra("promo_name1")
-        val get_address1 = intent.getStringExtra("discount1")
+        val promo_name1 = intent.getStringExtra("promo_name1")
+        val discount1 = intent.getStringExtra("discount1")
+//        val get_shop1 = intent.getStringExtra("Shop")
+//        val get_address1 = intent.getStringExtra("Address")
 
-        lblgetpromo_name4.setText(get_shop1)
-        lblgetpromo_discount4.setText(get_address1)
+        lblgetpromo_name4.setText(promo_name1)
+        lblgetpromo_discount4.setText(discount1)
+//        shopname.setText(get_shop1)
+//        shopaddress.setText(get_address1)
 
         handler = SQLiteHelper(this)
         create_laundry_shop()

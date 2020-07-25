@@ -5,7 +5,6 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_location.*
-import kotlinx.android.synthetic.main.activity_pickup_address.*
 
 class Location : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,6 +28,12 @@ class Location : AppCompatActivity() {
 
         lbl_get_laundry_service2.setText(get_laundry_service_type)
         lbl_get_payment_amt22.setText(get_payment_amount)
+
+        val get_promo2 = i.getStringExtra("PROMOTION_NAME")
+        val get_discount2 = i.getStringExtra("PROMOTION_PRICE")
+
+        lblget_promo2.setText(get_promo2)
+        lbl_get_discount2.setText(get_discount2)
 
         btnlocationpickup.setOnClickListener {
             val uriIntent1 = Uri.parse("geo:0,0?q=${edt_get_pickup_address.text.toString()}")
@@ -66,6 +71,9 @@ class Location : AppCompatActivity() {
             intent.putExtra("Shop3", lbl_getshopname2.text.toString())
             intent.putExtra("Address3", lbl_getshopaddress2.text.toString())
             intent.putExtra("P3LISTITEM", lbl_get_list_item2.text.toString())
+
+            intent.putExtra("PROMOTION_NAME2", lblget_promo2.text.toString())
+            intent.putExtra("PROMOTION_PRICE2", lbl_get_discount2.text.toString())
 
             intent.putExtra("P3PICKUP_ADDRESS", pickupaddress)
             intent.putExtra("DELIVERYADDRESS", deliveryaddress)

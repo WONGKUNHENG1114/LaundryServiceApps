@@ -1,4 +1,4 @@
-package com.example.laundryserviceapps
+package com.example.laundryserviceapps.ClassModel
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -10,7 +10,7 @@ class product_LaundryShopModelClass(
     var shopID:Int?,var shopName: String?, val establishDate: LocalDate?, val shopAddress: String?, val shopImage:ByteArray?,
     val shopStatus:String?,
     val contactPerson:String?,
-    val phoneNo:String?) {
+    val phoneNo:String?,val retailerUser:String) {
 
 
 

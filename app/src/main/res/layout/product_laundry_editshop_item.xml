@@ -72,21 +72,20 @@
 
         <Button
             android:id="@+id/btnUpdate"
-            android:layout_width="241dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="68dp"
+            android:layout_width="434dp"
+            android:layout_height="55dp"
             android:layout_marginTop="56dp"
             android:text="Update"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnPicBrowse" />
 
         <Button
-            android:id="@+id/btnCancel"
-            android:layout_width="244dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="68dp"
-            android:layout_marginTop="8dp"
-            android:text="Cancel"
+            android:id="@+id/btnDeleteShop"
+            android:layout_width="428dp"
+            android:layout_height="56dp"
+            android:text="Delete"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnUpdate" />
 

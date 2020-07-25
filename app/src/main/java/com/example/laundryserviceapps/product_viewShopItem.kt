@@ -1,12 +1,13 @@
 package com.example.laundryserviceapps
 
-import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.laundryserviceapps.ClassModel.product_LaundryShopModelClass
+import com.example.laundryserviceapps.DatabaseHandler.product_databaseHandler
 import kotlinx.android.synthetic.main.product_view_shop_item.*
 
 class product_viewShopItem: AppCompatActivity() {
@@ -15,6 +16,7 @@ class product_viewShopItem: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.product_view_shop_item)
+
         retrieveData()
     }
 
@@ -22,8 +24,13 @@ class product_viewShopItem: AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     fun retrieveData()
     {
-        val db=product_databaseHandler(this)
-        val registeredRetailer=db.viewShopLaundry()
+        val pref: SharedPreferences = this.getSharedPreferences("retailer_user_details", MODE_PRIVATE)
+        val RetailerUsername= pref.getString("username", null)
+        val db=
+            product_databaseHandler(
+                this
+            )
+        val registeredRetailer=db.viewShopLaundry(RetailerUsername.toString())
         val adapter=product_LaundryAdapter(this,registeredRetailer)
         rvLaundryShops.adapter=adapter
         rvLaundryShops.layoutManager= LinearLayoutManager(this)

@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.laundryserviceapps.ClassModel.Laundry_Shop
 import com.example.laundryserviceapps.R
 import com.example.laundryserviceapps.SelectService
-import com.example.laundryserviceapps.Test
 import kotlinx.android.synthetic.main.list_laundryshop_row.view.*
 
 class LaundryShopSelectionRecyclerView(val context: Context, val lstlaundryshop:ArrayList<Laundry_Shop>):

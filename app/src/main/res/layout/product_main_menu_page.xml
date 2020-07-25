@@ -12,8 +12,8 @@
         android:id="@+id/btnAddShop"
         android:layout_width="97dp"
         android:layout_height="93dp"
-        android:layout_marginStart="120dp"
-        android:layout_marginTop="112dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="108dp"
         android:background="@drawable/shape_drawable"
         android:text="Add shop"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,24 +23,43 @@
         android:id="@+id/btnViewShop"
         android:layout_width="97dp"
         android:layout_height="93dp"
-        android:layout_marginStart="120dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="60dp"
         android:background="@drawable/shape_drawable"
         android:text="View Shop"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAddShop" />
+        app:layout_constraintStart_toEndOf="@+id/btnAddShop"
+        app:layout_constraintTop_toBottomOf="@+id/textViewUsername" />
 
-    <ImageButton
-        android:id="@+id/img_update"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:background="@android:color/transparent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.379"
+    <TextView
+        android:id="@+id/txtViewUsernameNote"
+        android:layout_width="70dp"
+        android:layout_height="31dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Username"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnViewShop"
-        app:srcCompat="@drawable/group_43" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewUsername"
+        android:layout_width="149dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
+        app:layout_constraintStart_toEndOf="@+id/txtViewUsernameNote"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="401dp"
+        android:layout_height="55dp"
+        android:background="@android:color/holo_blue_dark"
+        android:text="Logout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.55"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

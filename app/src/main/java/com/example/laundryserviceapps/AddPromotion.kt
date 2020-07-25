@@ -1,6 +1,7 @@
 package com.example.laundryserviceapps
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -68,7 +69,8 @@ class AddPromotion : AppCompatActivity() {
                     handler.addPromotion(promo)
                     // handler.addPromotion(promotion = Promotion(0,"Laundry Service Off RM 2.0",2.0,"21-7-2020"))
                     Toast.makeText(this,"Promotion has been added successfully.", Toast.LENGTH_LONG).show()
-                    //finish()
+                    val intent = Intent(this,PromotionPage::class.java)
+                    startActivity(intent)
                 }
 //        } catch (e: Exception) {
 //            Log.i("error", e.toString())

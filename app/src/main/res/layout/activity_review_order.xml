@@ -16,6 +16,57 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <TextView
+                android:id="@+id/lblget_promo4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="70dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="50dp"
+                android:text="No Promotion"
+                android:textAlignment="textEnd"
+                android:textColor="@android:color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView831"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_get_list_item4" />
+
+            <TextView
+                android:id="@+id/lbl_get_discount4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="50dp"
+                android:text="0.0"
+                android:textAlignment="textEnd"
+                android:textColor="@android:color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView81321"
+                app:layout_constraintTop_toBottomOf="@+id/lblget_promo4" />
+
+            <TextView
+                android:id="@+id/textView81321"
+                android:layout_width="140dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="8dp"
+                android:text="Promotion Discount(RM):"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lblget_promo4" />
+
+            <TextView
+                android:id="@+id/textView831"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="8dp"
+                android:text="Promotion Name:"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_get_list_item4" />
 
             <TextView
                 android:id="@+id/lblregister"
@@ -460,26 +511,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:text="Payment Method: "
                 android:textColor="@android:color/black"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lbl_get_list_item4" />
+                app:layout_constraintTop_toBottomOf="@+id/lbl_get_discount4" />
 
             <TextView
                 android:id="@+id/lbl_get_payment_method"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="50dp"
                 android:text="TextView"
                 android:textAlignment="textEnd"
                 android:textColor="@android:color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView29"
-                app:layout_constraintTop_toBottomOf="@+id/lbl_get_list_item4" />
+                app:layout_constraintTop_toBottomOf="@+id/lbl_get_discount4" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

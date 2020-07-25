@@ -1,6 +1,8 @@
 package com.example.laundryserviceapps
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -21,11 +23,14 @@ class PromotionPage : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_promotion_page)
+
         create_promotion()
 
         imgback11.setOnClickListener {
             onBackPressed()
         }
+
+
     }
 
     fun create_promotion(){
@@ -42,4 +47,5 @@ class PromotionPage : AppCompatActivity() {
             Log.i("error", e.toString())
         }
     }
+
 }

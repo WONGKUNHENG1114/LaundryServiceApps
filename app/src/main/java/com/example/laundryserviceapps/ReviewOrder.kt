@@ -23,11 +23,10 @@ import com.example.laundryserviceapps.DatabaseHelper.SQLiteHelper
 import com.itextpdf.text.Document
 import com.itextpdf.text.Paragraph
 import com.itextpdf.text.pdf.PdfWriter
-import kotlinx.android.synthetic.main.activity_delivery_address.*
-import kotlinx.android.synthetic.main.activity_pickup_address.*
 import kotlinx.android.synthetic.main.activity_registration.*
 import kotlinx.android.synthetic.main.activity_review_order.*
 import kotlinx.android.synthetic.main.activity_select_service.*
+import kotlinx.android.synthetic.main.activity_select_time_slot.*
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
@@ -156,28 +155,33 @@ class ReviewOrder : AppCompatActivity() {
             val get_selected_laundry_shop = lbl_getshopname4.text.toString()
             val get_laundry_shop_address = lbl_getshopaddress4.text.toString()
 
+            val get_promotion = lblget_promo4.text.toString()
+            val get_discount = lbl_get_discount4.text.toString()
+
             myDoc.add(Paragraph("    "+ get_selected_laundry_shop + " Laundromant "))
             myDoc.add(Paragraph("   =========================== "))
             myDoc.add(Paragraph("   Address: " + get_laundry_shop_address))
-            myDoc.add(Paragraph("\n\n   LAUNDRY SERVICE SELECTION "))
-            myDoc.add(Paragraph("   -------------------------------------------------------------------"))
+            myDoc.add(Paragraph("\n   LAUNDRY SERVICE SELECTION "))
+            myDoc.add(Paragraph("   ----------------------------------------------------------------------------------------------------"))
             myDoc.add(Paragraph("   Type of Laundry Service: " + "    " + get_laundry_service))
             myDoc.add(Paragraph("   List of Item: \n   "+ get_list_item_selected))
             myDoc.add(Paragraph("\n\n   PICKUP LOCATION AND DATE/TIME "))
-            myDoc.add(Paragraph("   -------------------------------------------------------------------\n"))
-            myDoc.add(Paragraph("   Pickup Address: "+ "            " + get_pickup_address))
-            myDoc.add(Paragraph("   Pickup Time Slot: "+ "          " + get_pickup_time))
-            myDoc.add(Paragraph("   Pickup Date: "+ "                 " + get_pickup_date))
+            myDoc.add(Paragraph("   ----------------------------------------------------------------------------------------------------\n"))
+            myDoc.add(Paragraph("   Pickup Address: "+ "                    " + get_pickup_address))
+            myDoc.add(Paragraph("   Pickup Time Slot: "+ "                  " + get_pickup_time))
+            myDoc.add(Paragraph("   Pickup Date: "+ "                         " + get_pickup_date))
             myDoc.add(Paragraph("\n\n   DELIVERY LOCATION AND DATE/TIME "))
-            myDoc.add(Paragraph("   -------------------------------------------------------------------"))
-            myDoc.add(Paragraph("   Delivery Address: "  + "            " + get_delivery_address))
-            myDoc.add(Paragraph("   Delivery Time Slot: "  + "          " + get_delivery_time))
-            myDoc.add(Paragraph("   Delivery Date: "  + "                  " + get_delivery_date))
-            myDoc.add(Paragraph("   Date Order: " + "                     " + get_date_order))
-            myDoc.add(Paragraph("   Payment Method: " + "           " + get_payment_method))
-            myDoc.add(Paragraph("   -------------------------------------------------------------------"))
-            myDoc.add(Paragraph("   Payment Amount (RM):       RM " + get_grand_payment_amt))
-            myDoc.add(Paragraph("   -------------------------------------------------------------------"))
+            myDoc.add(Paragraph("   ----------------------------------------------------------------------------------------------------"))
+            myDoc.add(Paragraph("   Delivery Address: "  + "                    " + get_delivery_address))
+            myDoc.add(Paragraph("   Delivery Time Slot: "  + "                  " + get_delivery_time))
+            myDoc.add(Paragraph("   Delivery Date: "  + "                          " + get_delivery_date))
+            myDoc.add(Paragraph("   Date Order: " + "                             " + get_date_order))
+            myDoc.add(Paragraph("   Promotion Name: " + "                   " + get_promotion))
+            myDoc.add(Paragraph("   Promotion Discount (RM): " + "       RM " + get_discount))
+            myDoc.add(Paragraph("   Payment Method: " + "                   " + get_payment_method))
+            myDoc.add(Paragraph("   ----------------------------------------------------------------------------------------------------"))
+            myDoc.add(Paragraph("   Payment Amount (RM):             RM " + get_grand_payment_amt))
+            myDoc.add(Paragraph("   ----------------------------------------------------------------------------------------------------"))
             myDoc.close()
 
             Toast.makeText(this, "Order receipt has been downloaded and saved your storage", Toast.LENGTH_SHORT).show()
@@ -233,6 +237,12 @@ class ReviewOrder : AppCompatActivity() {
 
         lbl_getshopname4.setText(get_shopname_4)
         lbl_getshopaddress4.setText(get_shopaddress_4)
+
+        val get_promo4 = i.getStringExtra("PROMOTION_NAME3")
+        val get_discount4 = i.getStringExtra("PROMOTION_PRICE3")
+
+        lblget_promo4.setText(get_promo4)
+        lbl_get_discount4.setText(get_discount4)
 
     }
 }
