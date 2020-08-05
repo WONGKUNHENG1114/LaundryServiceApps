@@ -11,10 +11,13 @@ import com.example.laundryserviceapps.ClassModel.Feedback
 import com.example.laundryserviceapps.ClassModel.Laundry_Shop
 import com.example.laundryserviceapps.ClassModel.Order
 import com.example.laundryserviceapps.ClassModel.Promotion
+import com.example.laundryserviceapps.DatabaseHandler.product_databaseHandler
+import com.example.laundryserviceapps.DatabaseHandler.retailer_databaseHandler
 
 class SQLiteHelper(context:Context): SQLiteOpenHelper(context,DATABASE_NAME,null,DATABASE_VERSION){
 
     override fun onCreate(db: SQLiteDatabase?) {
+        val ACTIVE_FOREIGN_KEY="PRAGMA foreign_keys = ON;"
         val CREATE_TABLE_CUSTOMER = "CREATE TABLE Customer (cust_id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "first_name VARCHAR(20)," +
                 "last_name VARCHAR(20),"  +
@@ -28,6 +31,25 @@ class SQLiteHelper(context:Context): SQLiteOpenHelper(context,DATABASE_NAME,null
                 "order_date VARCHAR(50)," +
                 "order_status VARCHAR(15)," +
                 "payment_amt DECIMAL(20,2))"
+
+        val CREATE_PRODUCT_TABLE = ("CREATE TABLE IF NOT EXISTS  " + product_databaseHandler.TABLE_CONTACTS + "("
+                + product_databaseHandler.SHOP_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + product_databaseHandler.SHOP_NAME + " TEXT,"
+                + product_databaseHandler.SHOP_ESTABLISH_DATE + " TEXT DEFAULT CURRENT_TIMESTAMP NOT NULL,"
+                + product_databaseHandler.SHOP_ADDRESS +" TEXT,"
+                + product_databaseHandler.SHOP_IMAGE +" BLOB,"
+                + product_databaseHandler.SHOP_STATUS +" TEXT DEFAULT 'Active',"
+                + product_databaseHandler.CONTACT_PERSON +" TEXT,"
+                + product_databaseHandler.PHONE_NUMBER +" TEXT,"
+                + product_databaseHandler.RETAILER_USER + " TEXT NOT NULL,"
+                + "FOREIGN KEY(${product_databaseHandler.RETAILER_USER}) REFERENCES ${retailer_databaseHandler.TABLE_CONTACTS}(${product_databaseHandler.RETAILER_USER}));")
+
+        val CREATE_RETAILER_USER_TABLE = ("CREATE TABLE IF NOT EXISTS  " + retailer_databaseHandler.TABLE_CONTACTS + "("
+                + retailer_databaseHandler.USER_NAME + " TEXT PRIMARY KEY,"
+                + retailer_databaseHandler.PASSWORD + " TEXT,"
+                + retailer_databaseHandler.EMAIL + " TEXT,"
+                + retailer_databaseHandler.TEL_NO + " TEXT,"
+                + retailer_databaseHandler.USER_STATUS + " TEXT DEFAULT 'Active');")
 
         val CREATE_TABLE_LAUNDRY_SHOP = "CREATE TABLE LaundryShop (shopID INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "laundry_shop_name TEXT," +
@@ -52,19 +74,24 @@ class SQLiteHelper(context:Context): SQLiteOpenHelper(context,DATABASE_NAME,null
                 "s_password VARCHAR(20)," +
                 "s_date_registered TEXT)"
 
-        val CREATE_TABLE_FEEDBACK = "CREATE TABLE Feedback (feedback_no INTEGER PRIMARY KEY AUTOINCREMENT," +
+        val CREATE_TABLE_FEEDBACK = "CREATE TABLE Feedback (" +
+                "feedback_no INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "feedback_rate DOUBLE," +
                 "comment TEXT," +
-                "post_date TEXT)"
-
+                "post_date TEXT," +
+                "shop_name TEXT)"
+        db?.execSQL(ACTIVE_FOREIGN_KEY)
         db?.execSQL(CREATE_TABLE_CUSTOMER)
         db?.execSQL(CREATE_TABLE_ORDER)
-        db?.execSQL(CREATE_TABLE_LAUNDRY_SHOP)
-
-        db?.execSQL(CREATE_TABLE_STAFF)
+//        db?.execSQL(CREATE_TABLE_LAUNDRY_SHOP)
+        db?.execSQL(CREATE_PRODUCT_TABLE)
+        db?.execSQL(CREATE_RETAILER_USER_TABLE)
+//        db?.execSQL(CREATE_TABLE_STAFF)
         db?.execSQL(CREATE_SHOP_PROMOTION)
         db?.execSQL(CREATE_TABLE_FEEDBACK)
+
     }
+
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         val DROP_TABLE_CUSTOMER = "DROP TABLE IF EXISTS Customer"
@@ -123,7 +150,8 @@ class SQLiteHelper(context:Context): SQLiteOpenHelper(context,DATABASE_NAME,null
 
     fun getLaundryShop():ArrayList<Laundry_Shop>{
         val lstLS:ArrayList<Laundry_Shop> = ArrayList()
-        val query = "SELECT * FROM LaundryShop"
+//        val query = "SELECT * FROM LaundryShop WHERE status='Active'"
+        val query= "Select ShopID,ShopName,ShopAddress,EstablishDate,Status,ContactPerson,PhoneNumber FROM LaundryShop WHERE status='Active'"
         val db = this.readableDatabase
         var cursor: Cursor
 
@@ -143,13 +171,13 @@ class SQLiteHelper(context:Context): SQLiteOpenHelper(context,DATABASE_NAME,null
 
         if (cursor.moveToFirst()) {
             do {
-                shopID = cursor.getInt(cursor.getColumnIndex("shopID"))
-                laundry_shop_name = cursor.getString(cursor.getColumnIndex("laundry_shop_name"))
-                laundry_shop_Address = cursor.getString(cursor.getColumnIndex("laundry_shop_Address"))
-                shop_date_establish = cursor.getString(cursor.getColumnIndex("shop_date_establish"))
-                shop_status = cursor.getString(cursor.getColumnIndex("shop_status"))
-                contact_person = cursor.getString(cursor.getColumnIndex("contact_person"))
-                phone_number = cursor.getString(cursor.getColumnIndex("phone_number"))
+                shopID = cursor.getInt(cursor.getColumnIndex("ShopID"))
+                laundry_shop_name = cursor.getString(cursor.getColumnIndex("ShopName"))
+                laundry_shop_Address = cursor.getString(cursor.getColumnIndex("ShopAddress"))
+                shop_date_establish = cursor.getString(cursor.getColumnIndex("EstablishDate"))
+                shop_status = cursor.getString(cursor.getColumnIndex("Status"))
+                contact_person = cursor.getString(cursor.getColumnIndex("ContactPerson"))
+                phone_number = cursor.getString(cursor.getColumnIndex("PhoneNumber"))
                 val lstlaundryshop = Laundry_Shop(shopID = shopID ,laundry_shop_name = laundry_shop_name,laundry_shop_Address = laundry_shop_Address,
                     shop_status = shop_status,contact_person =  contact_person, datecreated = shop_date_establish, phone_number = phone_number)
                 lstLS.add(lstlaundryshop)
@@ -159,23 +187,6 @@ class SQLiteHelper(context:Context): SQLiteOpenHelper(context,DATABASE_NAME,null
         return lstLS
     }
 
-//    fun getLaundryShopListByKeyword(search: String): Cursor? {
-//        //Open connection to read only
-//        val db = this.readableDatabase
-//        val selectQuery = "SELECT laundry_shop_name," +
-//                " laundry_shop_Address" +
-//                " FROM LaundryShop" +
-//                " WHERE laundry_shop_Address LIKE '%" + search + "%' "
-//        val cursor = db.rawQuery(selectQuery, null)
-//        // looping through all rows and adding to list
-//        if (cursor == null) {
-//            return null
-//        } else if (!cursor.moveToFirst()) {
-//            cursor.close()
-//            return null
-//        }
-//        return cursor
-//    }
 
     fun updateLaundryShopStatus(laundryshop: Laundry_Shop) {
         val db: SQLiteDatabase = writableDatabase
@@ -209,6 +220,7 @@ class SQLiteHelper(context:Context): SQLiteOpenHelper(context,DATABASE_NAME,null
         values.put("feedback_rate",feedback.feedback_rate)
         values.put("comment",feedback.comment)
         values.put("post_date",feedback.post_date)
+        values.put("shop_name",feedback.shopName)
         db.insert("Feedback",null,values)
         db.close()
     }
@@ -227,6 +239,28 @@ class SQLiteHelper(context:Context): SQLiteOpenHelper(context,DATABASE_NAME,null
                 feedback.feedback_rate = cursor.getDouble(cursor.getColumnIndex("feedback_rate"))
                 feedback.comment = cursor.getString(cursor.getColumnIndex("comment"))
                 feedback.post_date = cursor.getString(cursor.getColumnIndex("post_date"))
+                lstfeedback.add(feedback)
+            }while (cursor.moveToNext())
+        }
+        cursor.close()
+        db.close()
+        return lstfeedback
+    }
+
+    fun getFeedback(shopName:String):ArrayList<Feedback>{
+        val query = "SELECT * FROM Feedback WHERE shop_name='$shopName'"
+        val db = this.readableDatabase
+        val cursor: Cursor = db.rawQuery(query,null)
+        val lstfeedback = ArrayList<Feedback>()
+
+        if(cursor.moveToFirst()){
+            do {
+                val feedback = Feedback()
+                feedback.feedback_no = cursor.getInt(cursor.getColumnIndex("feedback_no"))
+                feedback.feedback_rate = cursor.getDouble(cursor.getColumnIndex("feedback_rate"))
+                feedback.comment = cursor.getString(cursor.getColumnIndex("comment"))
+                feedback.post_date = cursor.getString(cursor.getColumnIndex("post_date"))
+                feedback.shopName = cursor.getString(cursor.getColumnIndex("shop_name"))
                 lstfeedback.add(feedback)
             }while (cursor.moveToNext())
         }
@@ -460,3 +494,20 @@ class SQLiteHelper(context:Context): SQLiteOpenHelper(context,DATABASE_NAME,null
 
 }
 
+//    fun getLaundryShopListByKeyword(search: String): Cursor? {
+//        //Open connection to read only
+//        val db = this.readableDatabase
+//        val selectQuery = "SELECT laundry_shop_name," +
+//                " laundry_shop_Address" +
+//                " FROM LaundryShop" +
+//                " WHERE laundry_shop_Address LIKE '%" + search + "%' "
+//        val cursor = db.rawQuery(selectQuery, null)
+//        // looping through all rows and adding to list
+//        if (cursor == null) {
+//            return null
+//        } else if (!cursor.moveToFirst()) {
+//            cursor.close()
+//            return null
+//        }
+//        return cursor
+//    }

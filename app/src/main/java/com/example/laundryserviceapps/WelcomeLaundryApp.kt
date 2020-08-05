@@ -11,9 +11,7 @@ class WelcomeLaundryApp : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_welcome_laundry_app)
-        val db = retailer_databaseHandler(this)
-        val Sqlite=db.writableDatabase
-        db.close()
+
         btnUserMode.setOnClickListener {
             val intent = Intent(this,LoginPage::class.java)
             startActivity(intent)

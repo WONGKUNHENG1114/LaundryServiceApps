@@ -17,7 +17,8 @@ class LoginPage : AppCompatActivity() {
         setContentView(R.layout.activity_login_page)
 
         handler = SQLiteHelper(this)
-
+        handler.writableDatabase
+        handler.close()
         btnlogin.setOnClickListener {
             login_main_portal()
         }

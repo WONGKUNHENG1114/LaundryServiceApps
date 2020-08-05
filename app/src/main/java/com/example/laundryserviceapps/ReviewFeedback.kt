@@ -15,7 +15,7 @@ class ReviewFeedback : AppCompatActivity() {
 
     lateinit var handler: SQLiteHelper
     private var lstfeedback = ArrayList<Feedback>()
-
+    private var shopName=""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_review_feedback)
@@ -24,7 +24,7 @@ class ReviewFeedback : AppCompatActivity() {
         val i = intent
 //        val get_laundry_shop = i.getStringExtra("Shop_name_feedback1")
 //        lblgetShopNameFeedback.setText(get_laundry_shop)
-
+         shopName = i.getStringExtra("Shop_name_feedback1")
         val date = Calendar.getInstance().time
         val formatter = SimpleDateFormat.getDateTimeInstance()
         val formatedDate = formatter.format(date)
@@ -52,7 +52,7 @@ class ReviewFeedback : AppCompatActivity() {
         if (comment.equals("")) {
             Toast.makeText(this, "Please comment our services.", Toast.LENGTH_LONG).show()
         } else {
-            handler.postFeedback(feedback = Feedback(0,getrate.toDouble(),comment,lblpostdate.text.toString()))
+            handler.postFeedback(feedback = Feedback(0,getrate.toDouble(),comment,lblpostdate.text.toString(),shopName))
             Toast.makeText(this, "Feedback has been posted.", Toast.LENGTH_LONG).show()
             clear()
         }

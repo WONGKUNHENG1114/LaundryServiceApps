@@ -112,7 +112,7 @@ class product_databaseHandler(context: Context) : SQLiteOpenHelper(
     //method to read data
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun viewShopLaundry(username: String): List<product_LaundryShopModelClass> {
+    fun viewShopLaundry(username: String): ArrayList<product_LaundryShopModelClass> {
 
         val laundryShopList: ArrayList<product_LaundryShopModelClass> = ArrayList()
         val selectQuery =
@@ -169,7 +169,63 @@ class product_databaseHandler(context: Context) : SQLiteOpenHelper(
 
         return laundryShopList
     }
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun viewDetailShopLaundry(dobiName: String): ArrayList<product_LaundryShopModelClass> {
 
+        val laundryShopList: ArrayList<product_LaundryShopModelClass> = ArrayList()
+        val selectQuery =
+            "SELECT  * FROM $TABLE_CONTACTS where $SHOP_NAME='$dobiName' AND $SHOP_STATUS='Active'"
+        val db = this.readableDatabase
+        var cursor: Cursor
+
+        try {
+            cursor = db.rawQuery(selectQuery, null)
+        } catch (e: SQLiteException) {
+            db.execSQL(selectQuery)
+            return ArrayList()
+        }
+        var ShopID: Int
+        var ShopName: String
+        var ShopEstablishDate: String
+        var ShopAddress: String
+        var ShopImage: ByteArray
+        var ShopStatus: String
+        var ShopContact_Person: String
+        var ShopPhoneNo: String
+        var shopRetailerUser: String
+        if (cursor.moveToFirst()) {
+//            try{
+
+
+            do {
+                ShopID = cursor.getInt(cursor.getColumnIndex(SHOP_ID))
+                ShopName = cursor.getString(cursor.getColumnIndex(SHOP_NAME))
+                ShopEstablishDate = cursor.getString(cursor.getColumnIndex(SHOP_ESTABLISH_DATE))
+                ShopAddress = cursor.getString(cursor.getColumnIndex(SHOP_ADDRESS))
+                ShopImage = cursor.getBlob(cursor.getColumnIndex(SHOP_IMAGE))
+                ShopStatus = cursor.getString(cursor.getColumnIndex(SHOP_STATUS))
+                ShopContact_Person = cursor.getString(cursor.getColumnIndex(CONTACT_PERSON))
+                ShopPhoneNo = cursor.getString(cursor.getColumnIndex(PHONE_NUMBER))
+                shopRetailerUser = cursor.getString(cursor.getColumnIndex(RETAILER_USER))
+                val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH)
+                val lShop =
+                    product_LaundryShopModelClass(
+                        shopID = ShopID, shopName = ShopName,
+                        establishDate = LocalDate.parse(ShopEstablishDate, formatter),
+                        shopAddress = ShopAddress,
+                        shopImage = ShopImage,
+                        shopStatus = ShopStatus,
+                        contactPerson = ShopContact_Person,
+                        phoneNo = ShopPhoneNo,
+                        retailerUser = shopRetailerUser
+                    )
+                laundryShopList.add(lShop)
+
+            } while (cursor.moveToNext())
+        }
+
+        return laundryShopList
+    }
 
     fun duplicateLaundryNameFound(lShop: String?): Boolean {
 

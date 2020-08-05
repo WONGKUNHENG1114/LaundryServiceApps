@@ -132,5 +132,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <Button
+            android:id="@+id/btnMainMenu"
+            android:layout_width="405dp"
+            android:layout_height="44dp"
+            android:background="#2E76DC"
+            android:text="Main menu"
+            android:textColor="@android:color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnSlogin" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

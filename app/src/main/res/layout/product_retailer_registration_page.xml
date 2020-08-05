@@ -37,49 +37,147 @@
             app:layout_constraintStart_toEndOf="@+id/text"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <Button
+            android:id="@+id/btnUpdate"
+            android:layout_width="440dp"
+            android:layout_height="58dp"
+            android:layout_marginTop="56dp"
+            android:background="#2E76DC"
+            android:text="Add"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.513"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnGCL" />
+
         <EditText
-            android:id="@+id/EditTxtAddress"
-            android:layout_width="212dp"
-            android:layout_height="44dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="36dp"
+            android:id="@+id/EditTxtStreet"
+            android:layout_width="221dp"
+            android:layout_height="69dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="40dp"
             android:ems="10"
             android:gravity="start|top"
             android:inputType="textMultiLine"
+            android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@+id/txtViewAddress"
-            app:layout_constraintTop_toBottomOf="@+id/EditTextShopName" />
+            app:layout_constraintTop_toBottomOf="@+id/btnPicBrowse" />
+
+        <TextView
+            android:id="@+id/psocodeNote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="128dp"
+            android:layout_marginTop="4dp"
+            android:text="ie. 53300"
+            android:textColor="@color/colorRed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextPoscode" />
+
+        <EditText
+            android:id="@+id/editTextPoscode"
+            android:layout_width="221dp"
+            android:layout_height="42dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:inputType="number"
+            android:maxLength="5"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@+id/textViewPoscode"
+            app:layout_constraintTop_toBottomOf="@+id/shopAddressNote" />
+
+        <TextView
+            android:id="@+id/textViewPoscode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="96dp"
+            android:text="Poscode:*"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtViewAddress" />
 
         <TextView
             android:id="@+id/shopAddressNote"
             android:layout_width="202dp"
             android:layout_height="21dp"
-            android:layout_marginStart="108dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginStart="124dp"
+            android:layout_marginTop="16dp"
             android:text="ie. no.11,Tmn Bukit"
             android:textColor="@android:color/holo_red_light"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/EditTxtAddress" />
+            app:layout_constraintTop_toBottomOf="@+id/EditTxtStreet" />
 
         <TextView
             android:id="@+id/txtViewAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="44dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="184dp"
             android:text="Street:*"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text" />
+            app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+        <Spinner
+            android:id="@+id/spinnerState"
+            android:layout_width="209dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintStart_toEndOf="@+id/textViewState"
+            app:layout_constraintTop_toBottomOf="@+id/editTextTextArea" />
+
+        <TextView
+            android:id="@+id/textViewState"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="44dp"
+            android:text="State:*"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewArea" />
+
+        <TextView
+            android:id="@+id/textView80"
+            android:layout_width="127dp"
+            android:layout_height="65dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="(For more accurate please fill in the specify street)"
+            android:textColor="@color/colorRed"
+            app:layout_constraintStart_toEndOf="@+id/btnGCL"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerState" />
 
         <Button
-            android:id="@+id/btnUpdate"
-            android:layout_width="440dp"
-            android:layout_height="58dp"
-            android:layout_marginTop="60dp"
-            android:background="#2E76DC"
-            android:text="Add"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/btnGCL"
+            android:layout_width="129dp"
+            android:layout_height="72dp"
+            android:layout_marginStart="112dp"
+            android:layout_marginTop="12dp"
+            android:text="Get Current Location"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnPicBrowse" />
+            app:layout_constraintTop_toBottomOf="@+id/spinnerState" />
+
+        <EditText
+            android:id="@+id/editTextContactPerson"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="36dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            app:layout_constraintStart_toEndOf="@+id/textViewContactPerson1"
+            app:layout_constraintTop_toBottomOf="@+id/EditTextShopName" />
+
+        <Button
+            android:id="@+id/btnPicBrowse"
+            android:layout_width="99dp"
+            android:layout_height="41dp"
+            android:layout_marginStart="152dp"
+            android:layout_marginTop="12dp"
+            android:text="Browse"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
         <TextView
             android:id="@+id/txtView60"
@@ -92,93 +190,71 @@
             app:layout_constraintStart_toEndOf="@+id/textView14"
             app:layout_constraintTop_toTopOf="@+id/textView14" />
 
-        <TextView
-            android:id="@+id/textView11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="36dp"
-            android:layout_marginTop="116dp"
-            android:text="Shop image:*"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView14" />
-
-        <TextView
-            android:id="@+id/txtViewImageNote"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="64dp"
-            android:text="Please insert an image"
-            android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/textView11"
-            app:layout_constraintTop_toTopOf="@+id/imageView" />
-
         <EditText
             android:id="@+id/editTextTelNo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="36dp"
             android:ems="10"
             android:inputType="number"
             android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@+id/txtView60"
             app:layout_constraintTop_toBottomOf="@+id/editTextContactPerson" />
 
-        <Button
-            android:id="@+id/btnPicBrowse"
-            android:layout_width="99dp"
-            android:layout_height="41dp"
-            android:layout_marginStart="180dp"
-            android:layout_marginTop="44dp"
-            android:text="Browse"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-        <EditText
-            android:id="@+id/editTextContactPerson"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="52dp"
-            android:ems="10"
-            android:inputType="textPersonName"
-            app:layout_constraintStart_toEndOf="@+id/textViewContactPerson1"
-            app:layout_constraintTop_toBottomOf="@+id/spinnerState" />
-
-        <TextView
-            android:id="@+id/textViewContactPerson1"
-            android:layout_width="53dp"
-            android:layout_height="46dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="60dp"
-            android:text="ContactPerson:*"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewState" />
-
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="139dp"
             android:layout_height="152dp"
 
-            android:layout_marginTop="64dp"
+            android:layout_marginTop="44dp"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.19"
+            app:layout_constraintHorizontal_bias="0.228"
             app:layout_constraintStart_toEndOf="@+id/textView11"
             app:layout_constraintTop_toBottomOf="@+id/editTextTelNo"
             tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/txtViewImageNote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="76dp"
+            android:text="Please insert an image"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/textView11"
+            app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="96dp"
+            android:text="Shop image:*"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
         <TextView
             android:id="@+id/textView14"
             android:layout_width="66dp"
             android:layout_height="43dp"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="36dp"
             android:text="Telephone No.*"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewContactPerson1" />
+
+        <TextView
+            android:id="@+id/textViewContactPerson1"
+            android:layout_width="53dp"
+            android:layout_height="46dp"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="48dp"
+            android:text="ContactPerson:*"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text" />
 
         <TextView
             android:id="@+id/shopNameNote"
@@ -192,56 +268,26 @@
             app:layout_constraintTop_toBottomOf="@+id/EditTextShopName" />
 
         <TextView
-            android:id="@+id/textViewPoscode"
+            android:id="@+id/textViewArea"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="28dp"
-            android:layout_marginTop="108dp"
-            android:text="Poscode:*"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtViewAddress" />
-
-        <EditText
-            android:id="@+id/editTextPoscode"
-            android:layout_width="221dp"
-            android:layout_height="42dp"
-            android:layout_marginStart="12dp"
+            android:layout_marginStart="72dp"
             android:layout_marginTop="60dp"
-            android:ems="10"
-            android:inputType="number"
-            android:maxLength="5"
-            app:layout_constraintStart_toEndOf="@+id/textViewPoscode"
-            app:layout_constraintTop_toBottomOf="@+id/shopAddressNote" />
-
-        <TextView
-            android:id="@+id/textViewState"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="48dp"
-            android:layout_marginTop="64dp"
-            android:text="State:*"
+            android:text="Area"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewPoscode" />
 
-        <Spinner
-            android:id="@+id/spinnerState"
-            android:layout_width="209dp"
-            android:layout_height="36dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="36dp"
-            app:layout_constraintStart_toEndOf="@+id/textViewState"
-            app:layout_constraintTop_toBottomOf="@+id/editTextPoscode" />
-
-        <TextView
-            android:id="@+id/psocodeNote"
+        <EditText
+            android:id="@+id/editTextTextArea"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="104dp"
-            android:layout_marginTop="8dp"
-            android:text="ie. 53300"
-            android:textColor="@color/colorRed"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            app:layout_constraintStart_toEndOf="@+id/textViewArea"
             app:layout_constraintTop_toBottomOf="@+id/editTextPoscode" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

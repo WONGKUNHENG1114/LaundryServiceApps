@@ -101,20 +101,24 @@
 
     <string-array name="state_array">
         <item>--Select state--</item>
-        <item>Negeri Sembilan</item>
         <item>Johor</item>
         <item>Kedah</item>
+        <item>Wilayah Persekutuan Kuala Lumpur</item>
         <item>Kelantan</item>
-        <item>Kuala Lumpur</item>
         <item>Malacca</item>
+        <item>Negeri Sembilan</item>
         <item>Pahang</item>
         <item>Penang</item>
         <item>Perak</item>
         <item>Perlis</item>
-        <item>Terangganu</item>
         <item>Selangor</item>
+        <item>Terangganu</item>
+
     </string-array>
     <string name="plus_sign">+</string>
     <string name="bullet">&#8226;</string>
     <string name="strGmail">\u0040gmail.com</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="txtShopView">Edit Shop/ \n View Feedback</string>
+
 </resources>

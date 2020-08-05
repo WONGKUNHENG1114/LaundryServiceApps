@@ -2,8 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.laundryserviceapps">
 
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the "MyLocation" functionality.
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,22 +18,38 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UpdateLaundryShopStatus">
+
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/.
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".MapsActivity"
+            android:label="@string/title_activity_maps">
+
 
         </activity>
+
+
+        <activity android:name=".UpdateLaundryShopStatus"></activity>
         <activity android:name=".LaundryShopSelectionList">
 
         </activity>
-        <activity android:name=".ReviewFeedback"></activity>
-        <activity android:name=".AddPromotion">
-
-        </activity>
-        <activity android:name=".PromotionPage">
-
-        </activity>
+        <activity android:name=".ReviewFeedback" />
+        <activity android:name=".AddPromotion"></activity>
+        <activity android:name=".PromotionPage"></activity>
         <activity android:name=".WelcomeLaundryApp">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -34,18 +57,11 @@
         <activity android:name=".StaffRegistration" />
         <activity android:name=".StaffLoginPage" />
         <activity android:name=".Location" />
-        <activity android:name=".LaundryShopList"></activity>
-        <activity android:name=".AddLaundryShop_Page">
-
-        </activity>
-        <activity android:name=".Test" >
-
-
-        </activity>
+        <activity android:name=".LaundryShopList" />
+        <activity android:name=".AddLaundryShop_Page"></activity>
+        <activity android:name=".Test"></activity>
         <activity android:name=".History" />
-        <activity android:name=".UpdateOrderStatus">
-
-        </activity>
+        <activity android:name=".UpdateOrderStatus"></activity>
         <activity android:name=".MyOrderList" />
         <activity android:name=".OrderSuccess" />
         <activity android:name=".SelectTimeSlot" />
@@ -56,36 +72,28 @@
         <activity android:name=".ForgotPassword" />
         <activity android:name=".PickupAddress" />
         <activity android:name=".DeliveryAddress" />
-        <activity android:name=".MainActivity" >
+        <activity android:name=".MainActivity">
+
 
         </activity>
-
-
         <activity
             android:name=".product_laundryMainMenu"
-            android:label="Product Manage(Retailer)">
-
-
-        </activity>
+            android:label="Product Manage(Retailer)"></activity>
         <activity
             android:name=".product_retailRegistration"
             android:label="Laundry Product Registration">
-
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
 
         </activity>
-
         <activity
             android:name=".product_viewShopItem"
             android:label="View Laundry Shop">
-
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".product_laundryMainMenu" />
         </activity>
-
         <activity
             android:name=".product_LaundryEditShopItem"
             android:label="Edit laundry shop">
@@ -93,56 +101,53 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".product_viewShopItem" />
         </activity>
-
         <activity
             android:name=".retailer_registration"
             android:label="Retailer user registration">
-
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".retailer_login" />
+
         </activity>
         <activity
             android:name=".retailer_login"
-            android:label="Retailer user login">
-
-        </activity>
+            android:label="Retailer user login"></activity>
         <activity
             android:name=".retailer_forgotPassword"
             android:label="Forgot password">
-
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".retailer_login" />
-
         </activity>
-
-
         <activity
             android:name=".feedback"
             android:label="View Shop feedback">
-
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".product_viewShopItem" />
         </activity>
-
         <activity
             android:name=".test1"
             android:label="Forgot password">
 
-        </activity>
 
+        </activity>
         <activity
-            android:name=".test2"
+            android:name=".MapsSearch"
             android:label="Forgot password">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".test1" />
+
+
         </activity>
 
         <activity
             android:name=".test3"
             android:label="Forgot password">
-        </activity>
 
+
+        </activity>
     </application>
 
 </manifest>

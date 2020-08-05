@@ -9,25 +9,25 @@
     android:layout_height="match_parent">
 
     <Button
+        android:id="@+id/btnViewShop"
+        android:layout_width="126dp"
+        android:layout_height="112dp"
+        android:layout_marginStart="124dp"
+        android:layout_marginTop="96dp"
+        android:background="@drawable/shape_drawable"
+        android:text="@string/txtShopView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnAddShop" />
+
+    <Button
         android:id="@+id/btnAddShop"
-        android:layout_width="97dp"
-        android:layout_height="93dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="108dp"
+        android:layout_width="123dp"
+        android:layout_height="113dp"
+        android:layout_marginStart="124dp"
+        android:layout_marginTop="140dp"
         android:background="@drawable/shape_drawable"
         android:text="Add shop"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btnViewShop"
-        android:layout_width="97dp"
-        android:layout_height="93dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="60dp"
-        android:background="@drawable/shape_drawable"
-        android:text="View Shop"
-        app:layout_constraintStart_toEndOf="@+id/btnAddShop"
         app:layout_constraintTop_toBottomOf="@+id/textViewUsername" />
 
     <TextView

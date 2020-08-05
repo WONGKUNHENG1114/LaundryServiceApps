@@ -22,7 +22,9 @@ class retailer_login : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.retailer_user_login)
-
+        val db = retailer_databaseHandler(this)
+        val Sqlite=db.writableDatabase
+        db.close()
         val pref:SharedPreferences = this.getSharedPreferences("retailer_user_details", MODE_PRIVATE)
         scrollViewId.setOnTouchListener { v, _ ->
             hideSoftKeyboard(v)
@@ -42,6 +44,10 @@ class retailer_login : AppCompatActivity() {
             val intent = Intent(this, retailer_forgotPassword::class.java)
             startActivity(intent)
 
+        }
+        btnMainMenu.setOnClickListener {
+            val intent = Intent(this, WelcomeLaundryApp::class.java)
+            startActivity(intent)
         }
 
 

@@ -10,9 +10,12 @@ import android.graphics.Bitmap
 import android.graphics.Bitmap.CompressFormat
 import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
+import android.location.*
+import android.location.Location
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.provider.Settings
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -25,21 +28,26 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.laundryserviceapps.ClassModel.product_LaundryShopModelClass
 import com.example.laundryserviceapps.DatabaseHandler.product_databaseHandler
+import com.google.android.gms.maps.model.LatLng
 import kotlinx.android.synthetic.main.product_retailer_registration_page.*
-import kotlinx.android.synthetic.main.product_retailer_registration_page.EditTxtAddress
+import kotlinx.android.synthetic.main.product_retailer_registration_page.EditTxtStreet
+import kotlinx.android.synthetic.main.product_retailer_registration_page.btnPicBrowse
 import kotlinx.android.synthetic.main.product_retailer_registration_page.btnUpdate
+import kotlinx.android.synthetic.main.product_retailer_registration_page.editTextContactPerson
+import kotlinx.android.synthetic.main.product_retailer_registration_page.editTextPoscode
+import kotlinx.android.synthetic.main.product_retailer_registration_page.editTextTelNo
 import kotlinx.android.synthetic.main.product_retailer_registration_page.imageView
+import kotlinx.android.synthetic.main.product_retailer_registration_page.scrollViewId
+import kotlinx.android.synthetic.main.product_retailer_registration_page.spinnerState
 import java.io.ByteArrayOutputStream
 import java.io.File
-import java.util.*
+import java.io.IOException
 import java.util.regex.Pattern
 
 
-class product_retailRegistration : AppCompatActivity() {
+class product_retailRegistration : AppCompatActivity(), LocationListener {
 
-
-
-
+    private lateinit var locationManager: LocationManager
     private var strShopName: String? = null
     private var strShopStreet: String? = null
     private var strContactPerson: String? = null
@@ -48,7 +56,6 @@ class product_retailRegistration : AppCompatActivity() {
     private var byteArrayImage: ByteArray? = null
     private var poscode: String? = null
     private var stateSelected: String? = null
-
     private var nameValid: Boolean = false
 
     private var contactPersonValid: Boolean = false
@@ -79,6 +86,7 @@ class product_retailRegistration : AppCompatActivity() {
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
                 return
             }
 
@@ -88,10 +96,11 @@ class product_retailRegistration : AppCompatActivity() {
 
         })
 
+
         editTextContactPerson.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
 //                Toast.makeText(getApplicationContext(),"after text change",Toast.LENGTH_LONG).show();
-               return
+                return
 
             }
 
@@ -102,8 +111,13 @@ class product_retailRegistration : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 contactPersonValid = contactPersonValidation()
             }
-
         })
+
+        editTextTextArea.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus) {
+                shopAreaFieldValidation()
+            }
+        }
 
         editTextPoscode
         btnPicBrowse.setOnClickListener {
@@ -117,6 +131,11 @@ class product_retailRegistration : AppCompatActivity() {
 
         }
 
+
+        btnGCL.setOnClickListener {
+            checkGps_Network()
+
+        }
 
         val list = resources.getStringArray(R.array.state_array)
         list.sort()
@@ -132,6 +151,119 @@ class product_retailRegistration : AppCompatActivity() {
 
 
     }
+
+    private fun checkGps_Network() {
+        var lm = this.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        var gps_enabled = false
+
+
+        try {
+            gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        } catch (ex: Exception) {
+        }
+
+        if (!gps_enabled ) {
+            // notify user
+            val builder = AlertDialog.Builder(this)
+            with(builder)
+            {
+                setMessage("For a better experience, turn on device location and internet, which uses Google's location service.")
+                setPositiveButton("Open location setting") { dialog, _ ->
+                    context.startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
+                }
+                setNegativeButton("Cancel", null)
+                show()
+            }
+
+
+        } else {
+            LocationDetect()
+        }
+
+    }
+
+    private fun LocationDetect() {
+        try {
+            locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+            locationManager.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER,
+                5000,
+                5f,
+                this
+            )
+        } catch (e: SecurityException) {
+            e.printStackTrace()
+        }
+
+    }
+
+    override fun onLocationChanged(location: Location?) {
+        Toast.makeText(this, "Detecting location.....", Toast.LENGTH_LONG).show()
+        getAddress(LatLng(location!!.latitude, location.longitude))
+        locationManager.removeUpdates(this)
+
+    }
+
+    override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
+        return
+    }
+
+    override fun onProviderEnabled(provider: String?) {
+        Toast.makeText(this, "Enabled GPS and Internet", Toast.LENGTH_SHORT).show();
+    }
+
+    override fun onProviderDisabled(provider: String?) {
+        Toast.makeText(this, "Please Enable GPS and Internet", Toast.LENGTH_SHORT).show();
+    }
+
+    private fun getAddress(latLng: LatLng) {
+        // 1
+        val list = resources.getStringArray(R.array.state_array)
+        val geocoder = Geocoder(this)
+        val addresses: List<Address>?
+        val address: Address?
+        var street:String?=""
+        var postcode:String?=""
+        var area:String?=""
+        var state :String?=""
+
+        var position = 0
+        list.sort()
+        try {
+            // 2
+            addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1)
+//            addressText+=","+addresses[0].postalCode
+//            addressText+=  addresses[0].locality
+//            addressText+= "," +addresses[0].adminArea
+            // 3
+            if (addresses != null && addresses.isNotEmpty()) {
+                address = addresses[0]
+                street = if (address.subThoroughfare == null || address.subThoroughfare.isEmpty()) "UNITNUMBER" else address.subThoroughfare
+                street += if (address.thoroughfare == null || address.thoroughfare.isEmpty()  ) ",STREET" else "," + addresses[0].thoroughfare
+                postcode = if (address.postalCode==null || address.postalCode.isEmpty()  ) "" else address.postalCode
+                area = if (address.locality==null || address.locality.isEmpty() ) "" else address.locality
+                state= if (address.adminArea==null || address.adminArea.isEmpty()  ) "" else address.adminArea
+
+            }
+            Toast.makeText(this, "Filled location", Toast.LENGTH_SHORT).show()
+            for (i in list.indices) {
+                if (list[i] == state) {
+                    position = i + 1
+                    break
+                }
+
+            }
+
+
+            EditTxtStreet.setText(street)
+            editTextPoscode.setText(postcode)
+            editTextTextArea.setText(area)
+            spinnerState.setSelection(position)
+        } catch (e: IOException) {
+            Log.e("MapsActivity", e.localizedMessage)
+        }
+    }
+
 
     private fun hideSoftKeyboard(view: View) {
         val imm =
@@ -164,24 +296,45 @@ class product_retailRegistration : AppCompatActivity() {
     }
 
     private fun shopStreetFieldValidation(): Boolean {
-        val street = EditTxtAddress.text.toString()
+        val street = EditTxtStreet.text.toString()
 
 
-        return when {
-            street.isNotEmpty() -> {
-                this.strShopStreet = street
-                EditTxtAddress.error = null
-                true
-            }
-            else -> {
-                this.strShopStreet = ""
-                EditTxtAddress.error = "The address field cannot be empty"
-                false
-            }
+        return if (street.isEmpty()) {
+            this.strShopStreet = ""
+            EditTxtStreet.error = "The street field cannot be empty"
+            false
+        } else if (street.contains("UNITNUMBER") || street.contains("STREET")) {
+            EditTxtStreet.error = "Please fill in appropriate unit no. and street field"
+            false
+        } else {
+            this.strShopStreet = street
+            EditTxtStreet.error = null
+            true
+
         }
 
-    }
 
+    }
+    private fun shopAreaFieldValidation(): Boolean {
+        val area = editTextTextArea.text.toString()
+        val sPattern =
+            Pattern.compile("^[a-zA-Z][a-zA-Z0-9\\s_]*")//match the pattern insert in the shop name
+        val match = sPattern.matcher(area)
+        if (area.isNotEmpty() && match.find()) {
+            editTextTextArea.error = null
+            return true
+        } else if (area.isEmpty()) {
+            editTextTextArea.error =
+                "The area cannot be null."
+            return false
+        } else {
+            editTextTextArea.error =
+                "The shop name must start with letter and no special character consist"
+            return false
+        }
+
+
+    }
     private fun shopStateFieldValidation(): Boolean {
         val selectedItem = spinnerState.selectedItemPosition
         return if (selectedItem != 0) {
@@ -193,22 +346,21 @@ class product_retailRegistration : AppCompatActivity() {
 
     }
 
-    private fun shopPoscodeFieldValidation(): Boolean {
+    private fun shopPostcodeFieldValidation(): Boolean {
         poscode = editTextPoscode.text.toString()
-        val poscodeLength=poscode?.length
+        val poscodeLength = poscode?.length
         if (poscodeLength != null) {
             if (poscodeLength >= 5) {
                 return true
             } else {
                 editTextPoscode.error = "please fill in the poscode value"
-                return  false
+                return false
             }
 
         }
         editTextPoscode.error = "please fill in the poscode value"
         return false
     }
-
 
 
     private fun selectImage() {
@@ -317,12 +469,13 @@ class product_retailRegistration : AppCompatActivity() {
 
     private fun fieldValidation(): Boolean {
         val contactTelNoValid = contactTelNoValidation()
-        val imageValid=imageViewFieldValidation()
-        val stateValidation=shopStateFieldValidation()
-        val poscodeValidation= shopPoscodeFieldValidation()
-        val addressValid = shopStreetFieldValidation()
-        return if (!this.nameValid || !addressValid || !contactTelNoValid
-            || !this.contactPersonValid || !imageValid || !stateValidation ||!poscodeValidation
+        val imageValid = imageViewFieldValidation()
+        val areaValidation=shopAreaFieldValidation()
+        val stateValidation = shopStateFieldValidation()
+        val poscodeValidation = shopPostcodeFieldValidation()
+        val streetValid = shopStreetFieldValidation()
+        return if (!this.nameValid || !streetValid || !contactTelNoValid || !areaValidation
+            || !this.contactPersonValid || !imageValid || !stateValidation || !poscodeValidation
         ) {
             Toast.makeText(
                 this@product_retailRegistration,
@@ -344,7 +497,7 @@ class product_retailRegistration : AppCompatActivity() {
             setPositiveButton("Confirm") { dialog, which ->
                 //insert into database
                 insertData()
-                val i = Intent(this@product_retailRegistration,product_laundryMainMenu::class.java)
+                val i = Intent(this@product_retailRegistration, product_laundryMainMenu::class.java)
                 startActivity(i)
             }
 
@@ -363,16 +516,18 @@ class product_retailRegistration : AppCompatActivity() {
     }
 
     private fun insertData() {
-        val pref: SharedPreferences = this.getSharedPreferences("retailer_user_details", MODE_PRIVATE)
-        val RetailerUsername= pref.getString("username", null)
-        val state=spinnerState.selectedItem.toString()
-        val poscode=editTextPoscode.text.toString()
-        val shopAddress= "${this.strShopStreet},@@$poscode,@@$state"
+        val pref: SharedPreferences =
+            this.getSharedPreferences("retailer_user_details", MODE_PRIVATE)
+        val RetailerUsername = pref.getString("username", null)
+        val state = spinnerState.selectedItem.toString()
+        val poscode = editTextPoscode.text.toString()
+        val area=editTextTextArea.text.toString()
+        val shopAddress = "${this.strShopStreet},$poscode $area,$state"
 
         val lShopList =
             product_LaundryShopModelClass(
                 null, this.strShopName, null, shopAddress, this.byteArrayImage,
-                null, this.strContactPerson, this.strShopTelNo,RetailerUsername.toString()
+                null, this.strContactPerson, this.strShopTelNo, RetailerUsername.toString()
             )
         try {
 
@@ -428,7 +583,7 @@ class product_retailRegistration : AppCompatActivity() {
 
     private fun clearData() {
         EditTextShopName.text = null
-        EditTxtAddress.text = null
+        EditTxtStreet.text = null
         editTextContactPerson.text = null
         editTextTelNo.text = null
         editTextPoscode.text = null

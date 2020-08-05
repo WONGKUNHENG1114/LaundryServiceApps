@@ -54,8 +54,6 @@ class retailer_databaseHandler(context: Context) : SQLiteOpenHelper(
                 + EMAIL + " TEXT,"
                 + TEL_NO + " TEXT,"
                 + USER_STATUS + " TEXT DEFAULT 'Active');")
-        stmt="   $CREATE_PRODUCT_TABLE  \n $CREATE_PRODUCT_TABLE "
-       Log.i("stmt",stmt)
         db?.execSQL(CREATE_RETAILER_USER_TABLE)
         db?.execSQL(CREATE_PRODUCT_TABLE)
         db?.execSQL(ACTIVE_FOREIGN_KEY)
