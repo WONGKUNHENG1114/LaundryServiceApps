@@ -278,6 +278,7 @@ class product_LaundryEditShopItem : AppCompatActivity(),LocationListener {
     private fun LaundryShopsetText(lShopList: product_LaundryShopModelClass?)
     {
         val arrAddresss=lShopList?.shopAddress?.split(",")
+
         val contactPerson=lShopList?.contactPerson
         val phoneNo=lShopList?.phoneNo?.substring(2)
         val list = resources.getStringArray(R.array.state_array)
@@ -286,32 +287,53 @@ class product_LaundryEditShopItem : AppCompatActivity(),LocationListener {
         var addrArea =""
         var state =""
         val addressSize=arrAddresss!!.size
-        for (x in arrAddresss.indices step 1) {
+        for (x in 0 until addressSize step 1) {
 
             //3-0=3 3-1=2
-            if ((addressSize - x) > 2)
-                street += arrAddresss[x] + ", "
-
-            else if ((addressSize - x) == 2) {
+            if ((addressSize - x) > 2) {
+                Log.i("xAddress1",addressSize.toString())
+                Log.i("xiswhat1",x.toString())
+                street += arrAddresss[x] + ","
+            }
+            else if((addressSize - x) ==3)
+            {
+                street += arrAddresss[x]
+            }
+                street += arrAddresss[x]
+             if ((addressSize - x) == 2) {
                 val addObj = arrAddresss[x].split(" ")
-                poscode = addObj[0]
-                for (y in 1 until addObj.size step 1) {
-                    if (addObj.size - x != 0)
-                        addrArea =  addObj[y] + " "
+                var counter=0
+                    while(poscode.isEmpty())
+                    {
+                        poscode=addObj[counter]
+                        counter++
+                    }
+                    Log.i("xObj1",poscode)
+
+                for (y in counter until addObj.size step 1) {
+                    if (addObj.size - x != 0 && addObj[counter].isNotEmpty())
+                        addrArea +=  addObj[y] + " "
                     else
                         addrArea += addObj[y]
                 }
-            } else if ((addressSize - x) == 1)
-                state = arrAddresss[x]
 
+                    Log.i("xAddArea",addrArea)
+
+            } else if ((addressSize - x) == 1)
+            {
+
+                state = arrAddresss[x].trim()
+
+            }
+            Log.i("state1",state)
         }
         var position=0
-
         for (i in list.indices) {
+
             if(list[i] == state)
             {
                 position=i
-                Log.i("position",list[position]+"$position" )
+                Log.i("item2 ",list[i] )
                 break
             }
         }
@@ -611,6 +633,10 @@ class product_LaundryEditShopItem : AppCompatActivity(),LocationListener {
     }
 
         fun updateData():Int {
+            this.strShopStreet=editTextStreet.text.toString()
+            this.poscode=editTextPoscode.text.toString()
+            this.area=editTextTextArea.text.toString()
+            this.stateSelected=spinnerState.selectedItem.toString()
             val shopAddress= "${this.strShopStreet}, $poscode $area, $stateSelected"
             val db =
                 product_databaseHandler(

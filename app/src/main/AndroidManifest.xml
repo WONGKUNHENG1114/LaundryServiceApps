@@ -44,7 +44,9 @@
 
         </activity>
         <activity android:name=".ReviewFeedback" />
-        <activity android:name=".AddPromotion"></activity>
+        <activity android:name=".AddPromotion">
+
+        </activity>
         <activity android:name=".PromotionPage"></activity>
         <activity android:name=".WelcomeLaundryApp">
             <intent-filter>

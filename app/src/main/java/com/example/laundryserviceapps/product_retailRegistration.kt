@@ -480,7 +480,7 @@ class product_retailRegistration : AppCompatActivity(), LocationListener {
             Toast.makeText(
                 this@product_retailRegistration,
                 "Please complete compulsory field above",
-                Toast.LENGTH_LONG
+                Toast.LENGTH_SHORT
             ).show()
             false
         } else
@@ -497,8 +497,7 @@ class product_retailRegistration : AppCompatActivity(), LocationListener {
             setPositiveButton("Confirm") { dialog, which ->
                 //insert into database
                 insertData()
-                val i = Intent(this@product_retailRegistration, product_laundryMainMenu::class.java)
-                startActivity(i)
+
             }
 
             setNegativeButton("Discard") { dialog, which ->
@@ -539,12 +538,9 @@ class product_retailRegistration : AppCompatActivity(), LocationListener {
 
             val stmt = dBHelper.addLaundryShop(lShopList)
             if (stmt == null) {
-                Toast.makeText(
-                    this@product_retailRegistration,
-                    "The shopName is duplicate",
-                    Toast.LENGTH_SHORT
-                ).show()
-
+                EditTextShopName.error="Duplicate dobi name,please enter new name. "
+              Toast.makeText(this@product_retailRegistration,"Duplicate dobi name, please check or enter new name",Toast.LENGTH_SHORT).show()
+                this.nameValid=false
             } else {
                 Toast.makeText(
                     this@product_retailRegistration,
@@ -555,6 +551,9 @@ class product_retailRegistration : AppCompatActivity(), LocationListener {
                 txtViewImageNote.setTextColor(Color.GRAY)
                 imageView.visibility = View.INVISIBLE
                 clearData()
+                this.nameValid=true
+                val i = Intent(this@product_retailRegistration, product_laundryMainMenu::class.java)
+                startActivity(i)
             }
 
         } catch (e: Exception) {

@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteException
 import android.database.sqlite.SQLiteOpenHelper
 import android.os.Build
 import android.util.Log
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.example.laundryserviceapps.ClassModel.product_LaundryShopModelClass
 import java.time.LocalDate
@@ -105,7 +106,6 @@ class product_databaseHandler(context: Context) : SQLiteOpenHelper(
             db.close() // Closing database connection
             return success
         } else
-
             return null
     }
 
@@ -230,7 +230,7 @@ class product_databaseHandler(context: Context) : SQLiteOpenHelper(
     fun duplicateLaundryNameFound(lShop: String?): Boolean {
 
         val selectQuery =
-            "SELECT  * FROM $TABLE_CONTACTS  WHERE ShopName ='$lShop' AND $SHOP_STATUS='Active' LIMIT 1"
+            "SELECT  * FROM $TABLE_CONTACTS  WHERE $SHOP_NAME like lower('%$lShop') AND $SHOP_STATUS='Active' LIMIT 1"
         val db = this.readableDatabase
         val cursor: Cursor
         cursor = db.rawQuery(selectQuery, null)

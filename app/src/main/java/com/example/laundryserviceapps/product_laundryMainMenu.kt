@@ -24,6 +24,16 @@ class product_laundryMainMenu : AppCompatActivity() {
             val i = Intent(this@product_laundryMainMenu, product_viewShopItem::class.java)
             startActivity(i)
         }
+        btnAddPromo.setOnClickListener()
+        {
+            val i = Intent(this@product_laundryMainMenu, AddPromotion::class.java)
+            startActivity(i)
+        }
+        btnUpdateOrder.setOnClickListener()
+        {
+            val i = Intent(this@product_laundryMainMenu, UpdateOrderStatus::class.java)
+            startActivity(i)
+        }
         btnLogout.setOnClickListener()
         {
             val editor=prf.edit()
